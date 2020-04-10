@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.geekbrains.anasdroweather.interfaces.FragmentMethods;
-import com.geekbrains.anasdroweather.interfaces.Observer;
+import com.geekbrains.anasdroweather2.R;
+import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
+import com.geekbrains.anasdroweather2.interfaces.Observer;
+import com.geekbrains.anasdroweather2.model.MyData;
 
 public class WeekWeatherFragment extends Fragment implements FragmentMethods, Observer {
 
