@@ -3,4 +3,13 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorMyPrimaryDark">#757575</color>
+    <color name="colorMyDarkBackGround">#424242</color>
+    <color name="colorMyDarkText">#E0E0E0</color>
+
+    <color name="colorMyLightPrimary">#81D4FA</color>
+    <color name="colorMyLightPrimaryDark">#01579B</color>
+
+
 </resources>

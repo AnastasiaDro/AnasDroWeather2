@@ -13,8 +13,23 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.geekbrains.anasdroweather2.R;
+import com.geekbrains.anasdroweather2.model.MyData;
 
 public class HomeFragment extends Fragment {
+
+//класс Model
+    MyData myData;
+//места для моих фрагментов
+    int currentWeathPlaceId;
+    int dayWeathPlaceId;
+    int weekWeathPlaceId;
+
+//Мои фрагменты
+    CurrentWeatherFragment curWeathFragment;
+    DayWeatherFragment dayWeathFragment;
+    WeekWeatherFragment weekWeatherFragment;
+
+    InterfaceChanger interfaceChanger;
 
     private HomeViewModel homeViewModel;
 
@@ -23,11 +38,11 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+        //final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+          //      textView.setText(s);
             }
         });
         return root;
