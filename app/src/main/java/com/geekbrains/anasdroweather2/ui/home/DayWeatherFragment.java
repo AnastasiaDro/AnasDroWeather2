@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,22 +27,28 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView afternoonTempText;
     private TextView eveningTempText;
 
-
+    private MyData myData;
 
     public static DayWeatherFragment newInstance(){
         DayWeatherFragment dayWeatherFragment = new DayWeatherFragment();
         Bundle args = new Bundle();
         // args.putInt("placeId", placeId);
         // currentWeatherFragment.setArguments(args);
-        MyData myData = MyData.getInstance();
-        myData.registerObserver(dayWeatherFragment);
         return dayWeatherFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        //получаем аргументы назад
+        //... место для аргументов
+        myData = MyData.getInstance();
+        myData.registerObserver(this);
+        Log.d("DayWeatherFragment", "onCreate, added to obsrvers");
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //не даём пересоздать фрагмент при повороте экрана
-      //  setRetainInstance(true);
         View view = inflater.inflate(R.layout.fragment_day_weather, container, false);
         findViews(view);
         return view;
@@ -71,5 +78,12 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     @Override
     public void updateViewData() {
 //заполнить
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        myData.removeObserver(this);
+        Log.d("DayWeatherFragment", "removed from myData");
     }
 }

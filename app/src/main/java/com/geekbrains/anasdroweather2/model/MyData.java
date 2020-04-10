@@ -16,7 +16,7 @@ import java.util.Locale;
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
     private static MyData instance;
-    private List<Observer> observers;
+    public List<Observer> observers;
     //узнаем время
     static Date currentDate;
     static int currentHour;
@@ -50,12 +50,15 @@ public class MyData implements Observable {
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
+        System.out.println("Наблюдатель добавлен. Список наблюдателей " + observers.toString());
+
     }
 
 //удалить наблюдателя
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
+        System.out.println("Наблюдатель удалён. Список наблюдателей " + observers.toString());
     }
 
 //уведомить наблюдателей

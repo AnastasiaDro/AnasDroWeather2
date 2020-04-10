@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 
 public class WeekWeatherFragment extends Fragment implements FragmentMethods, Observer {
+
 
 //TextView по дням недели
 
@@ -38,18 +40,31 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     TextView sixDayTempText;
     TextView svnDayTempText;
 
+    private MyData myData;
+
     public static WeekWeatherFragment newInstance(){
         WeekWeatherFragment weekWeatherFragment = new WeekWeatherFragment();
         Bundle args = new Bundle();
         // args.putInt("placeId", placeId);
         // currentWeatherFragment.setArguments(args);
-        MyData myData = MyData.getInstance();
-        myData.registerObserver(weekWeatherFragment);
         return weekWeatherFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        //получаем аргументы назад
+        //... место для аргументов
+        myData = MyData.getInstance();
+        myData.registerObserver(this);
+        Log.d("WeekWeatherFragment", "onCreate, added to obsrvers");
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        myData = MyData.getInstance();
+//        myData.registerObserver(this);
+//        Log.d("WeekWeatherFragment", "onCreate, added to obsrvers");
         View view = inflater.inflate(R.layout.fragment_week_weather, container, false);
         findViews(view);
         return view;
@@ -88,5 +103,17 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     @Override
     public void updateViewData() {
 //заполнить
+    }
+
+    //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
+// его из этого списка удалить
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        System.out.println("Список наблюдателей " + myData.observers.toString());
+        myData.removeObserver(this);
+//        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
+//                Toast.LENGTH_LONG).show();
+        Log.d("WeekWeatherFragment", "removed from myData");
     }
 }

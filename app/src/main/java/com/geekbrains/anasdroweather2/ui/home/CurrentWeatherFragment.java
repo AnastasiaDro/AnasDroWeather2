@@ -1,11 +1,14 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,31 +28,35 @@ private TextView temperatureTextView;
 private TextView pressureTextView;
 private TextView windTextView;
 private ImageView weatherImageView;
-
+private MyData myData;
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
         Bundle args = new Bundle();
        // args.putInt("placeId", placeId);
        // currentWeatherFragment.setArguments(args);
-        MyData myData = MyData.getInstance();
-        myData.registerObserver(currentWeatherFragment);
+        Log.d("CurrentWeatherFragment", "Добавили в список Observer-ов");
         return currentWeatherFragment;
     }
 
 
-//создаем View
-//    @Override
-//    public void onCreate(Bundle savedInstanceState){
-//        super.onCreate(savedInstanceState);
-//        //получаем аргументы назад
-//        placeId = getArguments().getInt("placeId");
-//    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        //получаем аргументы назад
+        //... место для аргументов
+        myData = MyData.getInstance();
+        myData.registerObserver(this);
+        Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //не даём пересоздать фрагмент при повороте экрана
      //   setRetainInstance(true);
-
+//        myData = MyData.getInstance();
+//        myData.registerObserver(this);
+        Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
         return view;
@@ -76,5 +83,17 @@ private ImageView weatherImageView;
     @Override
     public void updateViewData() {
 //заполнить
+    }
+
+//так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
+//// его из этого списка удалить
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        System.out.println("Список наблюдателей " + myData.observers.toString());
+        myData.removeObserver(this);
+//        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
+//                Toast.LENGTH_LONG).show();
+        Log.d("CurrentWeatherFragment", "removed from myData");
     }
 }
