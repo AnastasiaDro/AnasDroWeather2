@@ -37,6 +37,10 @@ public class HomeFragment extends Fragment implements ActivMethods {
 
     private HomeViewModel homeViewModel;
 
+    public HomeFragment(){
+
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //получим Активити
@@ -69,17 +73,17 @@ public class HomeFragment extends Fragment implements ActivMethods {
         currentWeathPlaceId = R.id.currentWeatherFrame;
         dayWeathPlaceId = R.id.dayWeatherFrame;
         weekWeathPlaceId = R.id.weekWeatherFrame;
-
-        curWeathFragment = new CurrentWeatherFragment(currentWeathPlaceId);
-        curWeathFragment.postFragment(mainActivity);
+       // curWeathFragment = new CurrentWeatherFragment();
+        curWeathFragment = CurrentWeatherFragment.newInstance();
+        curWeathFragment.postFragment(mainActivity, currentWeathPlaceId);
         Log.d("MainActivity", "Posted CurrentWeatherFragment");
 
-        dayWeathFragment = new DayWeatherFragment(dayWeathPlaceId);
-        dayWeathFragment.postFragment(mainActivity);
+        dayWeathFragment = DayWeatherFragment.newInstance();
+        dayWeathFragment.postFragment(mainActivity, dayWeathPlaceId);
         Log.d("MainActivity", "Posted DayWeatherFragment");
 
-        weekWeatherFragment = new WeekWeatherFragment(weekWeathPlaceId);
-        weekWeatherFragment.postFragment(mainActivity);
+        weekWeatherFragment = WeekWeatherFragment.newInstance();
+        weekWeatherFragment.postFragment(mainActivity, weekWeathPlaceId);
         Log.d("MainActivity", "Posted WeekWeatherFragment");
     }
 }

@@ -38,21 +38,18 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     TextView sixDayTempText;
     TextView svnDayTempText;
 
-//Переменные для работы
-    private int placeId;
-    private MyData myData;
-
-    //Конструктор
-    public WeekWeatherFragment (int placeId) {
-        this.placeId = placeId;
-        myData = MyData.getInstance();
-        myData.registerObserver(this);
+    public static WeekWeatherFragment newInstance(){
+        WeekWeatherFragment weekWeatherFragment = new WeekWeatherFragment();
+        Bundle args = new Bundle();
+        // args.putInt("placeId", placeId);
+        // currentWeatherFragment.setArguments(args);
+        MyData myData = MyData.getInstance();
+        myData.registerObserver(weekWeatherFragment);
+        return weekWeatherFragment;
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //не даём пересоздать фрагмент при повороте экрана
-        setRetainInstance(true);
         View view = inflater.inflate(R.layout.fragment_week_weather, container, false);
         findViews(view);
         return view;
@@ -81,7 +78,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     }
 
     @Override
-    public void postFragment(AppCompatActivity activity) {
+    public void postFragment(AppCompatActivity activity, int placeId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(placeId, this);

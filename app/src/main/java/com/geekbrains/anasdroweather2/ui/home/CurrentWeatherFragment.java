@@ -26,21 +26,30 @@ private TextView pressureTextView;
 private TextView windTextView;
 private ImageView weatherImageView;
 
-//переменные для работы
-    private int placeId;
-    private MyData myData;
 
-//Конструктор
-    public CurrentWeatherFragment (int placeId) {
-        this.placeId = placeId;
-        myData = MyData.getInstance();
-        myData.registerObserver(this);
+    public static CurrentWeatherFragment newInstance(){
+        CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
+        Bundle args = new Bundle();
+       // args.putInt("placeId", placeId);
+       // currentWeatherFragment.setArguments(args);
+        MyData myData = MyData.getInstance();
+        myData.registerObserver(currentWeatherFragment);
+        return currentWeatherFragment;
     }
 
+
 //создаем View
+//    @Override
+//    public void onCreate(Bundle savedInstanceState){
+//        super.onCreate(savedInstanceState);
+//        //получаем аргументы назад
+//        placeId = getArguments().getInt("placeId");
+//    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //не даём пересоздать фрагмент при повороте экрана
-        setRetainInstance(true);
+     //   setRetainInstance(true);
+
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
         return view;
@@ -57,7 +66,7 @@ private ImageView weatherImageView;
     }
 
     @Override
-    public void postFragment(AppCompatActivity activity) {
+    public void postFragment(AppCompatActivity activity, int placeId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(placeId, this);

@@ -26,21 +26,22 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView afternoonTempText;
     private TextView eveningTempText;
 
-//переменные для работы
-    private int placeId;
-    private MyData myData;
 
-//Конструктор
-    public DayWeatherFragment (int placeId) {
-        this.placeId = placeId;
-        myData = MyData.getInstance();
-        myData.registerObserver(this);
+
+    public static DayWeatherFragment newInstance(){
+        DayWeatherFragment dayWeatherFragment = new DayWeatherFragment();
+        Bundle args = new Bundle();
+        // args.putInt("placeId", placeId);
+        // currentWeatherFragment.setArguments(args);
+        MyData myData = MyData.getInstance();
+        myData.registerObserver(dayWeatherFragment);
+        return dayWeatherFragment;
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //не даём пересоздать фрагмент при повороте экрана
-        setRetainInstance(true);
+      //  setRetainInstance(true);
         View view = inflater.inflate(R.layout.fragment_day_weather, container, false);
         findViews(view);
         return view;
@@ -57,8 +58,10 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         eveningTempText = view.findViewById(R.id.eveningTempText);
     }
 
+
+
     @Override
-    public void postFragment(AppCompatActivity activity) {
+    public void postFragment(AppCompatActivity activity, int placeId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(placeId, this);
