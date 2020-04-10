@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         myData = MyData.getInstance();
         init();
 //создаём изменитель интерфейса

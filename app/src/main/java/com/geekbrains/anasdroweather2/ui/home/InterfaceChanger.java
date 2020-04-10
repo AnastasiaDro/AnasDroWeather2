@@ -25,7 +25,7 @@ public class InterfaceChanger implements Observer {
     //автоматически задаём тему, если это разрешено в MyData
     public void setAutoTheme() {
             if (myData.getAutoThemeChanging()){
-                if (myData.getCurrentHour()<8 || myData.getCurrentHour()>= 19) {
+                if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=19) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
                     activity.setTheme(R.style.MyDarkTheme);
                     actionBarColor = ContextCompat.getColor(activity, R.color.colorMyPrimaryDark);
