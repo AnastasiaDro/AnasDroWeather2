@@ -26,5 +26,6 @@
 
     <string name="chooseCity">Choose a city</string>
     <string name="display">Display</string>
+    <string name="addNewCity">Add new city</string>
 
 </resources>

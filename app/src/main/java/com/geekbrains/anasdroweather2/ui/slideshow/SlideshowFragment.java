@@ -18,11 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.ActivMethods;
+import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 
-public class SlideshowFragment extends Fragment implements ActivMethods {
+public class SlideshowFragment extends Fragment implements ActivMethods, InterfaceObserver {
 
     private SlideshowViewModel slideshowViewModel;
     private InterfaceChanger interfaceChanger;
@@ -33,6 +34,8 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
     CheckBox windCheckBox;
     CheckBox pressuCheckBox;
 
+    View root;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,7 +44,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
 
         slideshowViewModel =
                 ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        root = inflater.inflate(R.layout.fragment_slideshow, container, false);
        // final TextView textView = root.findViewById(R.id.text_slideshow);
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -49,12 +52,35 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
                // textView.setText(s);
             }
         });
+        init();
+        updateInterfaceViewData();
         return root;
     }
 
 
     @Override
     public void init() {
-
+        searchView = root.findViewById(R.id.searchView);
+        windCheckBox = root.findViewById(R.id.pressuCheckBox);
+        pressuCheckBox = root.findViewById(R.id.pressuCheckBox);
     }
+
+    @Override
+    public void updateInterfaceViewData() {
+        //в зависимости от настроек интерфейса отобразим чек или не чек при первом запуске
+        if (interfaceChanger.getIsPressure() == 1){
+            pressuCheckBox.setChecked(true);
+        } else {
+            pressuCheckBox.setChecked(false);
+        }
+        if (interfaceChanger.getIsWind() == 1){
+            windCheckBox.setChecked(true);
+        } else {
+            windCheckBox.setChecked(false);
+        }
+    }
+
+
+
+
 }

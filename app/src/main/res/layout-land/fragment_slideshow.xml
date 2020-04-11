@@ -34,12 +34,17 @@
 
         </SearchView>
 
-        <FrameLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="2"/>
 
-        </FrameLayout>
+        <Button
+            android:id="@+id/addNewCityBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/addNewCity"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
 
     </LinearLayout>
 
