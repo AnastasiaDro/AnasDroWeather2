@@ -24,4 +24,7 @@
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>
 
+    <string name="chooseCity">Choose a city</string>
+    <string name="display">Display</string>
+
 </resources>

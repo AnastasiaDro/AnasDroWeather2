@@ -25,4 +25,7 @@
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>
 
+    <string name="chooseCity">Выбрать город</string>
+    <string name="display">Отображать</string>
+
 </resources>

@@ -16,11 +16,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
+import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 
-public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer {
+public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
 //используемые View
 private TextView cityTextView;
@@ -29,6 +30,7 @@ private TextView pressureTextView;
 private TextView windTextView;
 private ImageView weatherImageView;
 private MyData myData;
+InterfaceChanger interfaceChanger;
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
@@ -46,6 +48,7 @@ private MyData myData;
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
+        interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         myData = MyData.getInstance();
         myData.registerObserver(this);
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
@@ -59,6 +62,8 @@ private MyData myData;
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
+        //получим информацию о видимости температуры и давления
+        updateInterfaceViewData();
         return view;
     }
 
@@ -95,5 +100,12 @@ private MyData myData;
 //        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
 //                Toast.LENGTH_LONG).show();
         Log.d("CurrentWeatherFragment", "removed from myData");
+    }
+
+
+    @Override
+    public void updateInterfaceViewData() {
+        pressureTextView.setVisibility(interfaceChanger.getIsPressure());
+        windTextView.setVisibility(interfaceChanger.getIsWind());
     }
 }

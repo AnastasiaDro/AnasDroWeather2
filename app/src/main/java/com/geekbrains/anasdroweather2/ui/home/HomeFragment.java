@@ -22,6 +22,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
 
 //класс Model
     MyData myData;
+    InterfaceChanger interfaceChanger;
 //места для моих фрагментов
     int currentWeathPlaceId;
     int dayWeathPlaceId;
@@ -32,7 +33,6 @@ public class HomeFragment extends Fragment implements ActivMethods {
     DayWeatherFragment dayWeathFragment;
     WeekWeatherFragment weekWeatherFragment;
 
-    InterfaceChanger interfaceChanger;
     AppCompatActivity mainActivity;
 
     private HomeViewModel homeViewModel;
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
         myData = MyData.getInstance();
         init();
 //создаём изменитель интерфейса
-        interfaceChanger = new InterfaceChanger(mainActivity);
+        interfaceChanger = InterfaceChanger.getInterfaceInstance(mainActivity);
 //изменяем тему, если это возможно, в соответствии с текущим временем
         interfaceChanger.setAutoTheme();
 

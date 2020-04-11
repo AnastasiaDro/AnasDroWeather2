@@ -20,17 +20,14 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     static int currentHour;
-    //флаг автоматической смены темы
-    public boolean autoThemeChanging;
+
+
+
 
     private MyData() {
         currentHour = 0;
         observers = new LinkedList<>();
-        autoThemeChanging = true;
     }
-
-
-
 
 
 //сделаем наблюдаемый класс сингл-тоном
@@ -88,14 +85,10 @@ public class MyData implements Observable {
         return currentHour;
     }
 
-//геттер флага возможности смены темы
-    public boolean getAutoThemeChanging() {
-        return autoThemeChanging;
-    }
 
-    public void setAutoThemeChanging(boolean canThemeChanging) {
-        autoThemeChanging = canThemeChanging;
-    }
+
+
+
 
 
 }
