@@ -1,5 +1,6 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
@@ -40,9 +41,9 @@ public class InterfaceChanger implements InterfaceObservable {
         this.activity = activity;
         myData = MyData.getInstance();
         actionBar = activity.getSupportActionBar();
-         int isWind = View.VISIBLE;
-        int isPressure = View.VISIBLE;
-        int isAutoThemeChanging = 1;
+          isWind = View.VISIBLE;
+         isPressure = View.VISIBLE;
+         isAutoThemeChanging = 1;
         interfaceObservers = new LinkedList<>();
     }
 
@@ -90,9 +91,10 @@ public class InterfaceChanger implements InterfaceObservable {
     }
 
     //автоматически задаём тему, если это разрешено
-    public void setAutoTheme(AppCompatActivity activity) {
+    public void setAutoTheme(Activity activity) {
         if (isAutoThemeChanging == 1){
-            if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=19) {
+            System.out.println("время = " + myData.getCurrentHour());
+            if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=11) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
                 activity.setTheme(R.style.MyDarkTheme);
                 actionBarColor = ContextCompat.getColor(activity, R.color.colorMyPrimaryDark);
@@ -100,7 +102,7 @@ public class InterfaceChanger implements InterfaceObservable {
                 activity.setTheme(R.style.MyLightTheme);
                 actionBarColor = ContextCompat.getColor(activity, R.color.colorPrimary);
             }
-            actionBar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
+          //  actionBar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
         }
     }
 

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     int isWind;
     int isPressure;
     int isAutoTheme;
-    InterfaceChanger interfaceChanger;
+    private InterfaceChanger interfaceChanger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         //работа с сохраненными настройками
       //  mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        interfaceChanger.setAutoTheme(this);
+
 
 
         setContentView(R.layout.activity_main);
@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        interfaceChanger.setAutoTheme(this);
     }
 
     @Override
