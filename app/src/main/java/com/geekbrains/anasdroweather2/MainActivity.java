@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     private MyData myData;
     NavController navController;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
        // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        myData.setNavController(navController);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 //мое

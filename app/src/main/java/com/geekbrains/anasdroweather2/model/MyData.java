@@ -1,5 +1,9 @@
 package com.geekbrains.anasdroweather2.model;
 
+import android.app.Activity;
+
+import androidx.navigation.NavController;
+
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 
@@ -22,7 +26,15 @@ public class MyData implements Observable {
     int currentHour;
     private ArrayList <String> citiesList;
 
+
+
+    NavController navController;
+
+
+    String currentCity;
+
     private MyData() {
+        currentCity = "Moscow";
         currentHour = 0;
         observers = new LinkedList<>();
         citiesList = new ArrayList();
@@ -93,9 +105,24 @@ public class MyData implements Observable {
         return citiesList;
     }
 
+    //получим или изменим текущий город
+    public String getCurrentCity() {
+        return currentCity;
+    }
 
 
+    public void setCurrentCity(String currentCity) {
+        this.currentCity = currentCity;
+    }
 
+
+    public NavController getNavController() {
+        return navController;
+    }
+
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
 
 
 

@@ -77,8 +77,7 @@ InterfaceChanger interfaceChanger;
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
         weatherImageView = view.findViewById(R.id.weatherImage);
-
-
+        cityTextView.setText(myData.getCurrentCity());
         updateInterfaceViewData();
         System.out.println();
     }
@@ -94,7 +93,8 @@ InterfaceChanger interfaceChanger;
 
     @Override
     public void updateViewData() {
-//заполнить
+        System.out.println("MyData getCurrentCity");
+         cityTextView.setText(myData.getCurrentCity());
     }
 
 //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
@@ -136,6 +136,7 @@ InterfaceChanger interfaceChanger;
         } else {
             pressureTextView.setVisibility(View.INVISIBLE);
         }
+
 
 
     }

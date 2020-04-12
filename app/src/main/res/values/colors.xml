@@ -10,6 +10,6 @@
 
     <color name="colorMyLightPrimary">#81D4FA</color>
     <color name="colorMyLightPrimaryDark">#01579B</color>
-
+    <color name="transparent"></color>
 
 </resources>

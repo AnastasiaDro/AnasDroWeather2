@@ -25,7 +25,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorMyDarkText</item>
         <item name="android:background">@color/colorMyDarkBackGround</item>
-        
     </style>
 
     <style name="MyLightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
