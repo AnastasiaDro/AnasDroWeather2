@@ -29,5 +29,8 @@
     <string name="chooseCity">Выбрать город</string>
     <string name="display">Отображать</string>
     <string name="addNewCity">Добавить город</string>
+    <string name="autoThemeOnOff">Сhange theme automatically</string>
+
+    <string name="search">Поиск</string>
 
 </resources>

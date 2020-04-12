@@ -104,7 +104,7 @@ public class InterfaceChanger implements InterfaceObservable {
 
         if (isAutoThemeChanging == 1){
 
-            if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=11) {
+            if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=19) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
                 activity.setTheme(R.style.MyDarkTheme);
                 actionBarColor = R.color.colorMyPrimaryDark;
@@ -125,5 +125,6 @@ public class InterfaceChanger implements InterfaceObservable {
 
     public void setAutoThemeChanging(int isAutoTheme) {
         isAutoThemeChanging = isAutoTheme;
+        notifyInterfaceObservers();
     }
     }

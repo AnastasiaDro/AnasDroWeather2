@@ -28,6 +28,8 @@
     <string name="chooseCity">Choose a city</string>
     <string name="display">Display</string>
     <string name="addNewCity">Add new city</string>
+    <string name="autoThemeOnOff">Сhange theme automatically</string>
 
+    <string name="search">Search</string>
 
 </resources>

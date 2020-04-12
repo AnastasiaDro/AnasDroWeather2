@@ -3,6 +3,7 @@ package com.geekbrains.anasdroweather2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -11,10 +12,14 @@ import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
+import com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -105,6 +110,22 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         editor.apply();
     }
 
+    //обработка нажатий на пункты optionsMenu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                SlideshowFragment slideshowFragment = new SlideshowFragment();
+                setAnotherFragment(slideshowFragment);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -122,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 
         if (mSettings.contains(APP_PREFERENCES_IS_AUTOTHEME)) {
             // Получаем число из настроек
-            isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
+            isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_AUTOTHEME, 1);
             interfaceChanger.setAutoThemeChanging(isAutoTheme);
         }
 
@@ -135,4 +156,13 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         isPressure = interfaceChanger.getIsPressure();
         isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
     }
+
+    public void setAnotherFragment(Fragment anotherFragment){
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.nav_host_fragment, anotherFragment);
+        ft.commit();
+    }
+
+
 }

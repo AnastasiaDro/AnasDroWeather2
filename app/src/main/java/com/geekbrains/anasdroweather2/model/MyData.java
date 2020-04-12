@@ -1,7 +1,5 @@
 package com.geekbrains.anasdroweather2.model;
 
-import android.util.Log;
-
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 
@@ -12,7 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.JarOutputStream;
+
 
 
 //Класс с данными, наблюдаемый
@@ -22,7 +20,7 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-    private ArrayList citiesList;
+    private ArrayList <String> citiesList;
 
     private MyData() {
         currentHour = 0;

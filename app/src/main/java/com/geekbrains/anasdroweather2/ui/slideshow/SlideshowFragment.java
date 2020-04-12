@@ -10,7 +10,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.ActivMethods;
@@ -29,7 +33,7 @@ import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 
 import org.w3c.dom.ls.LSOutput;
 
-public class SlideshowFragment extends Fragment implements ActivMethods {
+public class SlideshowFragment extends Fragment implements ActivMethods, CompoundButton.OnCheckedChangeListener {
 
     private SlideshowViewModel slideshowViewModel;
     private InterfaceChanger interfaceChanger;
@@ -39,9 +43,13 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
     SearchView searchView;
     CheckBox windCheckBox;
     CheckBox pressuCheckBox;
+    Switch autoThemeSwitch;
 
     View root;
 
+    private RecyclerView recyclerView;
+    MyAdapter myAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,18 +67,20 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
         });
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getActivity());
         init();
+        initRecycler(root);
         updateInterfaceChanger();
 
         return root;
     }
-
 
     @Override
     public void init() {
         searchView = root.findViewById(R.id.searchView);
         windCheckBox = root.findViewById(R.id.windCheckBox);
         pressuCheckBox = root.findViewById(R.id.pressuCheckBox);
+        autoThemeSwitch= root.findViewById(R.id.autoThemeSwitch);
         registerCheckBoxListeners();
+        activateSwitch(autoThemeSwitch);
     }
 
 
@@ -124,4 +134,33 @@ public class SlideshowFragment extends Fragment implements ActivMethods {
 
     }
 
+    public void initRecycler(View view){
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerForSlideShow);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        // specify an adapter (see also next example)
+
+        myAdapter = new MyAdapter();
+//        System.out.println("myData.getDataListForRecycler(): "+myData.getCitiesList().toString());
+        recyclerView.setAdapter(myAdapter);
+    }
+
+    public void activateSwitch(Switch mySwitch){
+        if (mySwitch != null){
+            mySwitch.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) this);
+        }
+
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Toast.makeText(this.getContext(), "Отслеживание переключения: " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
+        interfaceChanger.setAutoThemeChanging(isChecked? View.VISIBLE : View.INVISIBLE);
+    }
 }
