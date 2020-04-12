@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     int isAutoTheme;
     private InterfaceChanger interfaceChanger;
     private MyData myData;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+       // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 //мое
@@ -115,9 +118,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.action_settings:
-//                SlideshowFragment slideshowFragment = new SlideshowFragment();
-//                setAnotherFragment(slideshowFragment);
-
+//переходим на фрагмент настроек
+                    navController.navigate(R.id.nav_slideshow);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

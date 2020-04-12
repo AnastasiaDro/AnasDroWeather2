@@ -10,10 +10,7 @@
         android:name="com.geekbrains.anasdroweather2.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
-
-
     </fragment>
-
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -26,4 +23,11 @@
         android:name="com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/search_history"
+        android:name="com.geekbrains.anasdroweather2.ui.SearchHistoryFragment.SearchHistoryFragment"
+        android:label="@string/search"
+        />
+
 </navigation>
