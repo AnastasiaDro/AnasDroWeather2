@@ -11,7 +11,7 @@ public interface InterfaceObservable {
 
         //При изменении данных вызывается метод notifyObservers, который в свою очередь вызывает метод update
         //у всех слушателей, передавая им обновлённые данные
-        void notifyObservers();
+        void notifyInterfaceObservers();
 
 
 

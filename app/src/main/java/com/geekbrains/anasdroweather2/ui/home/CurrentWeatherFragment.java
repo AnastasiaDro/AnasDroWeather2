@@ -49,8 +49,10 @@ InterfaceChanger interfaceChanger;
         //получаем аргументы назад
         //... место для аргументов
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
+        interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
         myData.registerObserver(this);
+
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
     }
 
@@ -60,6 +62,7 @@ InterfaceChanger interfaceChanger;
 //        myData = MyData.getInstance();
 //        myData.registerObserver(this);
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
+
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
         //получим информацию о видимости температуры и давления
@@ -71,11 +74,12 @@ InterfaceChanger interfaceChanger;
     @Override
     public void findViews(View view) {
         cityTextView = view.findViewById(R.id.cityTextView);
-        temperatureTextView = view.findViewById(R.id.temperatureTextView);;
-        pressureTextView = view.findViewById(R.id.pressureTextView);;
-        windTextView = view.findViewById(R.id.windTextView);;
-        weatherImageView = view.findViewById(R.id.weatherImage);;
+        temperatureTextView = view.findViewById(R.id.temperatureTextView);
+        windTextView = view.findViewById(R.id.windTextView);
+        pressureTextView = view.findViewById(R.id.pressureTextView);
+        weatherImageView = view.findViewById(R.id.weatherImage);
     }
+
 
     @Override
     public void postFragment(AppCompatActivity activity, int placeId) {
@@ -105,7 +109,13 @@ InterfaceChanger interfaceChanger;
 
     @Override
     public void updateInterfaceViewData() {
-        pressureTextView.setVisibility(interfaceChanger.getIsPressure());
+        System.out.println("сработал update ViewData в CurrentWeatherFragment");
+
         windTextView.setVisibility(interfaceChanger.getIsWind());
+        System.out.println("isWind в КуррентВэзер "+ interfaceChanger.getIsWind());
+        pressureTextView.setVisibility(interfaceChanger.getIsPressure());
+        System.out.println("isPressure в КуррентВэзэр "+ interfaceChanger.getIsPressure());
+        System.out.println("видимость windTextView: " + windTextView.getVisibility());
+        System.out.println("видимость pressuTextView: " + pressureTextView.getVisibility());
     }
 }

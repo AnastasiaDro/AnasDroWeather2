@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
 //создаём изменитель интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(mainActivity);
 //изменяем тему, если это возможно, в соответствии с текущим временем
-        interfaceChanger.setAutoTheme();
+        interfaceChanger.setAutoTheme((AppCompatActivity)getActivity());
 
 
         //final TextView textView = root.findViewById(R.id.text_home);

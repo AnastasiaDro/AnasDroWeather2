@@ -31,7 +31,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="3"/>
 
     <Button
@@ -54,14 +54,18 @@
         android:id="@+id/windCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:clickable="true"
         android:text="@string/wind"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
+        android:focusable="true" />
 
     <CheckBox
         android:id="@+id/pressuCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:clickable="true"
         android:text="@string/pressure"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
+        android:focusable="true" />
 
 </LinearLayout>

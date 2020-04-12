@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         //работа с сохраненными настройками
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
+      //  mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        interfaceChanger.setAutoTheme(this);
 
 
         setContentView(R.layout.activity_main);
@@ -86,39 +86,39 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Запоминаем данные
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt(APP_PREFERENCES_IS_WIND, isWind);
-        editor.putInt(APP_PREFERENCES_IS_PRESSURE, isPressure);
-        editor.putInt(APP_PREFERENCES_IS_AUTOTHEME, isAutoTheme);
-        editor.apply();
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        // Запоминаем данные
+//        SharedPreferences.Editor editor = mSettings.edit();
+//        editor.putInt(APP_PREFERENCES_IS_WIND, interfaceChanger.getIsWind());
+//        editor.putInt(APP_PREFERENCES_IS_PRESSURE, interfaceChanger.getIsPressure());
+//        editor.putInt(APP_PREFERENCES_IS_AUTOTHEME, interfaceChanger.getIsAutoThemeChanging());
+//        editor.apply();
+//    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mSettings.contains(APP_PREFERENCES_IS_WIND)) {
-            // Получаем число из настроек
-            isWind = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
-            interfaceChanger.setWind(isWind);
-        }
-        if (mSettings.contains(APP_PREFERENCES_IS_PRESSURE)) {
-            // Получаем число из настроек
-            isPressure = mSettings.getInt(APP_PREFERENCES_IS_PRESSURE, 1);
-            interfaceChanger.setPressure(isPressure);
-        }
-
-        if (mSettings.contains(APP_PREFERENCES_IS_AUTOTHEME)) {
-            // Получаем число из настроек
-            isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
-            interfaceChanger.setAutoThemeChanging(isAutoTheme);
-        }
-
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        if (mSettings.contains(APP_PREFERENCES_IS_WIND)) {
+//            // Получаем число из настроек
+//            isWind = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
+//            interfaceChanger.setWind(isWind);
+//        }
+//        if (mSettings.contains(APP_PREFERENCES_IS_PRESSURE)) {
+//            // Получаем число из настроек
+//            isPressure = mSettings.getInt(APP_PREFERENCES_IS_PRESSURE, 1);
+//            interfaceChanger.setPressure(isPressure);
+//        }
+//
+//        if (mSettings.contains(APP_PREFERENCES_IS_AUTOTHEME)) {
+//            // Получаем число из настроек
+//            isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
+//            interfaceChanger.setAutoThemeChanging(isAutoTheme);
+//        }
+//
+//    }
 
 
     @Override
@@ -126,5 +126,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         isWind = interfaceChanger.getIsWind();
         isPressure = interfaceChanger.getIsPressure();
         isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
+
     }
 }

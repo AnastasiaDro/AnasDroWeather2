@@ -2,6 +2,7 @@ package com.geekbrains.anasdroweather2.ui.home;
 
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +30,7 @@ public class InterfaceChanger implements InterfaceObservable {
     private int isPressure;
     //возможность смены темы
     //флаг автоматической смены темы
-    public int isAutoThemeChanging;
+    private int isAutoThemeChanging;
 
     private static InterfaceChanger interfaceInstance;
     public List<InterfaceObserver> interfaceObservers;
@@ -39,8 +40,8 @@ public class InterfaceChanger implements InterfaceObservable {
         this.activity = activity;
         myData = MyData.getInstance();
         actionBar = activity.getSupportActionBar();
-         int isWind = 1;
-        int isPressure = 1;
+         int isWind = View.VISIBLE;
+        int isPressure = View.VISIBLE;
         int isAutoThemeChanging = 1;
         interfaceObservers = new LinkedList<>();
     }
@@ -81,14 +82,15 @@ public class InterfaceChanger implements InterfaceObservable {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyInterfaceObservers() {
         for (InterfaceObserver observer : interfaceObservers) {
             observer.updateInterfaceViewData();
+            System.out.println("сработал interface notify");
         }
     }
 
-    //автоматически задаём тему, если это разрешено в MyData
-    public void setAutoTheme() {
+    //автоматически задаём тему, если это разрешено
+    public void setAutoTheme(AppCompatActivity activity) {
         if (isAutoThemeChanging == 1){
             if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=19) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
@@ -110,9 +112,4 @@ public class InterfaceChanger implements InterfaceObservable {
     public void setAutoThemeChanging(int isAutoTheme) {
         isAutoThemeChanging = isAutoTheme;
     }
-
-
-
-
-
-}
+    }
