@@ -8,6 +8,7 @@ import android.view.Menu;
 
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
+import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,18 +32,21 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 
     private AppBarConfiguration mAppBarConfiguration;
 
+
     //сохранение настроек интерфейса
     private SharedPreferences mSettings;
     int isWind;
     int isPressure;
     int isAutoTheme;
     private InterfaceChanger interfaceChanger;
+    private MyData myData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
+        myData = MyData.getInstance();
         //работа с сохраненными настройками
       //  mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -70,8 +74,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+//мое
 
-        interfaceChanger.setAutoTheme(this);
+        interfaceChanger.setAutoTheme(this, toolbar);
     }
 
     @Override
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+
     }
 
 //    @Override

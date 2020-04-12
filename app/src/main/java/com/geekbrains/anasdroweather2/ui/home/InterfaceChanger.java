@@ -7,8 +7,10 @@ import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.geekbrains.anasdroweather2.MainActivity;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObservable;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 
@@ -24,6 +26,7 @@ public class InterfaceChanger implements InterfaceObservable {
     MyData myData;
     AppCompatActivity activity;
     static ActionBar actionBar;
+    Toolbar toolbar;
     int actionBarColor;
 
     //видно ли ветер и давление
@@ -40,7 +43,8 @@ public class InterfaceChanger implements InterfaceObservable {
     private InterfaceChanger(AppCompatActivity activity) {
         this.activity = activity;
         myData = MyData.getInstance();
-        actionBar = activity.getSupportActionBar();
+
+
           isWind = View.VISIBLE;
          isPressure = View.VISIBLE;
          isAutoThemeChanging = 1;
@@ -51,6 +55,7 @@ public class InterfaceChanger implements InterfaceObservable {
         if (interfaceInstance == null) {
             interfaceInstance = new InterfaceChanger(activity);
         }
+
         return interfaceInstance;
     }
 
@@ -91,18 +96,21 @@ public class InterfaceChanger implements InterfaceObservable {
     }
 
     //автоматически задаём тему, если это разрешено
-    public void setAutoTheme(Activity activity) {
+    public void setAutoTheme(Activity activity, Toolbar toolbar) {
+
         if (isAutoThemeChanging == 1){
-            System.out.println("время = " + myData.getCurrentHour());
+
             if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=11) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
                 activity.setTheme(R.style.MyDarkTheme);
-                actionBarColor = ContextCompat.getColor(activity, R.color.colorMyPrimaryDark);
+                actionBarColor = R.color.colorMyPrimaryDark;
             } else {
                 activity.setTheme(R.style.MyLightTheme);
+                System.out.println("Сработало тут");
                 actionBarColor = ContextCompat.getColor(activity, R.color.colorPrimary);
             }
-          //  actionBar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
+         toolbar.setBackgroundColor(actionBarColor);
+
         }
     }
 

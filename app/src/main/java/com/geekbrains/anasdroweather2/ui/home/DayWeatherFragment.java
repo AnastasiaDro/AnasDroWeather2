@@ -85,5 +85,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         super.onDestroyView();
         myData.removeObserver(this);
         Log.d("DayWeatherFragment", "removed from myData");
+
     }
 }

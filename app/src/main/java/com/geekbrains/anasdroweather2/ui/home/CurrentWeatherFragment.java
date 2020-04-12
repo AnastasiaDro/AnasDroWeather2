@@ -104,6 +104,11 @@ InterfaceChanger interfaceChanger;
 //        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
 //                Toast.LENGTH_LONG).show();
         Log.d("CurrentWeatherFragment", "removed from myData");
+
+        System.out.println("Список наблюдателей интерфейса " + interfaceChanger.interfaceObservers.toString());
+        interfaceChanger.removeObserver(this);
+        System.out.println("Список наблюдателей интерфейса " + interfaceChanger.interfaceObservers.toString());
+
     }
 
 

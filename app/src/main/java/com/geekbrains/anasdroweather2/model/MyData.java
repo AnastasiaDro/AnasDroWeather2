@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.jar.JarOutputStream;
 
 
 //Класс с данными, наблюдаемый
@@ -19,7 +20,7 @@ public class MyData implements Observable {
     public List<Observer> observers;
     //узнаем время
     static Date currentDate;
-    static int currentHour;
+    int currentHour;
 
 
 
@@ -38,7 +39,7 @@ public class MyData implements Observable {
 //получим текущий час
         currentDate = new Date();
         currentDate.getTime();
-        currentHour = takeCurrentHour(currentDate);
+        //currentHour = takeCurrentHour(currentDate);
 //вернём MyData
         return instance;
     }
@@ -71,17 +72,18 @@ public class MyData implements Observable {
     }
 
 //Высчитать текущий час
-    private static int takeCurrentHour(Date currentDate) {
+    private int takeCurrentHour(Date currentDate) {
         DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         String dateText = hourFormat.format(currentDate);
         currentHour = Integer.parseInt(dateText);
-        Log.d("takeCurrentHour", String.valueOf(currentHour));
-
+      //  Log.d("takeCurrentHour", String.valueOf(currentHour));
+        System.out.println("время = " + currentHour);
         return currentHour;
     }
 
 //геттер текущего часа
     public int getCurrentHour(){
+        takeCurrentHour(currentDate);
         return currentHour;
     }
 
