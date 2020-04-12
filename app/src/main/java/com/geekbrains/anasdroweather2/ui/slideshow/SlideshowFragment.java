@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
@@ -163,4 +165,20 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         Toast.makeText(this.getContext(), "Отслеживание переключения: " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
         interfaceChanger.setAutoThemeChanging(isChecked? View.VISIBLE : View.INVISIBLE);
     }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case Constants.HIDE_CONTEXTMENU_ITEM:
+
+
+
+            //           myData.getCitiesList().remove(myAdapter);
+//                myData.notifyObservers();
+                return true;
+        }
+        return true;
+    }
+
 }

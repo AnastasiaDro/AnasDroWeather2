@@ -31,5 +31,6 @@
     <string name="autoThemeOnOff">Сhange theme automatically</string>
 
     <string name="search">Search</string>
+    <string name="delete">Delete</string>
 
 </resources>
