@@ -52,7 +52,6 @@ InterfaceChanger interfaceChanger;
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
         myData.registerObserver(this);
-
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
     }
 
@@ -66,7 +65,7 @@ InterfaceChanger interfaceChanger;
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
         //получим информацию о видимости температуры и давления
-        updateInterfaceViewData();
+
         return view;
     }
 
@@ -78,6 +77,10 @@ InterfaceChanger interfaceChanger;
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
         weatherImageView = view.findViewById(R.id.weatherImage);
+
+
+        updateInterfaceViewData();
+        System.out.println();
     }
 
 
@@ -114,13 +117,26 @@ InterfaceChanger interfaceChanger;
 
     @Override
     public void updateInterfaceViewData() {
-        System.out.println("сработал update ViewData в CurrentWeatherFragment");
 
+//
         windTextView.setVisibility(interfaceChanger.getIsWind());
         System.out.println("isWind в КуррентВэзер "+ interfaceChanger.getIsWind());
         pressureTextView.setVisibility(interfaceChanger.getIsPressure());
         System.out.println("isPressure в КуррентВэзэр "+ interfaceChanger.getIsPressure());
         System.out.println("видимость windTextView: " + windTextView.getVisibility());
         System.out.println("видимость pressuTextView: " + pressureTextView.getVisibility());
+
+        if (interfaceChanger.getIsWind() == View.VISIBLE) {
+            windTextView.setVisibility(View.VISIBLE);
+        } else {
+            windTextView.setVisibility(View.INVISIBLE);
+        }
+        if (interfaceChanger.getIsPressure() == View.VISIBLE) {
+            pressureTextView.setVisibility(View.VISIBLE);
+        } else {
+            pressureTextView.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 }

@@ -17,6 +17,9 @@ import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 
+import org.w3c.dom.ls.LSOutput;
+
+import java.sql.SQLOutput;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class InterfaceChanger implements InterfaceObservable {
         myData = MyData.getInstance();
 
 
-          isWind = View.VISIBLE;
+         isWind = View.VISIBLE;
          isPressure = View.VISIBLE;
          isAutoThemeChanging = 1;
         interfaceObservers = new LinkedList<>();
@@ -80,6 +83,7 @@ public class InterfaceChanger implements InterfaceObservable {
     @Override
     public void registerObserver(InterfaceObserver observer) {
         interfaceObservers.add(observer);
+        System.out.println("Список наблюдателей интерфейса "+ interfaceObservers.toString());
     }
 
     @Override
@@ -106,11 +110,11 @@ public class InterfaceChanger implements InterfaceObservable {
                 actionBarColor = R.color.colorMyPrimaryDark;
             } else {
                 activity.setTheme(R.style.MyLightTheme);
-                System.out.println("Сработало тут");
+
                 actionBarColor = ContextCompat.getColor(activity, R.color.colorPrimary);
             }
          toolbar.setBackgroundColor(actionBarColor);
-
+            System.out.println("Сработало setTheme");
         }
     }
 

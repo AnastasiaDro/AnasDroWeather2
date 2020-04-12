@@ -56,8 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:clickable="true"
+        android:focusable="true"
         android:text="@string/wind"
-        android:focusable="true" />
+        />
 
     <CheckBox
         android:id="@+id/pressuCheckBox"

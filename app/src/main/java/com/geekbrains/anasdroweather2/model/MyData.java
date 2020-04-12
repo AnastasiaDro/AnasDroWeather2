@@ -7,6 +7,7 @@ import com.geekbrains.anasdroweather2.interfaces.Observer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,13 +22,16 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-
-
-
+    private ArrayList citiesList;
 
     private MyData() {
         currentHour = 0;
         observers = new LinkedList<>();
+        citiesList = new ArrayList();
+        citiesList.add("Moscow");
+        citiesList.add("Saint-Petersburg");
+        citiesList.add("Kazan");
+        citiesList.add("Sochi");
     }
 
 
@@ -85,6 +89,10 @@ public class MyData implements Observable {
     public int getCurrentHour(){
         takeCurrentHour(currentDate);
         return currentHour;
+    }
+
+    public ArrayList getCitiesList(){
+        return citiesList;
     }
 
 
