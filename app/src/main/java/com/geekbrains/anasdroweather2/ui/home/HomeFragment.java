@@ -89,6 +89,13 @@ public class HomeFragment extends Fragment implements ActivMethods {
         Log.d("MainActivity", "Posted WeekWeatherFragment");
     }
 
+    public void removeHomeFragment(){
+        FragmentManager fragmentManager = this.getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.remove(this);
+        ft.commit();
+    }
+
 
 
 }

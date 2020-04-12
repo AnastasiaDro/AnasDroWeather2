@@ -115,8 +115,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.action_settings:
-                SlideshowFragment slideshowFragment = new SlideshowFragment();
-                setAnotherFragment(slideshowFragment);
+//                SlideshowFragment slideshowFragment = new SlideshowFragment();
+//                setAnotherFragment(slideshowFragment);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -157,12 +158,14 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
     }
 
-    public void setAnotherFragment(Fragment anotherFragment){
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.nav_host_fragment, anotherFragment);
-        ft.commit();
-    }
+//    public void setAnotherFragment(Fragment anotherFragment){
+//        FragmentManager fragmentManager = this.getSupportFragmentManager();
+//        Fragment homeFragment = fragmentManager.findFragmentById(R.id.homefragment);
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        ft.detach(homeFragment);
+//        ft.replace(R.id.nav_host_fragment, anotherFragment);
+//        ft.commit();
+//    }
 
 
 }
