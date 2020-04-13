@@ -41,6 +41,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     private InterfaceChanger interfaceChanger;
     private MyData myData;
 
+
     //Тспользуемые View
     SearchView searchView;
     CheckBox windCheckBox;

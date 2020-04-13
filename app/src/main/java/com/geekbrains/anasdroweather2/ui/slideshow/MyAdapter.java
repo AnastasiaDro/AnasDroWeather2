@@ -45,8 +45,8 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TextView textView = holder.itemView.findViewById(R.id.textCityName);
-        textView.setText(citiesList.get(position).toString());
+        TextView textCityName = holder.itemView.findViewById(R.id.textCityName);
+        textCityName.setText(citiesList.get(position).toString());
     }
 
     @Override
@@ -54,6 +54,8 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
         return citiesList.size();
     }
 
+
+    //done
     @Override
     public void updateViewData() {
         citiesList = myData.getCitiesList();
@@ -67,13 +69,15 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
 
         public MyViewHolder(final View itemView) {
             super(itemView);
+            final TextView textCityName;
+
             final NavController navController = myData.getNavController();
-            final TextView textView = itemView.findViewById(R.id.textCityName);
+            textCityName = itemView.findViewById(R.id.textCityName);
             itemView.setOnCreateContextMenuListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final String currentCityName = textView.getText().toString();
+                    final String currentCityName = textCityName.getText().toString();
                     myData.setCurrentCity(currentCityName);
                     System.out.println("Текущий город в myData " +myData.getCurrentCity());
                     myData.notifyObservers();
