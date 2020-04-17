@@ -14,12 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
+
             <TextView
                 android:id="@+id/tTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hourly"
-                android:textSize="16sp"/>
+                android:text="@string/soon"
+                android:textSize="16sp" />
         </TableRow>
 
 
@@ -30,33 +31,33 @@
             android:orientation="horizontal">
 
             <TextView
-                android:ems="8"
-                android:id="@+id/morningTextView"
+                android:id="@+id/f_soonTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ems="8"
                 android:gravity="center"
-                android:text="@string/morning"
+                android:text="@string/firstSoon"
                 android:textSize="14sp" />
 
             <TextView
-                android:ems="8"
-                android:id="@+id/afternoonTextView"
+                android:id="@+id/s_soonTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ems="8"
                 android:gravity="center"
-                android:text="@string/afternoon"
+                android:text="@string/sndSoon"
                 android:textSize="14sp" />
 
             <TextView
-                android:ems="8"
-                android:id="@+id/eveningTextView"
+                android:id="@+id/th_soonTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ems="8"
                 android:gravity="center"
-                android:text="@string/evening"
+                android:text="@string/thrdSoon"
                 android:textSize="14sp" />
         </TableRow>
 
@@ -69,7 +70,7 @@
 
             <TextView
                 android:ems="8"
-                android:id="@+id/morningTempText"
+                android:id="@+id/f_soonTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,7 +79,7 @@
 
             <TextView
                 android:ems="8"
-                android:id="@+id/afternoonTempText"
+                android:id="@+id/s_soonTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -87,7 +88,7 @@
 
             <TextView
                 android:ems="8"
-                android:id="@+id/eveningTempText"
+                android:id="@+id/th_soonTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

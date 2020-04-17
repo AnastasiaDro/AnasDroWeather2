@@ -20,12 +20,12 @@ import com.geekbrains.anasdroweather2.model.MyData;
 public class DayWeatherFragment extends Fragment implements FragmentMethods, Observer {
 
 //используемые View
-    private TextView morningTextView;
-    private TextView afternoonTextView;
-    private TextView eveningTextView;
-    private TextView morningTempText;
-    private TextView afternoonTempText;
-    private TextView eveningTempText;
+    private TextView f_soonTextView;
+    private TextView s_soonTextView;
+    private TextView th_soonTextView;
+    private TextView f_soonTempText;
+    private TextView s_soonTempText;
+    private TextView th_soonTempText;
 
     private MyData myData;
 
@@ -57,12 +57,12 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
 
     @Override
     public void findViews(View view) {
-        morningTextView = view.findViewById(R.id.morningTextView);
-        afternoonTextView = view.findViewById(R.id.afternoonTextView);
-        eveningTextView = view.findViewById(R.id.eveningTextView);
-        morningTempText = view.findViewById(R.id.morningTempText);
-        afternoonTempText = view.findViewById(R.id.afternoonTempText);
-        eveningTempText = view.findViewById(R.id.eveningTempText);
+        f_soonTextView = view.findViewById(R.id.f_soonTextView);
+        s_soonTextView = view.findViewById(R.id.s_soonTextView);
+        th_soonTextView = view.findViewById(R.id.th_soonTextView);
+        f_soonTempText = view.findViewById(R.id.f_soonTempText);
+        s_soonTempText = view.findViewById(R.id.s_soonTempText);
+        th_soonTempText = view.findViewById(R.id.th_soonTempText);
     }
 
 

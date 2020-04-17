@@ -15,19 +15,14 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.geekbrains.anasdroweather2.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/search_history"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_slideshow" />
 
-    <fragment
-        android:id="@+id/search_history"
-        android:name="com.geekbrains.anasdroweather2.ui.SearchHistoryFragment.SearchHistoryFragment"
-        android:label="@string/search"
-        />
 
 </navigation>

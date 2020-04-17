@@ -12,11 +12,13 @@ import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
+import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
 import com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -94,6 +96,25 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+//        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//
+//        //TODO
+//        //Костыли
+//        final MyAdapter mainAdapter = new MyAdapter();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                mainAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
         return true;
     }
 
@@ -113,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         editor.putInt(APP_PREFERENCES_IS_WIND, interfaceChanger.getIsWind());
         editor.putInt(APP_PREFERENCES_IS_PRESSURE, interfaceChanger.getIsPressure());
         editor.putInt(APP_PREFERENCES_IS_AUTOTHEME, interfaceChanger.getIsAutoThemeChanging());
+        System.out.println("OnPause" + "interfaceChanger.getIsAutoThemeChanging()" + interfaceChanger.getIsAutoThemeChanging());
         editor.apply();
     }
 
@@ -124,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 //переходим на фрагмент настроек
                     navController.navigate(R.id.nav_slideshow);
                 return true;
+    //если нажали на поиск
+            case R.id.app_bar_search:
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -150,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         if (mSettings.contains(APP_PREFERENCES_IS_AUTOTHEME)) {
             // Получаем число из настроек
             isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_AUTOTHEME, 1);
-            interfaceChanger.setAutoThemeChanging(isAutoTheme);
+            interfaceChanger.setIsAutoThemeChanging(isAutoTheme);
         }
 
     }
@@ -162,15 +187,5 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         isPressure = interfaceChanger.getIsPressure();
         isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
     }
-
-//    public void setAnotherFragment(Fragment anotherFragment){
-//        FragmentManager fragmentManager = this.getSupportFragmentManager();
-//        Fragment homeFragment = fragmentManager.findFragmentById(R.id.homefragment);
-//        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.detach(homeFragment);
-//        ft.replace(R.id.nav_host_fragment, anotherFragment);
-//        ft.commit();
-//    }
-
 
 }

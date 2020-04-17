@@ -50,7 +50,7 @@ public class InterfaceChanger implements InterfaceObservable {
 
          isWind = View.VISIBLE;
          isPressure = View.VISIBLE;
-         isAutoThemeChanging = 1;
+         isAutoThemeChanging = View.VISIBLE;
         interfaceObservers = new LinkedList<>();
     }
 
@@ -101,11 +101,11 @@ public class InterfaceChanger implements InterfaceObservable {
 
     //автоматически задаём тему, если это разрешено
     public void setAutoTheme(Activity activity, Toolbar toolbar) {
-
-        if (isAutoThemeChanging == 1){
-
-            if (myData.getCurrentHour()<8 || myData.getCurrentHour()>=19) {
+        System.out.println("isAutoThemeChanging в setAutoTheme " + isAutoThemeChanging);
+        if (isAutoThemeChanging == View.VISIBLE){
+        //    if (myData.getCurrentHour()=>8 || myData.getCurrentHour()>=19) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
+            if (myData.getCurrentHour()==8) {
                 activity.setTheme(R.style.MyDarkTheme);
                 actionBarColor = R.color.colorMyPrimaryDark;
             } else {
@@ -123,7 +123,7 @@ public class InterfaceChanger implements InterfaceObservable {
         return isAutoThemeChanging;
     }
 
-    public void setAutoThemeChanging(int isAutoTheme) {
+    public void setIsAutoThemeChanging(int isAutoTheme) {
         isAutoThemeChanging = isAutoTheme;
         notifyInterfaceObservers();
     }

@@ -9,9 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,15 +26,18 @@ import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter implements Observer {
+public class MyAdapter extends RecyclerView.Adapter implements Observer, Filterable {
 
     MyData myData;
-    ArrayList citiesList;
+    ArrayList <String> citiesListFull;
+    ArrayList <String> citiesList;
 
     public MyAdapter() {
         this.myData = MyData.getInstance();
-        this.citiesList = myData.getCitiesList();
+        this.citiesListFull = myData.getCitiesList();
+        citiesList = new ArrayList(citiesListFull);
     }
 
     @NonNull
@@ -66,48 +72,26 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        TextView textCityName;
+        CardView cardView;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-            final TextView textCityName;
-
             final NavController navController = myData.getNavController();
             textCityName = itemView.findViewById(R.id.textCityName);
-            itemView.setOnCreateContextMenuListener(this);
+            cardView = itemView.findViewById(R.id.myLinearCard);
+            cardView.setOnCreateContextMenuListener(this);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final String currentCityName = textCityName.getText().toString();
                     myData.setCurrentCity(currentCityName);
-                    System.out.println("Текущий город в myData " +myData.getCurrentCity());
+                    System.out.println("Текущий город в myData " + myData.getCurrentCity());
                     myData.notifyObservers();
                     navController.navigate(R.id.nav_home);
                 }
             });
-
-
-//            itemView.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    switch (event.getAction()){
-//                        case MotionEvent.ACTION_DOWN:
-//                            itemView.setBackgroundColor(itemView.getResources().getColor(R.color.colorMyPrimaryDark));
-//                           final String currentCityName = textView.getText().toString();
-//                            myData.setCurrentCity(currentCityName);
-//                           System.out.println("Текущий город в myData " +myData.getCurrentCity());
-//                           myData.notifyObservers();
-//                           break;
-//                        case MotionEvent.ACTION_UP:
-//                            itemView.setBackgroundResource(0);
-//                           // navController.navigate(R.id.nav_home);
-//                            break;
-//                    }
-//
-//                    return false;
-//                }
-//            });
-
-
         }
 
         @Override
@@ -116,6 +100,44 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
         }
     }
 
+    public void deleteItem(int position) {
+        myData.getCitiesList().remove(position);
+        System.out.println("myData cities list " + myData.getCitiesList().toString());
+        myData.notifyObservers();
+        notifyDataSetChanged();
 
+    }
+
+    @Override
+    public Filter getFilter() {
+        return citiesListFilter;
+    }
+
+    private Filter citiesListFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List <String> filteredList = new <String> ArrayList();
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(citiesListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(String item : citiesListFull) {
+                    if (item.toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            citiesList.clear();
+            citiesList.addAll((List)results.values);
+            notifyDataSetChanged();
+        }
+    };
 }
 

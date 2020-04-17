@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import androidx.navigation.NavController;
 
+import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 
@@ -25,6 +26,7 @@ public class MyData implements Observable {
     static Date currentDate;
     int currentHour;
     private ArrayList <String> citiesList;
+    private int[] lastSearchCitiesArr;
 
 
 
@@ -37,11 +39,17 @@ public class MyData implements Observable {
         currentCity = "Moscow";
         currentHour = 0;
         observers = new LinkedList<>();
-        citiesList = new ArrayList();
+        citiesList = new <String> ArrayList();
         citiesList.add("Moscow");
         citiesList.add("Saint-Petersburg");
         citiesList.add("Kazan");
         citiesList.add("Sochi");
+//массив для сохранения последних городов
+
+        //пока зададим города тут
+        lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
+
+
     }
 
 

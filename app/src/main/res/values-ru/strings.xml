@@ -14,16 +14,16 @@
 
     <string name="home_second">Home Second</string>
 
-    <string name="city">City</string>
+    <string name="city">Город</string>
     <string name="tWeather">t</string>
-    <string name="pressure">pressure</string>
-    <string name="wind">wind</string>
-    <string name="select">select</string>
+    <string name="pressure">давление</string>
+    <string name="wind">ветер</string>
+    <string name="select">Выбрать</string>
     <string name="temperatureTextView">temperature</string>
-    <string name="hourly">During the day</string>
-    <string name="morning">Morning</string>
-    <string name="afternoon">Afternoon</string>
-    <string name="evening">Evening</string>
+    <string name="soon">Ближайшее время</string>
+    <string name="firstSoon">FirstSoon</string>
+    <string name="sndSoon">SecondSoon</string>
+    <string name="thrdSoon">ThirdSoon</string>
     <string name="settings">Settings</string>
 
     <string name="chooseCity">Выбрать город</string>
@@ -33,5 +33,14 @@
 
     <string name="search">Поиск</string>
     <string name="delete">Удалить</string>
+    <string name="search_history">История поиска</string>
+
+    <string name="moscow">Москва</string>
+    <string name="spb">С.-Петербург</string>
+    <string name="kazan">Казань</string>
+    <string name="sochi">Сочи</string>
+
+    <string name="tempMax">Maкс</string>
+    <string name="tempMin">Мин</string>
 
 </resources>

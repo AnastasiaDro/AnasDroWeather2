@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.geekbrains.anasdroweather2.MainActivity;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.ActivMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
@@ -47,6 +50,8 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     CheckBox windCheckBox;
     CheckBox pressuCheckBox;
     Switch autoThemeSwitch;
+
+    Toolbar toolbar;
 
     View root;
 
@@ -82,6 +87,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         windCheckBox = root.findViewById(R.id.windCheckBox);
         pressuCheckBox = root.findViewById(R.id.pressuCheckBox);
         autoThemeSwitch= root.findViewById(R.id.autoThemeSwitch);
+        toolbar = this.getActivity().findViewById(R.id.toolbar);
         registerCheckBoxListeners();
         activateSwitch(autoThemeSwitch);
     }
@@ -146,40 +152,91 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         // specify an adapter (see also next example)
-
         myAdapter = new MyAdapter();
-//        System.out.println("myData.getDataListForRecycler(): "+myData.getCitiesList().toString());
         recyclerView.setAdapter(myAdapter);
     }
 
+
+//TODO
     public void activateSwitch(Switch mySwitch){
         if (mySwitch != null){
+            boolean isChecked;
+            if (interfaceChanger.getIsAutoThemeChanging() == View.VISIBLE){
+                isChecked = true;
+            } else {
+                isChecked = false;
+            }
+            mySwitch.setChecked(isChecked);
             mySwitch.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) this);
         }
-
 
     }
 
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Toast.makeText(this.getContext(), "Отслеживание переключения: " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
-        interfaceChanger.setAutoThemeChanging(isChecked? View.VISIBLE : View.INVISIBLE);
+        if (isChecked) {
+            interfaceChanger.setIsAutoThemeChanging(View.VISIBLE);
+        } else {
+            interfaceChanger.setIsAutoThemeChanging(View.INVISIBLE);
+        }
+        interfaceChanger.setAutoTheme(this.getActivity(), toolbar);
+        System.out.println(View.VISIBLE);
+        System.out.println("onCheckedChanged isAutoThemeChenging " + interfaceChanger.getIsAutoThemeChanging());
+
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
         switch (item.getItemId()) {
             case Constants.HIDE_CONTEXTMENU_ITEM:
-
-
-
-            //           myData.getCitiesList().remove(myAdapter);
-//                myData.notifyObservers();
+                myAdapter.deleteItem(item.getGroupId());
                 return true;
+            default:   return super.onContextItemSelected(item);
         }
-        return true;
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+//        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView();
+//
+//        //TODO
+
+//        //Костыли
+//        final MyAdapter mainAdapter = new MyAdapter();
+//        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                myAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
+
+
+
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        switch (item.getItemId()) {
+//            case Constants.HIDE_CONTEXTMENU_ITEM:
+//
+//
+//
+//            //           myData.getCitiesList().remove(myAdapter);
+////                myData.notifyObservers();
+//                return true;
+//        }
+//        return true;
+
 
 }

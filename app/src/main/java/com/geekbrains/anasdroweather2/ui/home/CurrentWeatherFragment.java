@@ -3,6 +3,7 @@ package com.geekbrains.anasdroweather2.ui.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,6 @@ InterfaceChanger interfaceChanger;
 
     @Override
     public void updateViewData() {
-        System.out.println("MyData getCurrentCity");
          cityTextView.setText(myData.getCurrentCity());
     }
 
@@ -115,16 +115,15 @@ InterfaceChanger interfaceChanger;
     }
 
 
+
+
+
     @Override
     public void updateInterfaceViewData() {
 
 //
         windTextView.setVisibility(interfaceChanger.getIsWind());
-        System.out.println("isWind в КуррентВэзер "+ interfaceChanger.getIsWind());
         pressureTextView.setVisibility(interfaceChanger.getIsPressure());
-        System.out.println("isPressure в КуррентВэзэр "+ interfaceChanger.getIsPressure());
-        System.out.println("видимость windTextView: " + windTextView.getVisibility());
-        System.out.println("видимость pressuTextView: " + pressureTextView.getVisibility());
 
         if (interfaceChanger.getIsWind() == View.VISIBLE) {
             windTextView.setVisibility(View.VISIBLE);
@@ -136,8 +135,7 @@ InterfaceChanger interfaceChanger;
         } else {
             pressureTextView.setVisibility(View.INVISIBLE);
         }
-
-
-
     }
+
+
 }

@@ -78,23 +78,17 @@ public class HomeFragment extends Fragment implements ActivMethods {
        // curWeathFragment = new CurrentWeatherFragment();
         curWeathFragment = CurrentWeatherFragment.newInstance();
         curWeathFragment.postFragment(mainActivity, currentWeathPlaceId);
-        Log.d("MainActivity", "Posted CurrentWeatherFragment");
 
         dayWeathFragment = DayWeatherFragment.newInstance();
         dayWeathFragment.postFragment(mainActivity, dayWeathPlaceId);
-        Log.d("MainActivity", "Posted DayWeatherFragment");
 
         weekWeatherFragment = WeekWeatherFragment.newInstance();
         weekWeatherFragment.postFragment(mainActivity, weekWeathPlaceId);
-        Log.d("MainActivity", "Posted WeekWeatherFragment");
+
     }
 
-    public void removeHomeFragment(){
-        FragmentManager fragmentManager = this.getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.remove(this);
-        ft.commit();
-    }
+
+
 
 
 
