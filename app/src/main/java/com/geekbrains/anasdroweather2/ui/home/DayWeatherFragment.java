@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,9 @@ import com.geekbrains.anasdroweather2.model.MyData;
 public class DayWeatherFragment extends Fragment implements FragmentMethods, Observer {
 
 //используемые View
-    private TextView f_soonTextView;
-    private TextView s_soonTextView;
-    private TextView th_soonTextView;
+    private TextView f_soonTimeView;
+    private TextView s_soonTimeView;
+    private TextView th_soonTimeView;
     private TextView f_soonTempText;
     private TextView s_soonTempText;
     private TextView th_soonTempText;
@@ -51,15 +52,16 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_weather, container, false);
         findViews(view);
+        updateViewData();
         return view;
     }
 
 
     @Override
     public void findViews(View view) {
-        f_soonTextView = view.findViewById(R.id.f_soonTextView);
-        s_soonTextView = view.findViewById(R.id.s_soonTextView);
-        th_soonTextView = view.findViewById(R.id.th_soonTextView);
+        f_soonTimeView = view.findViewById(R.id.f_soonTextView);
+        s_soonTimeView = view.findViewById(R.id.s_soonTextView);
+        th_soonTimeView = view.findViewById(R.id.th_soonTextView);
         f_soonTempText = view.findViewById(R.id.f_soonTempText);
         s_soonTempText = view.findViewById(R.id.s_soonTempText);
         th_soonTempText = view.findViewById(R.id.th_soonTempText);
@@ -75,10 +77,37 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         ft.commit();
     }
 
+
+
+
     @Override
     public void updateViewData() {
-//заполнить
+        try {
+            myData.getWeatherLoaderThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setWeatherValuesToTextViews();
     }
+
+    //Ставить текст
+    public void setWeatherValuesToTextViews() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                f_soonTimeView.setText(myData.getF_soonTime());
+                s_soonTimeView.setText(myData.getS_soonTime());
+                th_soonTimeView.setText(myData.getTh_soonTime());
+
+
+                f_soonTempText.setText(myData.getF_soonTemp());
+                s_soonTempText.setText(myData.getS_soonTemp());
+                th_soonTempText.setText(myData.getTh_soonTemp());
+            }
+        });
+    }
+
 
     @Override
     public void onDestroyView() {

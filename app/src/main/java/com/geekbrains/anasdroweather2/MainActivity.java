@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     private MyData myData;
     NavController navController;
 
+    public WeatherLoader getWeatherLoader() {
+        return weatherLoader;
+    }
+
     WeatherLoader weatherLoader;
 
 

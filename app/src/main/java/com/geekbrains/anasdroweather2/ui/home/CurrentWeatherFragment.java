@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +24,7 @@ import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
+import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
 
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
@@ -33,6 +36,8 @@ private TextView windTextView;
 private ImageView weatherImageView;
 private MyData myData;
 InterfaceChanger interfaceChanger;
+WeatherLoader weatherLoader;
+
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
@@ -50,6 +55,7 @@ InterfaceChanger interfaceChanger;
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
+        weatherLoader = new WeatherLoader();
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
@@ -57,6 +63,7 @@ InterfaceChanger interfaceChanger;
         Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //не даём пересоздать фрагмент при повороте экрана
      //   setRetainInstance(true);
@@ -66,8 +73,8 @@ InterfaceChanger interfaceChanger;
 
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
-        //получим информацию о видимости температуры и давления
-
+        updateViewData();
+        updateInterfaceViewData();
         return view;
     }
 
@@ -79,8 +86,6 @@ InterfaceChanger interfaceChanger;
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
         weatherImageView = view.findViewById(R.id.weatherImage);
-        cityTextView.setText(myData.getCurrentCity());
-        updateInterfaceViewData();
         System.out.println();
     }
 
@@ -93,10 +98,17 @@ InterfaceChanger interfaceChanger;
         ft.commit();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void updateViewData() {
         cityTextView.setText(myData.getCurrentCity());
-
+        weatherLoader.loadWeatherData();
+        try {
+            myData.getWeatherLoaderThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setWeatherValuesToTextViews();
     }
 
 //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
@@ -141,14 +153,16 @@ InterfaceChanger interfaceChanger;
 
 
 //Ставить текст
-        public void setWeatherValuesToTextViews(String currentTemp, String current){
+        public void setWeatherValuesToTextViews(){
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 temperatureTextView.setText(myData.getCurrentTemp());
-                windTextView.setText(myData.getCurrentWind());
-                pressureTextView.setText(myData.getCurrentPressure());
+                String forWind = getString(R.string.wind) + " " + myData.getCurrentWind();
+                windTextView.setText(forWind);
+                String forPressure = getString(R.string.pressure) + " " + myData.getCurrentPressure();
+                pressureTextView.setText(forPressure);
             }
         });
 

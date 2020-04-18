@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
+import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,9 @@ import java.util.Locale;
 public class MyData implements Observable {
     NavController navController;
 
+
+
+    Thread weatherLoaderThread;
     private static MyData instance;
     public List<Observer> observers;
     //узнаем время
@@ -47,6 +51,13 @@ public class MyData implements Observable {
     String th_soonTemp;
 
 
+    public Thread getWeatherLoaderThread() {
+        return weatherLoaderThread;
+    }
+
+    public void setWeatherLoaderThread(Thread weatherLoaderThread) {
+        this.weatherLoaderThread = weatherLoaderThread;
+    }
 
     private MyData() {
         currentCity = "Moscow";
@@ -65,8 +76,7 @@ public class MyData implements Observable {
         currentTemp = null;
         currentPressure = null;
         currentWind = null;
-
-
+        weatherLoaderThread = new Thread();
 
     }
 

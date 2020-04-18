@@ -24,6 +24,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера
 public class WeatherLoader {
+    Thread myThread;
 
     String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
     String city;
@@ -66,7 +67,8 @@ public class WeatherLoader {
     public void loadWeatherData() {
         try {
             final URL uri = new URL(createURL(city));
-            new Thread(new Runnable() {
+
+            myThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try{
@@ -111,17 +113,17 @@ public class WeatherLoader {
 
 
 
-                        currentTemp = ((Float)currentWeatherRequest.getMain().getTemp()).toString();
+                        currentTemp = ((Integer)currentWeatherRequest.getMain().getTemp()).toString();
                         currentPressure = ((Integer)currentWeatherRequest.getMain().getPressure()).toString();
                         currentWind = ((Float)currentWeatherRequest.getWind().getSpeed()).toString();
                         //ближайшие часы (время)
-                        f_soonTime = fst_soonWeatherRequest.getDt_txt();
-                        s_soonTime = scnd_soonWeatherRequest.getDt_txt();
-                        th_soonTime = thrd_soonWeatherRequest.getDt_txt();
+                        f_soonTime = fst_soonWeatherRequest.getDt_txt().substring(10);
+                        s_soonTime = scnd_soonWeatherRequest.getDt_txt().substring(10);
+                        th_soonTime = thrd_soonWeatherRequest.getDt_txt().substring(10);
                         //температура в ближайшие часы
-                        f_soonTemp = ((Float)fst_soonWeatherRequest.getMain().getTemp()).toString();
-                        s_soonTemp = ((Float)scnd_soonWeatherRequest.getMain().getTemp()).toString();
-                        th_soonTemp = ((Float)thrd_soonWeatherRequest.getMain().getTemp()).toString();
+                        f_soonTemp = ((Integer)fst_soonWeatherRequest.getMain().getTemp()).toString();
+                        s_soonTemp = ((Integer)scnd_soonWeatherRequest.getMain().getTemp()).toString();
+                        th_soonTemp = ((Integer)thrd_soonWeatherRequest.getMain().getTemp()).toString();
                         sendWeatherDataToMyData();
 
 //                        handler.post(new Runnable() {
@@ -141,7 +143,10 @@ public class WeatherLoader {
                     }
                 }
 
-            }).start();
+            });
+                    myData.setWeatherLoaderThread(myThread);
+                    myData.getWeatherLoaderThread().start();
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
