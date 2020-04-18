@@ -77,18 +77,16 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         scndDayTextView = view.findViewById(R.id.scndDayTextView);
         trdDayTextView = view.findViewById(R.id.trdDayTextView);
         fourthDayTextView = view.findViewById(R.id.fourthDayTextView);
-        fifthfDayTextView = view.findViewById(R.id.fifthfDayTextView);
-        sixDayTextView = view.findViewById(R.id.sixDayTextView);
-        svnDayTextView = view.findViewById(R.id.svnDayTextView);
+
+
 
         //Температура по дням недели
         firstDayTempText = view.findViewById(R.id.firstDayTempText);
         scndDayTempText = view.findViewById(R.id.scndDayTempText);
         trdDayTempText = view.findViewById(R.id.trdDayTempText);
         fourthDayTempText = view.findViewById(R.id.fourthDayTempText);
-        fifthDayTempText = view.findViewById(R.id.fifthDayTempText);
-        sixDayTempText = view.findViewById(R.id.sixDayTempText);
-        svnDayTempText = view.findViewById(R.id.svnDayTempText);
+
+
 
     }
 

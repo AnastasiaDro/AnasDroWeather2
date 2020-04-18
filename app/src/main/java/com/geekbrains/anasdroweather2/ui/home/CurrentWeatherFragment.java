@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -85,7 +86,6 @@ WeatherLoader weatherLoader;
         temperatureTextView = view.findViewById(R.id.temperatureTextView);
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
-        weatherImageView = view.findViewById(R.id.weatherImage);
         System.out.println();
     }
 
@@ -158,7 +158,8 @@ WeatherLoader weatherLoader;
         handler.post(new Runnable() {
             @Override
             public void run() {
-                temperatureTextView.setText(myData.getCurrentTemp());
+                String forTemp = myData.getCurrentTemp() + " \u2103";
+                temperatureTextView.setText(forTemp);
                 String forWind = getString(R.string.wind) + " " + myData.getCurrentWind();
                 windTextView.setText(forWind);
                 String forPressure = getString(R.string.pressure) + " " + myData.getCurrentPressure();

@@ -14,6 +14,7 @@
     <string name="home_second">Home Second</string>
 
     <string name="city">City</string>
+    <string name="nextDays">Next days</string>
     <string name="tWeather">t</string>
     <string name="pressure">pressure</string>
     <string name="wind">wind</string>
@@ -41,5 +42,10 @@
 
     <string name="tempMax">Max</string>
     <string name="tempMin">Min</string>
+
+
+    <string name="tomorrow">Tomorrow</string>
+    <string name="anotehrDay">Another day</string>
+
 
 </resources>

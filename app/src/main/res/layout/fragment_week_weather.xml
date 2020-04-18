@@ -13,11 +13,11 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/nextDaysText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="@string/nextDays" />
         </TableRow>
 
         <TableRow
@@ -49,26 +49,6 @@
 
             <TextView
                 android:id="@+id/fourthDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/fifthfDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/sixDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/svnDayTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -111,26 +91,6 @@
                 android:gravity="center"
                 />
 
-            <TextView
-                android:id="@+id/fifthDayTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/sixDayTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/svnDayTempText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:gravity="center"/>
         </TableRow>
 
         <TableRow

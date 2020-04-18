@@ -101,9 +101,9 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                 th_soonTimeView.setText(myData.getTh_soonTime());
 
 
-                f_soonTempText.setText(myData.getF_soonTemp());
-                s_soonTempText.setText(myData.getS_soonTemp());
-                th_soonTempText.setText(myData.getTh_soonTemp());
+                f_soonTempText.setText(myData.getF_soonTemp()+ " \u2103");
+                s_soonTempText.setText(myData.getS_soonTemp()+ " \u2103");
+                th_soonTempText.setText(myData.getTh_soonTemp()+ " \u2103");
             }
         });
     }
