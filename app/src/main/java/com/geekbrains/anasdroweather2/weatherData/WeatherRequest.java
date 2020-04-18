@@ -8,15 +8,16 @@ package com.geekbrains.anasdroweather2.weatherData;
         private Clouds clouds;
         private String name;
 
-        public Dt_txt getDt_txt() {
+        private String dt_txt;
+
+        public String getDt_txt() {
             return dt_txt;
         }
 
-        public void setDt_txt(Dt_txt dt_txt) {
+        public void setDt_txt(String dt_txt) {
             this.dt_txt = dt_txt;
         }
 
-        private Dt_txt dt_txt;
 
         public Coord getCoord() {
             return coord;

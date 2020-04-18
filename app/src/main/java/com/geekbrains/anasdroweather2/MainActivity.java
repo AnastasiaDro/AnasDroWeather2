@@ -2,6 +2,7 @@ package com.geekbrains.anasdroweather2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -54,12 +56,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         myData = MyData.getInstance();
+        weatherLoader = new WeatherLoader();
+        //выгрузим погодные данные
+        weatherLoader.loadWeatherData();
         //работа с сохраненными настройками
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 

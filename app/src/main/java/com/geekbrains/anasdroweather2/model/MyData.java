@@ -61,6 +61,13 @@ public class MyData implements Observable {
 
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
+
+        currentTemp = null;
+        currentPressure = null;
+        currentWind = null;
+
+
+
     }
 
 

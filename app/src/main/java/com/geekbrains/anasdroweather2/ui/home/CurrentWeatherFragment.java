@@ -2,6 +2,7 @@ package com.geekbrains.anasdroweather2.ui.home;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -140,7 +141,16 @@ InterfaceChanger interfaceChanger;
 
 
 //Ставить текст
-        public void setWeatherValuesTextViews(String currentTemp, String current){
+        public void setWeatherValuesToTextViews(String currentTemp, String current){
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                temperatureTextView.setText(myData.getCurrentTemp());
+                windTextView.setText(myData.getCurrentWind());
+                pressureTextView.setText(myData.getCurrentPressure());
+            }
+        });
 
 
         }

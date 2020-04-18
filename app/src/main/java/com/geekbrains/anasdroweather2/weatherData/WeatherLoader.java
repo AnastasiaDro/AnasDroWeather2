@@ -44,12 +44,13 @@ public class WeatherLoader {
     String th_soonTemp;
 
 //Конструктор
-    public WeatherLoader(MyData myData){
-        myData = MyData.getInstance();
+    public WeatherLoader(){
+        this.myData = myData.getInstance();
         city = myData.getCurrentCity();
         currentTemp = null;
         currentPressure = null;
         currentWind = null;
+
     }
 
 
@@ -61,13 +62,11 @@ public class WeatherLoader {
 
 
 //Основной метод выгрузки данных погоды с сервера. УПРОСТИТЬ
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void loadWeatherData() {
         try {
             final URL uri = new URL(createURL(city));
-            //нужен хэндлер
-            final Handler handler = new Handler();
             new Thread(new Runnable() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void run() {
                     try{
@@ -92,39 +91,47 @@ public class WeatherLoader {
 
 
                         System.out.println("Размер массива: " + jsonArray.length());
-                        //строка с данными текущей погоды
-                        String curWeathString = currentWeatherJson.toString();
-                        //строка с данными погоды через 3 часа
-                        String fst_soonWeatherString = fst_soonWeatherJson.toString();
-                        //Строка с данными погоды через 6 часов
-                        String scnd_soonWeatherString = scnd_soonWeatherJson.toString();
-                        //Строка с данными погоды через 9 часов
-                        final String thrd_soonWeatherString = thrd_soonWeatherJson.toString();
 
+
+
+//                        //строка с данными текущей погоды
+                        String curWeathString = currentWeatherJson.toString();
+//                        //строка с данными погоды через 3 часа
+                        String fst_soonWeatherString = fst_soonWeatherJson.toString();
+//                        //Строка с данными погоды через 6 часов
+                        String scnd_soonWeatherString = scnd_soonWeatherJson.toString();
+//                        //Строка с данными погоды через 9 часов
+                        String thrd_soonWeatherString = thrd_soonWeatherJson.toString();
                         Gson gson = new Gson();
+
                         final WeatherRequest currentWeatherRequest = gson.fromJson(curWeathString, WeatherRequest.class);
                         final WeatherRequest fst_soonWeatherRequest = gson.fromJson(fst_soonWeatherString, WeatherRequest.class);
                         final WeatherRequest scnd_soonWeatherRequest = gson.fromJson(scnd_soonWeatherString, WeatherRequest.class);
                         final WeatherRequest thrd_soonWeatherRequest = gson.fromJson(thrd_soonWeatherString, WeatherRequest.class);
 
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-             //вытаскиваем данные
-                        //текущие данные
-                                currentTemp = ((Float)currentWeatherRequest.getMain().getTemp()).toString();
-                                currentPressure = ((Integer)currentWeatherRequest.getMain().getPressure()).toString();
-                                currentWind = ((Float)currentWeatherRequest.getWind().getSpeed()).toString();
-             //ближайшие часы (время)
-                                f_soonTime = fst_soonWeatherRequest.getDt_txt().getDt_txt();
-                                s_soonTime = scnd_soonWeatherRequest.getDt_txt().getDt_txt();
-                                th_soonTime = thrd_soonWeatherRequest.getDt_txt().getDt_txt();
-              //температура в ближайшие часы
-                                f_soonTemp = ((Float)fst_soonWeatherRequest.getMain().getTemp()).toString();
-                                s_soonTemp = ((Float)scnd_soonWeatherRequest.getMain().getTemp()).toString();
-                                th_soonTemp = ((Float)thrd_soonWeatherRequest.getMain().getTemp()).toString();
-                            }
-                        });
+
+
+                        currentTemp = ((Float)currentWeatherRequest.getMain().getTemp()).toString();
+                        currentPressure = ((Integer)currentWeatherRequest.getMain().getPressure()).toString();
+                        currentWind = ((Float)currentWeatherRequest.getWind().getSpeed()).toString();
+                        //ближайшие часы (время)
+                        f_soonTime = fst_soonWeatherRequest.getDt_txt();
+                        s_soonTime = scnd_soonWeatherRequest.getDt_txt();
+                        th_soonTime = thrd_soonWeatherRequest.getDt_txt();
+                        //температура в ближайшие часы
+                        f_soonTemp = ((Float)fst_soonWeatherRequest.getMain().getTemp()).toString();
+                        s_soonTemp = ((Float)scnd_soonWeatherRequest.getMain().getTemp()).toString();
+                        th_soonTemp = ((Float)thrd_soonWeatherRequest.getMain().getTemp()).toString();
+                        sendWeatherDataToMyData();
+
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//             //вытаскиваем данные
+//                        //текущие данные
+//
+//                            }
+//                        });
                     } catch (ProtocolException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -132,13 +139,9 @@ public class WeatherLoader {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    sendWeatherDataToMyData();
-
-
                 }
-            }).start();
 
+            }).start();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -146,7 +149,7 @@ public class WeatherLoader {
     }
 
     //сохраним полученные данные в MyData
-    public void sendWeatherDataToMyData() {
+    private void sendWeatherDataToMyData() {
         myData.setCurrentTemp(currentTemp);
         myData.setCurrentPressure(currentPressure);
         myData.setCurrentWind(currentWind);
@@ -158,7 +161,6 @@ public class WeatherLoader {
         myData.setF_soonTemp(f_soonTemp);
         myData.setS_soonTemp(s_soonTemp);
         myData.setTh_soonTemp(th_soonTemp);
-
     }
 
 
