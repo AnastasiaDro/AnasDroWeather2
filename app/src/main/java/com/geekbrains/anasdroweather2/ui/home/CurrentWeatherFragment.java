@@ -94,7 +94,8 @@ InterfaceChanger interfaceChanger;
 
     @Override
     public void updateViewData() {
-         cityTextView.setText(myData.getCurrentCity());
+        cityTextView.setText(myData.getCurrentCity());
+
     }
 
 //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
@@ -136,6 +137,14 @@ InterfaceChanger interfaceChanger;
             pressureTextView.setVisibility(View.INVISIBLE);
         }
     }
+
+
+//Ставить текст
+        public void setWeatherValuesTextViews(String currentTemp, String current){
+
+
+        }
+
 
 
 }

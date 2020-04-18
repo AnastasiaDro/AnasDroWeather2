@@ -20,6 +20,8 @@ import java.util.Locale;
 
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
+    NavController navController;
+
     private static MyData instance;
     public List<Observer> observers;
     //узнаем время
@@ -27,13 +29,24 @@ public class MyData implements Observable {
     int currentHour;
     private ArrayList <String> citiesList;
     private int[] lastSearchCitiesArr;
-
-
-
-    NavController navController;
-
-
     String currentCity;
+
+    //текущая погодные данные
+    String currentTemp;
+    String currentPressure;
+    String currentWind;
+
+    //ближайшие часы (время)
+    String f_soonTime;
+    String s_soonTime;
+    String th_soonTime;
+
+    //температура в ближайшие часы
+    String f_soonTemp;
+    String s_soonTemp;
+    String th_soonTemp;
+
+
 
     private MyData() {
         currentCity = "Moscow";
@@ -48,8 +61,6 @@ public class MyData implements Observable {
 
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
-
-
     }
 
 
@@ -133,5 +144,81 @@ public class MyData implements Observable {
     }
 
 
+    //установка погодных данных
 
+
+    public void setCurrentTemp(String currentTemp) {
+        this.currentTemp = currentTemp;
+    }
+
+    public void setCurrentPressure(String currentPressure) {
+        this.currentPressure = currentPressure;
+    }
+
+    public void setCurrentWind(String currentWind) {
+        this.currentWind = currentWind;
+    }
+
+    public void setF_soonTime(String f_soonTime) {
+        this.f_soonTime = f_soonTime;
+    }
+
+    public void setS_soonTime(String s_soonTime) {
+        this.s_soonTime = s_soonTime;
+    }
+
+    public void setTh_soonTime(String th_soonTime) {
+        this.th_soonTime = th_soonTime;
+    }
+
+    public void setF_soonTemp(String f_soonTemp) {
+        this.f_soonTemp = f_soonTemp;
+    }
+
+    public void setS_soonTemp(String s_soonTemp) {
+        this.s_soonTemp = s_soonTemp;
+    }
+
+    public void setTh_soonTemp(String th_soonTemp) {
+        this.th_soonTemp = th_soonTemp;
+    }
+
+    //Забор погодных данных
+
+
+    public String getCurrentTemp() {
+        return currentTemp;
+    }
+
+    public String getCurrentPressure() {
+        return currentPressure;
+    }
+
+    public String getCurrentWind() {
+        return currentWind;
+    }
+
+    public String getF_soonTime() {
+        return f_soonTime;
+    }
+
+    public String getS_soonTime() {
+        return s_soonTime;
+    }
+
+    public String getTh_soonTime() {
+        return th_soonTime;
+    }
+
+    public String getF_soonTemp() {
+        return f_soonTemp;
+    }
+
+    public String getS_soonTemp() {
+        return s_soonTemp;
+    }
+
+    public String getTh_soonTemp() {
+        return th_soonTemp;
+    }
 }

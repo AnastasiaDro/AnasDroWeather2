@@ -3,6 +3,8 @@ package com.geekbrains.anasdroweather2.weatherData;
 
 import android.os.Build;
 import android.os.Handler;
+
+import com.geekbrains.anasdroweather2.model.MyData;
 import com.google.gson.Gson;
 import androidx.annotation.RequiresApi;
 
@@ -21,11 +23,11 @@ import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера
-public class GetWeatherHelper {
+public class WeatherLoader {
 
     String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
-
     String city;
+    MyData myData;
 
     String currentTemp;
     String currentPressure;
@@ -42,8 +44,9 @@ public class GetWeatherHelper {
     String th_soonTemp;
 
 //Конструктор
-    public GetWeatherHelper(String city){
-        this.city = city;
+    public WeatherLoader(MyData myData){
+        myData = MyData.getInstance();
+        city = myData.getCurrentCity();
         currentTemp = null;
         currentPressure = null;
         currentWind = null;
@@ -57,7 +60,8 @@ public class GetWeatherHelper {
     }
 
 
-    private void getWeatherData() {
+//Основной метод выгрузки данных погоды с сервера. УПРОСТИТЬ
+    public void loadWeatherData() {
         try {
             final URL uri = new URL(createURL(city));
             //нужен хэндлер
@@ -107,6 +111,7 @@ public class GetWeatherHelper {
                             @Override
                             public void run() {
              //вытаскиваем данные
+                        //текущие данные
                                 currentTemp = ((Float)currentWeatherRequest.getMain().getTemp()).toString();
                                 currentPressure = ((Integer)currentWeatherRequest.getMain().getPressure()).toString();
                                 currentWind = ((Float)currentWeatherRequest.getWind().getSpeed()).toString();
@@ -114,14 +119,10 @@ public class GetWeatherHelper {
                                 f_soonTime = fst_soonWeatherRequest.getDt_txt().getDt_txt();
                                 s_soonTime = scnd_soonWeatherRequest.getDt_txt().getDt_txt();
                                 th_soonTime = thrd_soonWeatherRequest.getDt_txt().getDt_txt();
-
               //температура в ближайшие часы
-                                String f_soonTemp;
-                                String s_soonTemp;
-                                String th_soonTemp;
-
-
-                                temperatureText.setText(((Float)weatherRequest.getMain().getTemp()).toString());
+                                f_soonTemp = ((Float)fst_soonWeatherRequest.getMain().getTemp()).toString();
+                                s_soonTemp = ((Float)scnd_soonWeatherRequest.getMain().getTemp()).toString();
+                                th_soonTemp = ((Float)thrd_soonWeatherRequest.getMain().getTemp()).toString();
                             }
                         });
                     } catch (ProtocolException e) {
@@ -131,12 +132,32 @@ public class GetWeatherHelper {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    sendWeatherDataToMyData();
+
+
                 }
             }).start();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    //сохраним полученные данные в MyData
+    public void sendWeatherDataToMyData() {
+        myData.setCurrentTemp(currentTemp);
+        myData.setCurrentPressure(currentPressure);
+        myData.setCurrentWind(currentWind);
+
+        myData.setF_soonTime(f_soonTime);
+        myData.setS_soonTime(s_soonTime);
+        myData.setTh_soonTime(th_soonTime);
+
+        myData.setF_soonTemp(f_soonTemp);
+        myData.setS_soonTemp(s_soonTemp);
+        myData.setTh_soonTemp(th_soonTemp);
 
     }
 

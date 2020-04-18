@@ -28,16 +28,19 @@ import com.geekbrains.anasdroweather2.ui.home.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter implements Observer, Filterable {
+//public class MyAdapter extends RecyclerView.Adapter implements Observer, Filterable {
 
+public class MyAdapter extends RecyclerView.Adapter implements Observer {
     MyData myData;
-    ArrayList <String> citiesListFull;
+    //ArrayList <String> citiesListFull;
     ArrayList <String> citiesList;
 
     public MyAdapter() {
         this.myData = MyData.getInstance();
-        this.citiesListFull = myData.getCitiesList();
-        citiesList = new ArrayList(citiesListFull);
+        //this.citiesListFull = myData.getCitiesList();
+//        citiesList = new ArrayList();
+//        citiesList.addAll(citiesListFull);
+        this.citiesList = myData.getCitiesList();
     }
 
     @NonNull
@@ -108,36 +111,36 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer, Filtera
 
     }
 
-    @Override
-    public Filter getFilter() {
-        return citiesListFilter;
-    }
-
-    private Filter citiesListFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List <String> filteredList = new <String> ArrayList();
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(citiesListFull);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for(String item : citiesListFull) {
-                    if (item.toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            citiesList.clear();
-            citiesList.addAll((List)results.values);
-            notifyDataSetChanged();
-        }
-    };
+//    @Override
+//    public Filter getFilter() {
+//        return citiesListFilter;
+//    }
+//
+//    private Filter citiesListFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            List <String> filteredList = new <String> ArrayList();
+//            if (constraint == null || constraint.length() == 0){
+//                filteredList.addAll(citiesListFull);
+//            } else {
+//                String filterPattern = constraint.toString().toLowerCase().trim();
+//                for(String item : citiesListFull) {
+//                    if (item.toLowerCase().contains(filterPattern)){
+//                        filteredList.add(item);
+//                    }
+//                }
+//            }
+//            FilterResults results = new FilterResults();
+//            results.values = filteredList;
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            citiesList.clear();
+//            citiesList.addAll((List)results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 }
 

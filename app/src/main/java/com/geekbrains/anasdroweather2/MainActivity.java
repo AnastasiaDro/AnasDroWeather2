@@ -14,6 +14,7 @@ import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
 import com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment;
+import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     private MyData myData;
     NavController navController;
 
+    WeatherLoader weatherLoader;
+
 
 
     @Override
@@ -59,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         myData = MyData.getInstance();
         //работа с сохраненными настройками
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);

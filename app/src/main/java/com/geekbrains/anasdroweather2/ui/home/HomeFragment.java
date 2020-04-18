@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment implements ActivMethods {
         currentWeathPlaceId = R.id.currentWeatherFrame;
         dayWeathPlaceId = R.id.dayWeatherFrame;
         weekWeathPlaceId = R.id.weekWeatherFrame;
-       // curWeathFragment = new CurrentWeatherFragment();
         curWeathFragment = CurrentWeatherFragment.newInstance();
         curWeathFragment.postFragment(mainActivity, currentWeathPlaceId);
 
@@ -86,6 +85,8 @@ public class HomeFragment extends Fragment implements ActivMethods {
         weekWeatherFragment.postFragment(mainActivity, weekWeathPlaceId);
 
     }
+
+
 
 
 
