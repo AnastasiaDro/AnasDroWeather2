@@ -91,6 +91,9 @@ public class WeatherLoader {
                         //погода через 9 часов
                         JSONObject thrd_soonWeatherJson = jsonArray.getJSONObject(3);
 
+                        //Самый последний погода
+
+
 
                         System.out.println("Размер массива: " + jsonArray.length());
 
@@ -105,6 +108,9 @@ public class WeatherLoader {
 //                        //Строка с данными погоды через 9 часов
                         String thrd_soonWeatherString = thrd_soonWeatherJson.toString();
                         Gson gson = new Gson();
+
+                            //Получаем данные ближайших дней... ух!
+
 
                         final WeatherRequest currentWeatherRequest = gson.fromJson(curWeathString, WeatherRequest.class);
                         final WeatherRequest fst_soonWeatherRequest = gson.fromJson(fst_soonWeatherString, WeatherRequest.class);
@@ -124,21 +130,16 @@ public class WeatherLoader {
                         f_soonTemp = ((Integer)fst_soonWeatherRequest.getMain().getTemp()).toString();
                         s_soonTemp = ((Integer)scnd_soonWeatherRequest.getMain().getTemp()).toString();
                         th_soonTemp = ((Integer)thrd_soonWeatherRequest.getMain().getTemp()).toString();
+
+                        //Температура в ближайшщие дни
+
+
                         sendWeatherDataToMyData();
 
-//                        handler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//             //вытаскиваем данные
-//                        //текущие данные
-//
-//                            }
-//                        });
-                    } catch (ProtocolException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
+
+
+
+                    } catch (IOException | JSONException e) {
                         e.printStackTrace();
                     }
                 }
