@@ -46,6 +46,9 @@
 
     <string name="tomorrow">Tomorrow</string>
     <string name="anotehrDay">Another day</string>
+    <string name="enterCity">Enter city</string>
 
+    <string name="connectionError">Connection error</string>
+    <string name="adviceConnectonError">Check network connection</string>
 
 </resources>

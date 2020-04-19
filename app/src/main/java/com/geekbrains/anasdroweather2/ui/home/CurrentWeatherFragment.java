@@ -36,8 +36,10 @@ private TextView pressureTextView;
 private TextView windTextView;
 private ImageView weatherImageView;
 private MyData myData;
-InterfaceChanger interfaceChanger;
-WeatherLoader weatherLoader;
+private InterfaceChanger interfaceChanger;
+private WeatherLoader weatherLoader;
+private String windString;
+private String pressureString;
 
 
     public static CurrentWeatherFragment newInstance(){
@@ -56,7 +58,10 @@ WeatherLoader weatherLoader;
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
-        weatherLoader = new WeatherLoader();
+        windString = getString(R.string.wind);
+        pressureString = getString(R.string.pressure);
+
+        weatherLoader = new WeatherLoader(getContext());
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
@@ -76,6 +81,13 @@ WeatherLoader weatherLoader;
         findViews(view);
         updateViewData();
         updateInterfaceViewData();
+
+        //выведем ошибку об отсутствии сети, если эта ошибка была при загрузке погодных данных
+        if (myData.getExceptionWhileLoading() != null){
+            weatherLoader.showExceptionAlert(R.string.connectionError, R.string.adviceConnectonError);
+            myData.setExceptionWhileLoading(null);
+        }
+
         return view;
     }
 
@@ -160,10 +172,11 @@ WeatherLoader weatherLoader;
             public void run() {
                 String forTemp = myData.getCurrentTemp() + " \u2103";
                 temperatureTextView.setText(forTemp);
-                String forWind = getString(R.string.wind) + " " + myData.getCurrentWind();
-                windTextView.setText(forWind);
-                String forPressure = getString(R.string.pressure) + " " + myData.getCurrentPressure();
-                pressureTextView.setText(forPressure);
+                windString = windString.concat(" "+myData.getCurrentWind());
+              //  String forWind = myData.getCurrentWind();
+                windTextView.setText(windString);
+                pressureString = pressureString.concat(" " + myData.getCurrentPressure());
+                pressureTextView.setText(pressureString);
             }
         });
 

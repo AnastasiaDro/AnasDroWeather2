@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         myData = MyData.getInstance();
-        weatherLoader = new WeatherLoader();
+        weatherLoader = new WeatherLoader(this);
         //выгрузим погодные данные
         weatherLoader.loadWeatherData();
         //работа с сохраненными настройками
@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 //мое
 
         interfaceChanger.setAutoTheme(this, toolbar);
+
+
+
     }
 
     @Override

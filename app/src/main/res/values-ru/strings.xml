@@ -46,5 +46,9 @@
 
     <string name="tomorrow">Завтра</string>
     <string name="anotehrDay">Другой день</string>
+    <string name="enterCity">Введите город</string>
+
+    <string name="connectionError">Ошибка соединения</string>
+    <string name="adviceConnectonError">Проверьте подключение к интернету</string>
 
 </resources>

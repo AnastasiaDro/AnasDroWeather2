@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.model;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.navigation.NavController;
 
@@ -22,6 +23,10 @@ import java.util.Locale;
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
     NavController navController;
+
+
+
+    Exception exceptionWhileLoading;
 
 
 
@@ -49,6 +54,7 @@ public class MyData implements Observable {
     String f_soonTemp;
     String s_soonTemp;
     String th_soonTemp;
+    Context context;
 
 
     public Thread getWeatherLoaderThread() {
@@ -78,6 +84,7 @@ public class MyData implements Observable {
         currentWind = null;
         weatherLoaderThread = new Thread();
 
+        exceptionWhileLoading = null;
     }
 
 
@@ -116,10 +123,8 @@ public class MyData implements Observable {
             observer.updateViewData();
         }
     }
-//данные о текущей погоде для CurrentWeatherFragment
-    public void getDataForNow() {
-        //заполнить
-    }
+
+
 
 //Высчитать текущий час
     private int takeCurrentHour(Date currentDate) {
@@ -238,4 +243,13 @@ public class MyData implements Observable {
     public String getTh_soonTemp() {
         return th_soonTemp;
     }
+
+    public void setExceptionWhileLoading(Exception exceptionWhileLoading) {
+        this.exceptionWhileLoading = exceptionWhileLoading;
+    }
+
+    public Exception getExceptionWhileLoading() {
+        return exceptionWhileLoading;
+    }
+
 }

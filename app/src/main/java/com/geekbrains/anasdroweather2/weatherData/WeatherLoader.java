@@ -1,12 +1,18 @@
 package com.geekbrains.anasdroweather2.weatherData;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 
+import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.google.gson.Gson;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +33,7 @@ public class WeatherLoader {
     Thread myThread;
 
     String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
+   // String url_maket = "https://api.openweathermap.org//2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
     String city;
     MyData myData;
 
@@ -43,14 +50,18 @@ public class WeatherLoader {
     String f_soonTemp;
     String s_soonTemp;
     String th_soonTemp;
+    Context context;
+    Exception e;
 
 //Конструктор
-    public WeatherLoader(){
+    public WeatherLoader(Context context){
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
         currentTemp = null;
         currentPressure = null;
         currentWind = null;
+        this.context = context;
+        e = new Exception();
 
     }
 
@@ -139,7 +150,12 @@ public class WeatherLoader {
 
 
 
-                    } catch (IOException | JSONException e) {
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Looper.prepare();
+                        myData.setExceptionWhileLoading(e);
+
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -169,6 +185,38 @@ public class WeatherLoader {
         myData.setTh_soonTemp(th_soonTemp);
     }
 
+        public void showExceptionAlert(final int exceptionStringId, final int adviceStringId) {
 
+//            final Handler handler = new Handler();
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    builder.setTitle(exceptionStringId);
+//                    builder.setMessage(adviceStringId);
+//                    builder.setCancelable(false);
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//                    AlertDialog alert = builder.create();
+//                    alert.show();
+//                }
+//            });
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(exceptionStringId);
+            builder.setMessage(adviceStringId);
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
 
 }

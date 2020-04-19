@@ -68,6 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
     @Override
     public void updateViewData() {
         citiesList = myData.getCitiesList();
+        this.notifyDataSetChanged();
     }
 
 

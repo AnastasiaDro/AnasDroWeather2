@@ -1,21 +1,15 @@
 package com.geekbrains.anasdroweather2.ui.slideshow;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,16 +21,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.geekbrains.anasdroweather2.MainActivity;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.ActivMethods;
-import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
-import com.geekbrains.anasdroweather2.ui.home.CurrentWeatherFragment;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
-
-import org.w3c.dom.ls.LSOutput;
 
 public class SlideshowFragment extends Fragment implements ActivMethods, CompoundButton.OnCheckedChangeListener {
 
@@ -50,6 +39,8 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     CheckBox windCheckBox;
     CheckBox pressuCheckBox;
     Switch autoThemeSwitch;
+    Button addNewBtn;
+    AddNewClickListener addNewClickListener;
 
     Toolbar toolbar;
 
@@ -76,6 +67,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getActivity());
         init();
         initRecycler(root);
+        initClickListeners();
         updateInterfaceChanger();
 
         return root;
@@ -87,10 +79,17 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         windCheckBox = root.findViewById(R.id.windCheckBox);
         pressuCheckBox = root.findViewById(R.id.pressuCheckBox);
         autoThemeSwitch= root.findViewById(R.id.autoThemeSwitch);
+        addNewBtn = root.findViewById(R.id.addNewCityBtn);
         toolbar = this.getActivity().findViewById(R.id.toolbar);
         registerCheckBoxListeners();
         activateSwitch(autoThemeSwitch);
     }
+
+    private void initClickListeners() {
+        addNewClickListener = new AddNewClickListener();
+        addNewBtn.setOnClickListener(addNewClickListener);
+    }
+
 
 
     public void updateInterfaceChanger() {
@@ -196,6 +195,9 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
             default:   return super.onContextItemSelected(item);
         }
     }
+
+
+
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
