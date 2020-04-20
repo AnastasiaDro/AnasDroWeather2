@@ -27,6 +27,8 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
 
+import static java.lang.Integer.parseInt;
+
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
 //используемые View
@@ -34,13 +36,16 @@ private TextView cityTextView;
 private TextView temperatureTextView;
 private TextView pressureTextView;
 private TextView windTextView;
+
+private ThermometerView thermometerView;
+
 private ImageView weatherImageView;
 private MyData myData;
 private InterfaceChanger interfaceChanger;
 private WeatherLoader weatherLoader;
 private String windString;
 private String pressureString;
-
+int currentTemp;
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
@@ -98,6 +103,7 @@ private String pressureString;
         temperatureTextView = view.findViewById(R.id.temperatureTextView);
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
+        thermometerView = view.findViewById(R.id.thermometerView);
         System.out.println();
     }
 
@@ -177,12 +183,19 @@ private String pressureString;
                 windTextView.setText(windString);
                 pressureString = pressureString.concat(" " + myData.getCurrentPressure());
                 pressureTextView.setText(pressureString);
+                currentTemp = parseInt(myData.getCurrentTemp());
+                compareTemp(currentTemp);
+
             }
         });
 
 
         }
 
+
+        private void compareTemp(int currentTemp){
+       thermometerView.changeTempColor(currentTemp);
+        }
 
 
 }
