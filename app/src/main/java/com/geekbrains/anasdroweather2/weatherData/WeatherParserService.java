@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class WeatherParserServise extends IntentService {
+public class WeatherParserService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -54,7 +54,7 @@ public class WeatherParserServise extends IntentService {
 //        myData = MyData.getInstance();
 //    }
 
-    public WeatherParserServise(String name, JSONObject jsonObject, int dataNumber) {
+    public WeatherParserService(String name, JSONObject jsonObject, int dataNumber) {
         super(name);
         this.jsonObject = jsonObject;
         this.dataNumber = dataNumber;
@@ -77,5 +77,7 @@ public class WeatherParserServise extends IntentService {
             String [] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind};
             //сохраним массив в myData;
             takenWeatherData.put(dataNumber, weatherDataArr);
+            //Остановим сервис
+            stopSelf();
     }
 }

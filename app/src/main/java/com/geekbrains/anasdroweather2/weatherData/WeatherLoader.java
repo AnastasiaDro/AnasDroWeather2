@@ -2,6 +2,7 @@ package com.geekbrains.anasdroweather2.weatherData;
 
 
 import android.app.AlertDialog;
+import android.app.IntentService;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Looper;
 
 import com.geekbrains.anasdroweather2.model.MyData;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import org.json.JSONArray;
@@ -27,6 +29,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера
 public class WeatherLoader {
+    long startTime;
+    long endTime;
+
    private Thread myThread;
 
    private String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
@@ -42,7 +47,8 @@ public class WeatherLoader {
     private JSONObject jsonResponse;
 
 //Конструктор
-    public WeatherLoader(Context context){
+    public WeatherLoader(Context context)
+    {
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
         this.context = context;
@@ -66,6 +72,7 @@ public class WeatherLoader {
             myThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    startTime = System.currentTimeMillis();
                     try{
                         HttpsURLConnection urlConnection;
                         urlConnection = (HttpsURLConnection) uri.openConnection();
@@ -81,9 +88,9 @@ public class WeatherLoader {
                         //переберём полученый массив и запустим на каждую полученную строку свой сервис-поток
                         //Боюсь, это слишком долго работает
                         for (int i = 0; i < 4; i++) {
-                            WeatherParserServise weatherParserServise = new WeatherParserServise("MyParser", jsonArray.getJSONObject(i), i);
-                            Intent intent = new Intent(context, WeatherParserServise.class);
-                            weatherParserServise.onHandleIntent(intent);
+                            WeatherParserService weatherParserService = new WeatherParserService("MyParser", jsonArray.getJSONObject(i), i);
+                            Intent intent = new Intent(context, WeatherParserService.class);
+                            weatherParserService.onHandleIntent(intent);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -96,6 +103,8 @@ public class WeatherLoader {
 
             });
                     myData.setWeatherLoaderThread(myThread);
+                    endTime = System.currentTimeMillis();
+                    System.out.println("Все выполнено за " + (endTime - startTime));
                     myData.getWeatherLoaderThread().start();
 
         } catch (MalformedURLException e) {

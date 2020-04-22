@@ -56,15 +56,10 @@ public class HomeFragment extends Fragment implements ActivMethods {
         init();
 //создаём изменитель интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(mainActivity);
-//изменяем тему, если это возможно, в соответствии с текущим временем
-
-
-
-        //final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-          //      textView.setText(s);
+
             }
         });
         return root;
