@@ -152,7 +152,6 @@ int currentTemp;
 
     @Override
     public void updateInterfaceViewData() {
-
 //
         windTextView.setVisibility(interfaceChanger.getIsWind());
         pressureTextView.setVisibility(interfaceChanger.getIsPressure());

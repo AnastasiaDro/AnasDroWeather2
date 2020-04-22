@@ -77,9 +77,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         ft.commit();
     }
 
-
-
-
     @Override
     public void updateViewData() {
         try {
@@ -99,8 +96,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                 f_soonTimeView.setText(myData.getF_soonTime());
                 s_soonTimeView.setText(myData.getS_soonTime());
                 th_soonTimeView.setText(myData.getTh_soonTime());
-
-
                 f_soonTempText.setText(myData.getF_soonTemp()+ " \u2103");
                 s_soonTempText.setText(myData.getS_soonTemp()+ " \u2103");
                 th_soonTempText.setText(myData.getTh_soonTemp()+ " \u2103");

@@ -26,7 +26,7 @@ public class MyData implements Observable {
 
 
 
-    Exception exceptionWhileLoading;
+    private Exception exceptionWhileLoading;
 
 
 
