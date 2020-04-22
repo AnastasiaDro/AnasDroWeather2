@@ -57,14 +57,10 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         //... место для аргументов
         myData = MyData.getInstance();
         myData.registerObserver(this);
-        Log.d("WeekWeatherFragment", "onCreate, added to obsrvers");
     }
 
     //создаем View
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        myData = MyData.getInstance();
-//        myData.registerObserver(this);
-//        Log.d("WeekWeatherFragment", "onCreate, added to obsrvers");
         View view = inflater.inflate(R.layout.fragment_week_weather, container, false);
         findViews(view);
         return view;
@@ -85,9 +81,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         scndDayTempText = view.findViewById(R.id.scndDayTempText);
         trdDayTempText = view.findViewById(R.id.trdDayTempText);
         fourthDayTempText = view.findViewById(R.id.fourthDayTempText);
-
-
-
     }
 
     @Override
@@ -108,10 +101,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        System.out.println("Список наблюдателей " + myData.observers.toString());
         myData.removeObserver(this);
-//        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
-//                Toast.LENGTH_LONG).show();
-        Log.d("WeekWeatherFragment", "removed from myData");
     }
 }

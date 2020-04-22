@@ -57,11 +57,8 @@ int currentTemp;
         Bundle args = new Bundle();
        // args.putInt("placeId", placeId);
        // currentWeatherFragment.setArguments(args);
-        Log.d("CurrentWeatherFragment", "Добавили в список Observer-ов");
         return currentWeatherFragment;
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -76,17 +73,10 @@ int currentTemp;
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
         myData.registerObserver(this);
-        Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
-    }
+           }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //не даём пересоздать фрагмент при повороте экрана
-     //   setRetainInstance(true);
-//        myData = MyData.getInstance();
-//        myData.registerObserver(this);
-        Log.d("CurrentWeatherFragment", "OnCreate, Added to obsrvers");
-
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
         updateViewData();
@@ -135,29 +125,17 @@ int currentTemp;
     }
 
 //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
-//// его из этого списка удалить
+// его из этого списка удалить
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        System.out.println("Список наблюдателей " + myData.observers.toString());
         myData.removeObserver(this);
-//        Toast.makeText(getActivity(), "FirstFragment.onDetach()",
-//                Toast.LENGTH_LONG).show();
-        Log.d("CurrentWeatherFragment", "removed from myData");
-
-        System.out.println("Список наблюдателей интерфейса " + interfaceChanger.interfaceObservers.toString());
         interfaceChanger.removeObserver(this);
-        System.out.println("Список наблюдателей интерфейса " + interfaceChanger.interfaceObservers.toString());
-
-    }
-
-
-
-
+       }
 
     @Override
     public void updateInterfaceViewData() {
-//
+//В зависимости от сохраненных настроек сделаем ветер и давление видимыми или невидимыми
         windTextView.setVisibility(interfaceChanger.getIsWind());
         pressureTextView.setVisibility(interfaceChanger.getIsPressure());
 
@@ -183,29 +161,21 @@ int currentTemp;
                 String [] dataArr = myData
                         .getAllWeatherDataHashMap()
                         .get(CURRENT_DATA_KEY_IN_HASHMAP);
-                String forTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY] + " \u2103";
+                String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
+                String forTemp = currentTemp.concat(" \u2103");
                 temperatureTextView.setText(forTemp);
                 windString = windString.concat(" "+dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
                 windTextView.setText(windString);
                 pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                 pressureTextView.setText(pressureString);
-//                String forTemp = myData.getCurrentTemp() + " \u2103";
-//                temperatureTextView.setText(forTemp);
-//                windString = windString.concat(" "+myData.getCurrentWind());
-//              //  String forWind = myData.getCurrentWind();
-//                windTextView.setText(windString);
-//                pressureString = pressureString.concat(" " + myData.getCurrentPressure());
-//                pressureTextView.setText(pressureString);
-//                currentTemp = parseInt(myData.getCurrentTemp());
-//                compareTemp(currentTemp);
-
+                //для изменения цвета полоски в градуснике
+                int temp = parseInt(currentTemp);
+                compareTemp(temp);
             }
         });
-
-
         }
 
-
+//в зависимости от температуры меняем цвет полоски в градуснике
         private void compareTemp(int currentTemp){
        thermometerView.changeTempColor(currentTemp);
         }

@@ -54,7 +54,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         //... место для аргументов
         myData = MyData.getInstance();
         myData.registerObserver(this);
-        Log.d("DayWeatherFragment", "onCreate, added to obsrvers");
     }
 
     //создаем View
@@ -123,6 +122,5 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     public void onDestroyView() {
         super.onDestroyView();
         myData.removeObserver(this);
-        Log.d("DayWeatherFragment", "removed from myData");
     }
 }

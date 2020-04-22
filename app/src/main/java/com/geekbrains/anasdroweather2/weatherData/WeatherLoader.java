@@ -2,29 +2,22 @@ package com.geekbrains.anasdroweather2.weatherData;
 
 
 import android.app.AlertDialog;
-import android.app.IntentService;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Looper;
-
 import com.geekbrains.anasdroweather2.model.MyData;
-
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.stream.Collectors;
-
 import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера

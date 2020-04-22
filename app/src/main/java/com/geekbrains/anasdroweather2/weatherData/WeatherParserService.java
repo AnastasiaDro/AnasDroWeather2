@@ -28,31 +28,10 @@ public class WeatherParserService extends IntentService {
     private String gotWind;
     HashMap <Integer, String[]> takenWeatherData;
 
-//    private String currentTime;
-//    private String currentTemp;
-//    private String currentPressure;
-//    private String currentWind;
-
-//    //ближайшие часы (время)
-//    private String f_soonTime;
-//    private String s_soonTime;
-//    private String th_soonTime;
-//
-//    //температура в ближайшие часы
-//    private String f_soonTemp;
-//    private String s_soonTemp;
-//    private String th_soonTemp;
-
-
     MyData myData;
     JSONArray jsonArray;
     JSONObject jsonObject;
     int dataNumber;
-//    public WeatherParserServise(String name, JSONArray jsonArray) {
-//        super(name);
-//        this.jsonArray = jsonArray;
-//        myData = MyData.getInstance();
-//    }
 
     public WeatherParserService(String name, JSONObject jsonObject, int dataNumber) {
         super(name);

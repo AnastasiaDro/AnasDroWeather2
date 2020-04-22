@@ -137,10 +137,6 @@ public class ThermometerView extends View {
     // изменить размер элемента. Если нам надо нарисовать свой элемент,
     // переопределяем этот метод и задаём новые размеры элементов внутри View
 
-   //TODO
-    //переделать рассчет размеров
-
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -152,15 +148,6 @@ public class ThermometerView extends View {
                 padding+headHeight,
                 width - padding*2 ,
                 height - padding);
-
-//        tailRect.set(width - padding - headWidth,
-//                2 * padding,
-//                width - padding,
-//                height - 2 * padding);
-//        tailRect.set(width - padding + headWidth,
-//                2 * padding,
-//                width - padding,
-//                height - 2 * padding);
 
         tailRect.set(padding*6,
                 padding,
@@ -186,15 +173,15 @@ public class ThermometerView extends View {
 
 
     public void changeTempColor(int currentTemp) {
-        if (currentTemp >0 && currentTemp < 16) {
+        if (currentTemp >=3 && currentTemp < 10) {
             tempColor = Color.parseColor("#81D4FA");
             level = 70;
         }
-        if (currentTemp < 0) {
+        if (currentTemp < 3) {
             tempColor = Color.parseColor("#3700B3");
             level = 90;
         }
-        if (currentTemp > 16) {
+        if (currentTemp >= 10) {
             tempColor = Color.parseColor("#e34234");
             level = 10;
         }

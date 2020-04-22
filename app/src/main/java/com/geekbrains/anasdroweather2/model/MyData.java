@@ -38,23 +38,6 @@ public class MyData implements Observable {
     private int[] lastSearchCitiesArr;
     String currentCity;
 
-    //текущая погодные данные
-    String currentTemp;
-    String currentPressure;
-    String currentWind;
-
-    //ближайшие часы (время)
-    String f_soonTime;
-    String s_soonTime;
-    String th_soonTime;
-
-    //температура в ближайшие часы
-    String f_soonTemp;
-    String s_soonTemp;
-    String th_soonTemp;
-    Context context;
-
-
     public Thread getWeatherLoaderThread() {
         return weatherLoaderThread;
     }
@@ -63,6 +46,9 @@ public class MyData implements Observable {
         this.weatherLoaderThread = weatherLoaderThread;
     }
 
+    //В этот Хэшмап будем класть все погодные данные int - порядковый номер в ArrayList-е,
+    //а массив строк - собственно данные: время, температура, давление, ветер
+    //соответствие номеров элементов массива значениям есть в классе Constants
     public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
         return allWeatherDataHashMap;
     }
@@ -76,6 +62,7 @@ public class MyData implements Observable {
         citiesList.add("Saint-Petersburg");
         citiesList.add("Kazan");
         citiesList.add("Sochi");
+        citiesList.add("Murmansk");
 
         //HashMap для всех погодных данных, которые из JsonArray.
         allWeatherDataHashMap = new HashMap<>();
@@ -84,12 +71,7 @@ public class MyData implements Observable {
 
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
-
-        currentTemp = null;
-        currentPressure = null;
-        currentWind = null;
         weatherLoaderThread = new Thread();
-
         exceptionWhileLoading = null;
     }
 
@@ -102,7 +84,6 @@ public class MyData implements Observable {
 //получим текущий час
         currentDate = new Date();
         currentDate.getTime();
-        //currentHour = takeCurrentHour(currentDate);
 //вернём MyData
         return instance;
     }
@@ -130,14 +111,11 @@ public class MyData implements Observable {
         }
     }
 
-
-
 //Высчитать текущий час
     private int takeCurrentHour(Date currentDate) {
         DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         String dateText = hourFormat.format(currentDate);
         currentHour = Integer.parseInt(dateText);
-      //  Log.d("takeCurrentHour", String.valueOf(currentHour));
         System.out.println("время = " + currentHour);
         return currentHour;
     }
@@ -156,104 +134,22 @@ public class MyData implements Observable {
     public String getCurrentCity() {
         return currentCity;
     }
-
-
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
     }
 
-
+    //Получим или изменим navController
     public NavController getNavController() {
         return navController;
     }
-
     public void setNavController(NavController navController) {
         this.navController = navController;
     }
 
-
-    //установка погодных данных
-
-
-    public void setCurrentTemp(String currentTemp) {
-        this.currentTemp = currentTemp;
-    }
-
-    public void setCurrentPressure(String currentPressure) {
-        this.currentPressure = currentPressure;
-    }
-
-    public void setCurrentWind(String currentWind) {
-        this.currentWind = currentWind;
-    }
-
-    public void setF_soonTime(String f_soonTime) {
-        this.f_soonTime = f_soonTime;
-    }
-
-    public void setS_soonTime(String s_soonTime) {
-        this.s_soonTime = s_soonTime;
-    }
-
-    public void setTh_soonTime(String th_soonTime) {
-        this.th_soonTime = th_soonTime;
-    }
-
-    public void setF_soonTemp(String f_soonTemp) {
-        this.f_soonTemp = f_soonTemp;
-    }
-
-    public void setS_soonTemp(String s_soonTemp) {
-        this.s_soonTemp = s_soonTemp;
-    }
-
-    public void setTh_soonTemp(String th_soonTemp) {
-        this.th_soonTemp = th_soonTemp;
-    }
-
-    //Забор погодных данных
-
-
-    public String getCurrentTemp() {
-        return currentTemp;
-    }
-
-    public String getCurrentPressure() {
-        return currentPressure;
-    }
-
-    public String getCurrentWind() {
-        return currentWind;
-    }
-
-    public String getF_soonTime() {
-        return f_soonTime;
-    }
-
-    public String getS_soonTime() {
-        return s_soonTime;
-    }
-
-    public String getTh_soonTime() {
-        return th_soonTime;
-    }
-
-    public String getF_soonTemp() {
-        return f_soonTemp;
-    }
-
-    public String getS_soonTemp() {
-        return s_soonTemp;
-    }
-
-    public String getTh_soonTemp() {
-        return th_soonTemp;
-    }
-
+    //Получим или изменим исключение
     public void setExceptionWhileLoading(Exception exceptionWhileLoading) {
         this.exceptionWhileLoading = exceptionWhileLoading;
     }
-
     public Exception getExceptionWhileLoading() {
         return exceptionWhileLoading;
     }
