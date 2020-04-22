@@ -1,7 +1,9 @@
 package com.geekbrains.anasdroweather2.weatherData;
 
 import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
@@ -20,8 +22,6 @@ public class WeatherParserService extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-
-
     private String gotTime;
     private String gotTemp;
     private String gotPressure;
@@ -31,21 +31,22 @@ public class WeatherParserService extends IntentService {
     MyData myData;
     JSONArray jsonArray;
     JSONObject jsonObject;
-    int dataNumber;
 
-    public WeatherParserService(String name, JSONObject jsonObject, int dataNumber) {
+    public WeatherParserService(String name, JSONArray jsonArray) {
         super(name);
-        this.jsonObject = jsonObject;
-        this.dataNumber = dataNumber;
+        this.jsonArray = jsonArray;
         myData = MyData.getInstance();
         takenWeatherData = myData.getAllWeatherDataHashMap();
     }
 
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public void onHandleIntent(@Nullable Intent intent) {
         //Получим данные объекта Json и спарсим их
-            String myJsonString = jsonObject.toString();
+        for (int i = 0; i < 4; i++) {
+            try {
+                jsonObject = jsonArray.getJSONObject(i);
+                String myJsonString = jsonObject.toString();
             Gson gson = new Gson();
             final WeatherRequest weatherRequest = gson.fromJson(myJsonString, WeatherRequest.class);
             gotTime = weatherRequest.getDt_txt().substring(10);
@@ -55,8 +56,14 @@ public class WeatherParserService extends IntentService {
             //Теперь положим все данные в массив
             String [] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind};
             //сохраним массив в myData;
-            takenWeatherData.put(dataNumber, weatherDataArr);
+            takenWeatherData.put(i, weatherDataArr);
             //Остановим сервис
             stopSelf();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                //без этой штуки почему-то вылетает
+            }
+        }
     }
 }

@@ -24,10 +24,16 @@ import java.util.Locale;
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
     NavController navController;
+   //Переменные для вывода сообщений об исключениях
     private Exception exceptionWhileLoading;
+    private int exceptionNameId;
+    private int exceptionAdviceId;
 
+    //В этот Хэшмап будем класть все погодные данные int - порядковый номер в ArrayList-е,
+    //а массив строк - собственно данные: время, температура, давление, ветер
+    //соответствие номеров элементов массива значениям есть в классе Constants
     private HashMap <Integer, String[]> allWeatherDataHashMap;
-
+    //поток, загружающий данные о погоде
     Thread weatherLoaderThread;
     private static MyData instance;
     public List<Observer> observers;
@@ -41,14 +47,11 @@ public class MyData implements Observable {
     public Thread getWeatherLoaderThread() {
         return weatherLoaderThread;
     }
-
     public void setWeatherLoaderThread(Thread weatherLoaderThread) {
         this.weatherLoaderThread = weatherLoaderThread;
     }
 
-    //В этот Хэшмап будем класть все погодные данные int - порядковый номер в ArrayList-е,
-    //а массив строк - собственно данные: время, температура, давление, ветер
-    //соответствие номеров элементов массива значениям есть в классе Constants
+   //Получим HashMap с погодными данными
     public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
         return allWeatherDataHashMap;
     }
@@ -63,18 +66,13 @@ public class MyData implements Observable {
         citiesList.add("Kazan");
         citiesList.add("Sochi");
         citiesList.add("Murmansk");
-
-        //HashMap для всех погодных данных, которые из JsonArray.
         allWeatherDataHashMap = new HashMap<>();
-
-//массив для сохранения последних городов
 
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
         weatherLoaderThread = new Thread();
         exceptionWhileLoading = null;
     }
-
 
 //сделаем наблюдаемый класс сингл-тоном
     public static MyData getInstance(){
@@ -93,7 +91,6 @@ public class MyData implements Observable {
     public void registerObserver(Observer observer) {
         observers.add(observer);
         System.out.println("Наблюдатель добавлен. Список наблюдателей " + observers.toString());
-
     }
 
 //удалить наблюдателя
@@ -147,11 +144,23 @@ public class MyData implements Observable {
     }
 
     //Получим или изменим исключение
-    public void setExceptionWhileLoading(Exception exceptionWhileLoading) {
+    public void setException(Exception exceptionWhileLoading) {
         this.exceptionWhileLoading = exceptionWhileLoading;
     }
-    public Exception getExceptionWhileLoading() {
+
+    public void setExceptionWhileLoading(Exception exceptionWhileLoading, int exceptionNameId, int exceptionAdviceId) {
+        this.exceptionWhileLoading = exceptionWhileLoading;
+        this.exceptionNameId = exceptionNameId;
+        this.exceptionAdviceId = exceptionAdviceId;
+    }
+    public Exception getException() {
         return exceptionWhileLoading;
     }
+    public int getExceptionNameId() {
+        return exceptionNameId;
+    }
 
+    public int getExceptionAdviceId() {
+        return exceptionAdviceId;
+    }
 }

@@ -1,5 +1,6 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
+import com.geekbrains.anasdroweather2.weatherData.WeatherParserService;
 
 import java.util.HashMap;
 
@@ -36,6 +38,8 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     String [] firstDataArr;
     String [] secondDataArr;
     String [] thirdDataArr;
+
+    String temp;
 
     private MyData myData;
 
@@ -87,36 +91,44 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
 
     @Override
     public void updateViewData() {
-        try {
-            myData.getWeatherLoaderThread().join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         setWeatherValuesToTextViews();
     }
 
     //Ставить текст
     public void setWeatherValuesToTextViews() {
         final Handler handler = new Handler();
+        try {
+            myData.getWeatherLoaderThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                HashMap <Integer, String[]> curHashMap = myData.getAllWeatherDataHashMap();
-                firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
-                fSoonTimeText.setText(firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
-                fSoonTempText.setText(firstDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
-
-                secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
-                sSoonTimeText.setText(secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
-                sSoonTempText.setText(secondDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
-
-                thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
-                thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
-                thSoonTempText.setText(thirdDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+                HashMap<Integer, String[]> curHashMap = myData.getAllWeatherDataHashMap();
+                System.out.println("Размер HashMap в myData " + myData.getAllWeatherDataHashMap().size());
+                try {
+                    //Через три часа
+                    firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
+                    fSoonTimeText.setText(firstDataArr != null ? firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
+                    temp = firstDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
+                    fSoonTempText.setText(temp);
+                    //Через 6 часов
+                    secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
+                    sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
+                    temp = secondDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
+                    sSoonTempText.setText(temp);
+                    //Через 9 часов
+                    thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
+                    thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
+                    temp = thirdDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
+                    thSoonTempText.setText(temp);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
-
 
     @Override
     public void onDestroyView() {

@@ -1,27 +1,19 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
-import android.app.Activity;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.geekbrains.anasdroweather2.ui.home.Constants;
-
-
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
@@ -38,19 +30,17 @@ private TextView cityTextView;
 private TextView temperatureTextView;
 private TextView pressureTextView;
 private TextView windTextView;
-
 private ThermometerView thermometerView;
-
+//затем сюда поставлю картинку с облаками/солнцем/дождем
 private ImageView weatherImageView;
 private MyData myData;
 private InterfaceChanger interfaceChanger;
 private WeatherLoader weatherLoader;
 private String windString;
 private String pressureString;
-int currentTemp;
 
 //номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
-    private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
+private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
@@ -67,8 +57,6 @@ int currentTemp;
         //... место для аргументов
         windString = getString(R.string.wind);
         pressureString = getString(R.string.pressure);
-
-        weatherLoader = new WeatherLoader(getContext());
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
@@ -81,16 +69,8 @@ int currentTemp;
         findViews(view);
         updateViewData();
         updateInterfaceViewData();
-
-        //выведем ошибку об отсутствии сети, если эта ошибка была при загрузке погодных данных
-        if (myData.getExceptionWhileLoading() != null){
-            weatherLoader.showExceptionAlert(R.string.connectionError, R.string.adviceConnectonError);
-            myData.setExceptionWhileLoading(null);
-        }
-
         return view;
     }
-
 
     @Override
     public void findViews(View view) {
@@ -115,12 +95,6 @@ int currentTemp;
     @Override
     public void updateViewData() {
         cityTextView.setText(myData.getCurrentCity());
-        weatherLoader.loadWeatherData();
-        try {
-            myData.getWeatherLoaderThread().join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         setWeatherValuesToTextViews();
     }
 
@@ -138,7 +112,6 @@ int currentTemp;
 //В зависимости от сохраненных настроек сделаем ветер и давление видимыми или невидимыми
         windTextView.setVisibility(interfaceChanger.getIsWind());
         pressureTextView.setVisibility(interfaceChanger.getIsPressure());
-
         if (interfaceChanger.getIsWind() == View.VISIBLE) {
             windTextView.setVisibility(View.VISIBLE);
         } else {
@@ -153,15 +126,16 @@ int currentTemp;
 
 
 //Ставить текст
-        public void setWeatherValuesToTextViews(){
+        public void setWeatherValuesToTextViews()  {
         final Handler handler = new Handler();
-        handler.post(new Runnable() {
+            handler.post(new Runnable() {
             @Override
             public void run() {
                 String [] dataArr = myData
                         .getAllWeatherDataHashMap()
                         .get(CURRENT_DATA_KEY_IN_HASHMAP);
-                String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
+                try {
+                    String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
                 String forTemp = currentTemp.concat(" \u2103");
                 temperatureTextView.setText(forTemp);
                 windString = windString.concat(" "+dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
@@ -171,14 +145,14 @@ int currentTemp;
                 //для изменения цвета полоски в градуснике
                 int temp = parseInt(currentTemp);
                 compareTemp(temp);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         });
         }
-
 //в зависимости от температуры меняем цвет полоски в градуснике
         private void compareTemp(int currentTemp){
        thermometerView.changeTempColor(currentTemp);
         }
-
-
 }
