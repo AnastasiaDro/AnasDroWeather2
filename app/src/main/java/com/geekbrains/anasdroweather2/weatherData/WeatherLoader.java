@@ -5,12 +5,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
+
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
+
 import androidx.annotation.RequiresApi;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.stream.Collectors;
+
 import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера
@@ -69,8 +74,8 @@ public class WeatherLoader {
                         jsonArray = jsonResponse.getJSONArray("list");
                         //мои котовасии
                     } catch (java.io.FileNotFoundException e) {
-                            e.printStackTrace();
-                            myData.setExceptionWhileLoading(e, R.string.cityError, R.string.adviceCityError);
+                        e.printStackTrace();
+                        myData.setExceptionWhileLoading(e, R.string.cityError, R.string.adviceCityError);
                         endTime = System.currentTimeMillis();
                     } catch (IOException e) {
                         e.printStackTrace();

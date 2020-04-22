@@ -39,9 +39,7 @@ import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES_I
 import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES_IS_WIND;
 
 public class MainActivity extends AppCompatActivity implements InterfaceObserver {
-
     private AppBarConfiguration mAppBarConfiguration;
-
 
     //сохранение настроек интерфейса
     private SharedPreferences mSettings;
@@ -51,14 +49,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     private InterfaceChanger interfaceChanger;
     private MyData myData;
     NavController navController;
-
-    public WeatherLoader getWeatherLoader() {
-        return weatherLoader;
-    }
-
     WeatherLoader weatherLoader;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -92,43 +83,19 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-       // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         myData.setNavController(navController);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-//мое
-
+        //автонастройка темы
+        //TODO
         interfaceChanger.setAutoTheme(this, toolbar);
-
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-//        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-//
-//        //TODO
-//        //Костыли
-//        final MyAdapter mainAdapter = new MyAdapter();
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                mainAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
         return true;
     }
 
@@ -154,27 +121,23 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
 
     //обработка нажатий на пункты optionsMenu
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_settings:
-//переходим на фрагмент настроек
-                    navController.navigate(R.id.nav_slideshow);
+                //переходим на фрагмент настроек
+                navController.navigate(R.id.nav_slideshow);
                 return true;
-    //если нажали на поиск
+            //если нажали на поиск
             case R.id.app_bar_search:
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
-
         if (mSettings.contains(APP_PREFERENCES_IS_WIND)) {
             // Получаем число из настроек
             isWind = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
@@ -185,21 +148,22 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             isPressure = mSettings.getInt(APP_PREFERENCES_IS_PRESSURE, 1);
             interfaceChanger.setPressure(isPressure);
         }
-
         if (mSettings.contains(APP_PREFERENCES_IS_AUTOTHEME)) {
             // Получаем число из настроек
             isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_AUTOTHEME, 1);
             interfaceChanger.setIsAutoThemeChanging(isAutoTheme);
         }
-
     }
-
 
     @Override
     public void updateInterfaceViewData() {
         isWind = interfaceChanger.getIsWind();
         isPressure = interfaceChanger.getIsPressure();
         isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
+    }
+
+    public WeatherLoader getWeatherLoader() {
+        return weatherLoader;
     }
 
 }

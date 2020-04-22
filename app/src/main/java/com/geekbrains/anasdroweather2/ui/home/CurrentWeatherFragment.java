@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
@@ -25,33 +27,33 @@ import static java.lang.Integer.parseInt;
 
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
-//используемые View
-private TextView cityTextView;
-private TextView temperatureTextView;
-private TextView pressureTextView;
-private TextView windTextView;
-private ThermometerView thermometerView;
-//затем сюда поставлю картинку с облаками/солнцем/дождем
-private ImageView weatherImageView;
-private MyData myData;
-private InterfaceChanger interfaceChanger;
-private WeatherLoader weatherLoader;
-private String windString;
-private String pressureString;
+    //используемые View
+    private TextView cityTextView;
+    private TextView temperatureTextView;
+    private TextView pressureTextView;
+    private TextView windTextView;
+    private ThermometerView thermometerView;
+    //затем сюда поставлю картинку с облаками/солнцем/дождем
+    private ImageView weatherImageView;
+    private MyData myData;
+    private InterfaceChanger interfaceChanger;
+    private WeatherLoader weatherLoader;
+    private String windString;
+    private String pressureString;
 
-//номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
-private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
+    //номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
+    private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
 
-    public static CurrentWeatherFragment newInstance(){
+    public static CurrentWeatherFragment newInstance() {
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
         Bundle args = new Bundle();
-       // args.putInt("placeId", placeId);
-       // currentWeatherFragment.setArguments(args);
+        // args.putInt("placeId", placeId);
+        // currentWeatherFragment.setArguments(args);
         return currentWeatherFragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
@@ -61,7 +63,7 @@ private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
         myData.registerObserver(this);
-           }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,14 +100,14 @@ private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
         setWeatherValuesToTextViews();
     }
 
-//так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
+    //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
 // его из этого списка удалить
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         myData.removeObserver(this);
         interfaceChanger.removeObserver(this);
-       }
+    }
 
     @Override
     public void updateInterfaceViewData() {
@@ -125,34 +127,35 @@ private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
     }
 
 
-//Ставить текст
-        public void setWeatherValuesToTextViews()  {
+    //Ставить текст
+    public void setWeatherValuesToTextViews() {
         final Handler handler = new Handler();
-            handler.post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
-                String [] dataArr = myData
+                String[] dataArr = myData
                         .getAllWeatherDataHashMap()
                         .get(CURRENT_DATA_KEY_IN_HASHMAP);
                 try {
                     String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
-                String forTemp = currentTemp.concat(" \u2103");
-                temperatureTextView.setText(forTemp);
-                windString = windString.concat(" "+dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
-                windTextView.setText(windString);
-                pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
-                pressureTextView.setText(pressureString);
-                //для изменения цвета полоски в градуснике
-                int temp = parseInt(currentTemp);
-                compareTemp(temp);
+                    String forTemp = currentTemp.concat(" \u2103");
+                    temperatureTextView.setText(forTemp);
+                    windString = windString.concat(" " + dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
+                    windTextView.setText(windString);
+                    pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
+                    pressureTextView.setText(pressureString);
+                    //для изменения цвета полоски в градуснике
+                    int temp = parseInt(currentTemp);
+                    compareTemp(temp);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }
         });
-        }
-//в зависимости от температуры меняем цвет полоски в градуснике
-        private void compareTemp(int currentTemp){
-       thermometerView.changeTempColor(currentTemp);
-        }
+    }
+
+    //в зависимости от температуры меняем цвет полоски в градуснике
+    private void compareTemp(int currentTemp) {
+        thermometerView.changeTempColor(currentTemp);
+    }
 }

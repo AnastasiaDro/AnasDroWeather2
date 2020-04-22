@@ -20,11 +20,10 @@ import java.util.List;
 import java.util.Locale;
 
 
-
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
     NavController navController;
-   //Переменные для вывода сообщений об исключениях
+    //Переменные для вывода сообщений об исключениях
     private Exception exceptionWhileLoading;
     private int exceptionNameId;
     private int exceptionAdviceId;
@@ -32,7 +31,7 @@ public class MyData implements Observable {
     //В этот Хэшмап будем класть все погодные данные int - порядковый номер в ArrayList-е,
     //а массив строк - собственно данные: время, температура, давление, ветер
     //соответствие номеров элементов массива значениям есть в классе Constants
-    private HashMap <Integer, String[]> allWeatherDataHashMap;
+    private HashMap<Integer, String[]> allWeatherDataHashMap;
     //поток, загружающий данные о погоде
     Thread weatherLoaderThread;
     private static MyData instance;
@@ -40,18 +39,19 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-    private ArrayList <String> citiesList;
+    private ArrayList<String> citiesList;
     private int[] lastSearchCitiesArr;
     String currentCity;
 
     public Thread getWeatherLoaderThread() {
         return weatherLoaderThread;
     }
+
     public void setWeatherLoaderThread(Thread weatherLoaderThread) {
         this.weatherLoaderThread = weatherLoaderThread;
     }
 
-   //Получим HashMap с погодными данными
+    //Получим HashMap с погодными данными
     public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
         return allWeatherDataHashMap;
     }
@@ -60,7 +60,7 @@ public class MyData implements Observable {
         currentCity = "Moscow";
         currentHour = 0;
         observers = new LinkedList<>();
-        citiesList = new <String> ArrayList();
+        citiesList = new <String>ArrayList();
         citiesList.add("Moscow");
         citiesList.add("Saint-Petersburg");
         citiesList.add("Kazan");
@@ -74,8 +74,8 @@ public class MyData implements Observable {
         exceptionWhileLoading = null;
     }
 
-//сделаем наблюдаемый класс сингл-тоном
-    public static MyData getInstance(){
+    //сделаем наблюдаемый класс сингл-тоном
+    public static MyData getInstance() {
         if (instance == null) {
             instance = new MyData();
         }
@@ -86,21 +86,21 @@ public class MyData implements Observable {
         return instance;
     }
 
-//добавить наблюдателя
+    //добавить наблюдателя
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
         System.out.println("Наблюдатель добавлен. Список наблюдателей " + observers.toString());
     }
 
-//удалить наблюдателя
+    //удалить наблюдателя
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
         System.out.println("Наблюдатель удалён. Список наблюдателей " + observers.toString());
     }
 
-//уведомить наблюдателей
+    //уведомить наблюдателей
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {
@@ -108,7 +108,7 @@ public class MyData implements Observable {
         }
     }
 
-//Высчитать текущий час
+    //Высчитать текущий час
     private int takeCurrentHour(Date currentDate) {
         DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         String dateText = hourFormat.format(currentDate);
@@ -117,13 +117,13 @@ public class MyData implements Observable {
         return currentHour;
     }
 
-//геттер текущего часа
-    public int getCurrentHour(){
+    //геттер текущего часа
+    public int getCurrentHour() {
         takeCurrentHour(currentDate);
         return currentHour;
     }
 
-    public ArrayList getCitiesList(){
+    public ArrayList getCitiesList() {
         return citiesList;
     }
 
@@ -131,6 +131,7 @@ public class MyData implements Observable {
     public String getCurrentCity() {
         return currentCity;
     }
+
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
     }
@@ -139,6 +140,7 @@ public class MyData implements Observable {
     public NavController getNavController() {
         return navController;
     }
+
     public void setNavController(NavController navController) {
         this.navController = navController;
     }
@@ -153,9 +155,11 @@ public class MyData implements Observable {
         this.exceptionNameId = exceptionNameId;
         this.exceptionAdviceId = exceptionAdviceId;
     }
+
     public Exception getException() {
         return exceptionWhileLoading;
     }
+
     public int getExceptionNameId() {
         return exceptionNameId;
     }

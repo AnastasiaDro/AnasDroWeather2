@@ -27,7 +27,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private static final int DAY_SECOND_DATA_KEY_IN_HASHMAP = 2;
     private static final int DAY_THIRD_DATA_KEY_IN_HASHMAP = 3;
 
-//используемые View
+    //используемые View
     private TextView fSoonTimeText;
     private TextView sSoonTimeText;
     private TextView thSoonTimeText;
@@ -35,15 +35,15 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView sSoonTempText;
     private TextView thSoonTempText;
 
-    String [] firstDataArr;
-    String [] secondDataArr;
-    String [] thirdDataArr;
+    String[] firstDataArr;
+    String[] secondDataArr;
+    String[] thirdDataArr;
 
     String temp;
 
     private MyData myData;
 
-    public static DayWeatherFragment newInstance(){
+    public static DayWeatherFragment newInstance() {
         DayWeatherFragment dayWeatherFragment = new DayWeatherFragment();
         Bundle args = new Bundle();
         // args.putInt("placeId", placeId);
@@ -52,7 +52,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
@@ -78,7 +78,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         sSoonTempText = view.findViewById(R.id.s_soonTempText);
         thSoonTempText = view.findViewById(R.id.th_soonTempText);
     }
-
 
 
     @Override

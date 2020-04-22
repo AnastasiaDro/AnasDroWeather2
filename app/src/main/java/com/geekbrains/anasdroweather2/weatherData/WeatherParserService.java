@@ -26,7 +26,7 @@ public class WeatherParserService extends IntentService {
     private String gotTemp;
     private String gotPressure;
     private String gotWind;
-    HashMap <Integer, String[]> takenWeatherData;
+    HashMap<Integer, String[]> takenWeatherData;
 
     MyData myData;
     JSONArray jsonArray;
@@ -47,18 +47,18 @@ public class WeatherParserService extends IntentService {
             try {
                 jsonObject = jsonArray.getJSONObject(i);
                 String myJsonString = jsonObject.toString();
-            Gson gson = new Gson();
-            final WeatherRequest weatherRequest = gson.fromJson(myJsonString, WeatherRequest.class);
-            gotTime = weatherRequest.getDt_txt().substring(10);
-            gotTemp = ((Integer)weatherRequest.getMain().getTemp()).toString();
-            gotPressure = ((Integer)weatherRequest.getMain().getPressure()).toString();
-            gotWind = ((Float)weatherRequest.getWind().getSpeed()).toString();
-            //Теперь положим все данные в массив
-            String [] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind};
-            //сохраним массив в myData;
-            takenWeatherData.put(i, weatherDataArr);
-            //Остановим сервис
-            stopSelf();
+                Gson gson = new Gson();
+                final WeatherRequest weatherRequest = gson.fromJson(myJsonString, WeatherRequest.class);
+                gotTime = weatherRequest.getDt_txt().substring(10);
+                gotTemp = ((Integer) weatherRequest.getMain().getTemp()).toString();
+                gotPressure = ((Integer) weatherRequest.getMain().getPressure()).toString();
+                gotWind = ((Float) weatherRequest.getWind().getSpeed()).toString();
+                //Теперь положим все данные в массив
+                String[] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind};
+                //сохраним массив в myData;
+                takenWeatherData.put(i, weatherDataArr);
+                //Остановим сервис
+                stopSelf();
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {

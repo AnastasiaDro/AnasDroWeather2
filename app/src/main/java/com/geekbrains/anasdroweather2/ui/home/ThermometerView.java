@@ -32,7 +32,6 @@ public class ThermometerView extends View {
     private Rect tempLevel = new Rect();
 
 
-
     //Краска термометра
     private Paint thermomPaint;
     //Краска температуры
@@ -96,7 +95,7 @@ public class ThermometerView extends View {
 
     // Инициализация атрибутов пользовательского элемента из xml
     @SuppressLint("ResourceAsColor")
-    private void initAttr(Context context, AttributeSet attrs){
+    private void initAttr(Context context, AttributeSet attrs) {
 
         // При помощи этого метода получаем доступ к набору атрибутов.
         // На выходе - массив со значениями
@@ -119,7 +118,7 @@ public class ThermometerView extends View {
     }
 
 
-        // Начальная инициализация полей класса
+    // Начальная инициализация полей класса
     private void init() {
         thermomPaint = new Paint();
         thermomPaint.setColor(thermColor);
@@ -143,20 +142,20 @@ public class ThermometerView extends View {
         // Получаем реальные ширину и высоту
         width = w - getPaddingLeft() - getPaddingRight();
         height = h - getPaddingTop() - getPaddingBottom();
-                // Отрисовка градусника
-        thermomRect.set(padding*2,
-                padding+headHeight,
-                width - padding*2 ,
+        // Отрисовка градусника
+        thermomRect.set(padding * 2,
+                padding + headHeight,
+                width - padding * 2,
                 height - padding);
 
-        tailRect.set(padding*6,
+        tailRect.set(padding * 6,
                 padding,
-                width -padding*6,
+                width - padding * 6,
                 height - thermomRect.height());
 
         tempLevel.set(7 * padding,
-                (int)((height - 2 * padding - headWidth)*((double)level/(double)100)),
-                width- padding*7,
+                (int) ((height - 2 * padding - headWidth) * ((double) level / (double) 100)),
+                width - padding * 7,
                 height - 4 * padding);
 
     }
@@ -173,7 +172,7 @@ public class ThermometerView extends View {
 
 
     public void changeTempColor(int currentTemp) {
-        if (currentTemp >=3 && currentTemp < 10) {
+        if (currentTemp >= 3 && currentTemp < 10) {
             tempColor = Color.parseColor("#81D4FA");
             level = 70;
         }

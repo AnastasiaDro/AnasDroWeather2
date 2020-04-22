@@ -23,29 +23,29 @@ import com.geekbrains.anasdroweather2.weatherData.WeatherParserService;
 
 public class HomeFragment extends Fragment implements ActivMethods {
 
-//класс Model
+    //класс Model
     MyData myData;
     InterfaceChanger interfaceChanger;
-//места для моих фрагментов
+    //места для моих фрагментов
     private int currentWeathPlaceId;
     private int dayWeathPlaceId;
     private int weekWeathPlaceId;
 
-//Мои фрагменты
+    //Мои фрагменты
     private CurrentWeatherFragment curWeathFragment;
     private DayWeatherFragment dayWeathFragment;
     private WeekWeatherFragment weekWeatherFragment;
     private AppCompatActivity mainActivity;
     private HomeViewModel homeViewModel;
 
-    public HomeFragment(){
+    public HomeFragment() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //получим Активити
-        mainActivity = (AppCompatActivity)this.getActivity();
+        mainActivity = (AppCompatActivity) this.getActivity();
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -53,10 +53,10 @@ public class HomeFragment extends Fragment implements ActivMethods {
         //загружаем данные
         WeatherLoader weatherLoader = new WeatherLoader(getContext());
         weatherLoader.loadWeatherData();
-            try {
+        try {
             myData.getWeatherLoaderThread().join();
             checkExceptions(weatherLoader);
-            WeatherParserService weatherParserService= new WeatherParserService("myParser", weatherLoader.getJsonArray());
+            WeatherParserService weatherParserService = new WeatherParserService("myParser", weatherLoader.getJsonArray());
             weatherParserService.onHandleIntent(new Intent(getContext(), WeatherParserService.class));
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -87,9 +87,9 @@ public class HomeFragment extends Fragment implements ActivMethods {
     }
 
     private void checkExceptions(WeatherLoader weatherLoader) {
-        if (myData.getException() != null){
+        if (myData.getException() != null) {
             weatherLoader.showExceptionAlert();
             myData.setException(null);
         }
     }
-    }
+}

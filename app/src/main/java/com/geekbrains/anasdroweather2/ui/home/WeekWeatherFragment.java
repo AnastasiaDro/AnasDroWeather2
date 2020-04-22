@@ -22,7 +22,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
 //TextView по дням недели
 
-//TextView для названия дней
+    //TextView для названия дней
     TextView firstDayTextView;
     TextView scndDayTextView;
     TextView trdDayTextView;
@@ -31,7 +31,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     TextView sixDayTextView;
     TextView svnDayTextView;
 
-//TextView для температур по дням
+    //TextView для температур по дням
     TextView firstDayTempText;
     TextView scndDayTempText;
     TextView trdDayTempText;
@@ -42,7 +42,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     private MyData myData;
 
-    public static WeekWeatherFragment newInstance(){
+    public static WeekWeatherFragment newInstance() {
         WeekWeatherFragment weekWeatherFragment = new WeekWeatherFragment();
         Bundle args = new Bundle();
         // args.putInt("placeId", placeId);
@@ -51,7 +51,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
@@ -75,7 +75,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         fourthDayTextView = view.findViewById(R.id.fourthDayTextView);
 
 
-
         //Температура по дням недели
         firstDayTempText = view.findViewById(R.id.firstDayTempText);
         scndDayTempText = view.findViewById(R.id.scndDayTempText);
@@ -93,11 +92,11 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     @Override
     public void updateViewData() {
-//заполнить
+    //заполнить
     }
 
     //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
-// его из этого списка удалить
+    // его из этого списка удалить
     @Override
     public void onDestroyView() {
         super.onDestroyView();

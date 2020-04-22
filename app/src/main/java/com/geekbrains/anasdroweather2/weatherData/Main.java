@@ -6,7 +6,7 @@ public class Main {
 
     public int getTemp() {
         temp -= 273.15;
-        int result = (int)Math.round(temp);
+        int result = (int) Math.round(temp);
         return result;
     }
 
@@ -16,7 +16,7 @@ public class Main {
 
     public int getPressure() {
         //переведем в мм ртутного столба
-        int result = (int)Math.round(pressure/1.333224);
+        int result = (int) Math.round(pressure / 1.333224);
         return result;
     }
 

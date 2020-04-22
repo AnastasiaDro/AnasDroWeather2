@@ -41,23 +41,19 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     Switch autoThemeSwitch;
     Button addNewBtn;
     AddNewClickListener addNewClickListener;
-
+    //Получим ToolBar для программного изменения его цвета в дальнейшем
     Toolbar toolbar;
-
+    //вынесем отдельно корневой View для доступа к нему
     View root;
-
     private RecyclerView recyclerView;
     MyAdapter myAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         slideshowViewModel =
                 ViewModelProviders.of(this).get(SlideshowViewModel.class);
         root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        // final TextView textView = root.findViewById(R.id.text_slideshow);
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -78,7 +74,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         searchView = root.findViewById(R.id.searchView);
         windCheckBox = root.findViewById(R.id.windCheckBox);
         pressuCheckBox = root.findViewById(R.id.pressuCheckBox);
-        autoThemeSwitch= root.findViewById(R.id.autoThemeSwitch);
+        autoThemeSwitch = root.findViewById(R.id.autoThemeSwitch);
         addNewBtn = root.findViewById(R.id.addNewCityBtn);
         toolbar = this.getActivity().findViewById(R.id.toolbar);
         registerCheckBoxListeners();
@@ -89,7 +85,6 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         addNewClickListener = new AddNewClickListener();
         addNewBtn.setOnClickListener(addNewClickListener);
     }
-
 
 
     public void updateInterfaceChanger() {
@@ -108,8 +103,6 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
 
     //листенеры для чекбоксов
     private void registerCheckBoxListeners() {
-        //windCheckBox
-
         windCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,12 +112,9 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
                     interfaceChanger.setWind(View.INVISIBLE);
                 }
                 interfaceChanger.notifyInterfaceObservers();
-                System.out.println("isWind в ченджере "+ interfaceChanger.getIsWind());
-
+                System.out.println("isWind в ченджере " + interfaceChanger.getIsWind());
             }
         });
-
-        //pressuCheckBox
         pressuCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,14 +125,13 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
                 }
                 interfaceChanger.notifyInterfaceObservers();
                 System.out.println("");
-                System.out.println("isPressure в ченджере "+ interfaceChanger.getIsPressure());
+                System.out.println("isPressure в ченджере " + interfaceChanger.getIsPressure());
             }
 
         });
-
     }
 
-    public void initRecycler(View view){
+    public void initRecycler(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerForSlideShow);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -156,11 +145,11 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     }
 
 
-//TODO
-    public void activateSwitch(Switch mySwitch){
-        if (mySwitch != null){
+    //TODO
+    public void activateSwitch(Switch mySwitch) {
+        if (mySwitch != null) {
             boolean isChecked;
-            if (interfaceChanger.getIsAutoThemeChanging() == View.VISIBLE){
+            if (interfaceChanger.getIsAutoThemeChanging() == View.VISIBLE) {
                 isChecked = true;
             } else {
                 isChecked = false;
@@ -168,7 +157,6 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
             mySwitch.setChecked(isChecked);
             mySwitch.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) this);
         }
-
     }
 
 
@@ -182,63 +170,16 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
         interfaceChanger.setAutoTheme(this.getActivity(), toolbar);
         System.out.println(View.VISIBLE);
         System.out.println("onCheckedChanged isAutoThemeChenging " + interfaceChanger.getIsAutoThemeChanging());
-
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case Constants.HIDE_CONTEXTMENU_ITEM:
                 myAdapter.deleteItem(item.getGroupId());
                 return true;
-            default:   return super.onContextItemSelected(item);
+            default:
+                return super.onContextItemSelected(item);
         }
     }
-
-
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getActivity().getMenuInflater().inflate(R.menu.main, menu);
-//
-//        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-//        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView();
-//
-//        //TODO
-
-//        //Костыли
-//        final MyAdapter mainAdapter = new MyAdapter();
-//        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                myAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
-
-
-
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        switch (item.getItemId()) {
-//            case Constants.HIDE_CONTEXTMENU_ITEM:
-//
-//
-//
-//            //           myData.getCitiesList().remove(myAdapter);
-////                myData.notifyObservers();
-//                return true;
-//        }
-//        return true;
-
-
 }

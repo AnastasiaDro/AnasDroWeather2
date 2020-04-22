@@ -13,7 +13,4 @@ public class Constants {
     public static final int TEMP_KEY_IN_WEATHERDATA_ARRAY = 1;
     public static final int PRESSURE_KEY_IN_WEATHERDATA_ARRAY = 2;
     public static final int WIND_KEY_IN_WEATHERDATA_ARRAY = 3;
-
-
-
 }

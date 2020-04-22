@@ -1,7 +1,7 @@
 package com.geekbrains.anasdroweather2.weatherData;
 
 public class Coord {
-     private float lon;
+    private float lon;
 
     public float getLon() {
         return lon;

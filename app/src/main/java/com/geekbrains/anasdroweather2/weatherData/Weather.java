@@ -20,4 +20,4 @@ public class Weather {
     }
 
     private String description;
-     }
+}
