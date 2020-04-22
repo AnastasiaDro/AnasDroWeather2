@@ -6,15 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Looper;
 
-import com.geekbrains.anasdroweather2.MainActivity;
-import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.google.gson.Gson;
+
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.stream.Collectors;
 
@@ -38,21 +33,21 @@ public class WeatherLoader {
    // String url_maket = "https://api.openweathermap.org//2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
     String city;
     MyData myData;
-    WeatherParser weatherParser;
+    WeatherParserServise weatherParserServise;
 
-    private String currentTemp;
-    private String currentPressure;
-    private String currentWind;
-
-    //ближайшие часы (время)
-    private String f_soonTime;
-    private String s_soonTime;
-    private String th_soonTime;
-
-    //температура в ближайшие часы
-    private String f_soonTemp;
-    private String s_soonTemp;
-    private String th_soonTemp;
+//    private String currentTemp;
+//    private String currentPressure;
+//    private String currentWind;
+//
+//    //ближайшие часы (время)
+//    private String f_soonTime;
+//    private String s_soonTime;
+//    private String th_soonTime;
+//
+//    //температура в ближайшие часы
+//    private String f_soonTemp;
+//    private String s_soonTemp;
+//    private String th_soonTemp;
     Context context;
     Exception e;
 
@@ -66,9 +61,9 @@ public class WeatherLoader {
     public WeatherLoader(Context context){
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
-        currentTemp = null;
-        currentPressure = null;
-        currentWind = null;
+//        currentTemp = null;
+//        currentPressure = null;
+//        currentWind = null;
         this.context = context;
         e = new Exception();
 
@@ -102,9 +97,16 @@ public class WeatherLoader {
                         //мои котовасии
                         jsonResponse = new JSONObject(result);
                         JSONArray jsonArray = getJsonResponse().getJSONArray("list");
-                        weatherParser = new WeatherParser("MyParser", jsonArray);
-                        Intent intent = new Intent(context, WeatherParser.class);
-                        weatherParser.onHandleIntent(intent);
+
+                        for (int i = 0; i < 4; i++) {
+                            WeatherParserServise weatherParserServise1 = new WeatherParserServise("MyParser", jsonArray.getJSONObject(i), i);
+                            Intent intent = new Intent(context, WeatherParserServise.class);
+                            weatherParserServise1.onHandleIntent(intent);
+                        }
+
+//                        weatherParserServise = new WeatherParserServise("MyParser", jsonArray);
+//                        Intent intent = new Intent(context, WeatherParserServise.class);
+//                        weatherParserServise.onHandleIntent(intent);
 
 //                        JSONArray jsonArray = jsonResponse.getJSONArray("list");
 //                        //Текущая погода (первый элемент массива)

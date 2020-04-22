@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.geekbrains.anasdroweather2.ui.home.Constants;
+
 
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
@@ -46,6 +48,9 @@ private WeatherLoader weatherLoader;
 private String windString;
 private String pressureString;
 int currentTemp;
+
+//номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
+    private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
 
     public static CurrentWeatherFragment newInstance(){
         CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
@@ -175,15 +180,24 @@ int currentTemp;
         handler.post(new Runnable() {
             @Override
             public void run() {
-                String forTemp = myData.getCurrentTemp() + " \u2103";
+                String [] dataArr = myData
+                        .getAllWeatherDataHashMap()
+                        .get(CURRENT_DATA_KEY_IN_HASHMAP);
+                String forTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY] + " \u2103";
                 temperatureTextView.setText(forTemp);
-                windString = windString.concat(" "+myData.getCurrentWind());
-              //  String forWind = myData.getCurrentWind();
+                windString = windString.concat(" "+dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
                 windTextView.setText(windString);
-                pressureString = pressureString.concat(" " + myData.getCurrentPressure());
+                pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                 pressureTextView.setText(pressureString);
-                currentTemp = parseInt(myData.getCurrentTemp());
-                compareTemp(currentTemp);
+//                String forTemp = myData.getCurrentTemp() + " \u2103";
+//                temperatureTextView.setText(forTemp);
+//                windString = windString.concat(" "+myData.getCurrentWind());
+//              //  String forWind = myData.getCurrentWind();
+//                windTextView.setText(windString);
+//                pressureString = pressureString.concat(" " + myData.getCurrentPressure());
+//                pressureTextView.setText(pressureString);
+//                currentTemp = parseInt(myData.getCurrentTemp());
+//                compareTemp(currentTemp);
 
             }
         });

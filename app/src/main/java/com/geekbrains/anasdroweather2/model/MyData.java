@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -23,12 +24,9 @@ import java.util.Locale;
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
     NavController navController;
-
-
-
     private Exception exceptionWhileLoading;
 
-
+    private HashMap <Integer, String[]> allWeatherDataHashMap;
 
     Thread weatherLoaderThread;
     private static MyData instance;
@@ -65,6 +63,10 @@ public class MyData implements Observable {
         this.weatherLoaderThread = weatherLoaderThread;
     }
 
+    public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
+        return allWeatherDataHashMap;
+    }
+
     private MyData() {
         currentCity = "Moscow";
         currentHour = 0;
@@ -74,6 +76,10 @@ public class MyData implements Observable {
         citiesList.add("Saint-Petersburg");
         citiesList.add("Kazan");
         citiesList.add("Sochi");
+
+        //HashMap для всех погодных данных, которые из JsonArray.
+        allWeatherDataHashMap = new HashMap<>();
+
 //массив для сохранения последних городов
 
         //пока зададим города тут
