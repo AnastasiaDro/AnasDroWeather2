@@ -27,29 +27,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 //помогает получать данные с сервера
 public class WeatherLoader {
-    Thread myThread;
+   private Thread myThread;
 
-    String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
-   // String url_maket = "https://api.openweathermap.org//2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
-    String city;
-    MyData myData;
-    WeatherParserServise weatherParserServise;
-
-//    private String currentTemp;
-//    private String currentPressure;
-//    private String currentWind;
-//
-//    //ближайшие часы (время)
-//    private String f_soonTime;
-//    private String s_soonTime;
-//    private String th_soonTime;
-//
-//    //температура в ближайшие часы
-//    private String f_soonTemp;
-//    private String s_soonTemp;
-//    private String th_soonTemp;
-    Context context;
-    Exception e;
+   private String url_maket = "https://api.openweathermap.org/data/2.5/forecast?q=99999999999,RU&appid=cf6eb93358473e7ee159a01606140722";
+   private String city;
+   private MyData myData;
+   private Context context;
+   private Exception e;
 
     public JSONObject getJsonResponse() {
         return jsonResponse;
@@ -61,9 +45,6 @@ public class WeatherLoader {
     public WeatherLoader(Context context){
         this.myData = myData.getInstance();
         city = myData.getCurrentCity();
-//        currentTemp = null;
-//        currentPressure = null;
-//        currentWind = null;
         this.context = context;
         e = new Exception();
 
@@ -72,8 +53,7 @@ public class WeatherLoader {
 
 //Сделать URL c учетом выбранного города
     private String createURL(String city){
-        String weather_url = url_maket.replaceAll( "99999999999", city);
-        return weather_url;
+        return url_maket.replaceAll( "99999999999", city);
     }
 
 
@@ -94,71 +74,21 @@ public class WeatherLoader {
                         BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         final String result = in.lines().collect(Collectors.joining("\n"));
 
-                        //мои котовасии
+                        //получим результат
                         jsonResponse = new JSONObject(result);
                         JSONArray jsonArray = getJsonResponse().getJSONArray("list");
 
+                        //переберём полученый массив и запустим на каждую полученную строку свой сервис-поток
+                        //Боюсь, это слишком долго работает
                         for (int i = 0; i < 4; i++) {
-                            WeatherParserServise weatherParserServise1 = new WeatherParserServise("MyParser", jsonArray.getJSONObject(i), i);
+                            WeatherParserServise weatherParserServise = new WeatherParserServise("MyParser", jsonArray.getJSONObject(i), i);
                             Intent intent = new Intent(context, WeatherParserServise.class);
-                            weatherParserServise1.onHandleIntent(intent);
+                            weatherParserServise.onHandleIntent(intent);
                         }
-
-//                        weatherParserServise = new WeatherParserServise("MyParser", jsonArray);
-//                        Intent intent = new Intent(context, WeatherParserServise.class);
-//                        weatherParserServise.onHandleIntent(intent);
-
-//                        JSONArray jsonArray = jsonResponse.getJSONArray("list");
-//                        //Текущая погода (первый элемент массива)
-//                        JSONObject currentWeatherJson = jsonArray.getJSONObject(0);
-//                        //погода в след 3 часа
-//                        JSONObject fst_soonWeatherJson = jsonArray.getJSONObject(1);
-//                        //погода через 6 часов
-//                        JSONObject scnd_soonWeatherJson = jsonArray.getJSONObject(2);
-//                        //погода через 9 часов
-//                        JSONObject thrd_soonWeatherJson = jsonArray.getJSONObject(3);
-//
-//                        //Самый последний погода
-//                        System.out.println("Размер массива: " + jsonArray.length());
-
-
-
-//                        //строка с данными текущей погоды
-//                        String curWeathString = currentWeatherJson.toString();
-////                        //строка с данными погоды через 3 часа
-//                        String fst_soonWeatherString = fst_soonWeatherJson.toString();
-////                        //Строка с данными погоды через 6 часов
-//                        String scnd_soonWeatherString = scnd_soonWeatherJson.toString();
-////                        //Строка с данными погоды через 9 часов
-//                        String thrd_soonWeatherString = thrd_soonWeatherJson.toString();
-//                        Gson gson = new Gson();
-//
-                        //Получаем данные ближайших дней... ух!
-//                        final WeatherRequest currentWeatherRequest = gson.fromJson(curWeathString, WeatherRequest.class);
-//                        final WeatherRequest fst_soonWeatherRequest = gson.fromJson(fst_soonWeatherString, WeatherRequest.class);
-//                        final WeatherRequest scnd_soonWeatherRequest = gson.fromJson(scnd_soonWeatherString, WeatherRequest.class);
-//                        final WeatherRequest thrd_soonWeatherRequest = gson.fromJson(thrd_soonWeatherString, WeatherRequest.class);
-//
-//                        currentTemp = ((Integer)currentWeatherRequest.getMain().getTemp()).toString();
-//                        currentPressure = ((Integer)currentWeatherRequest.getMain().getPressure()).toString();
-//                        currentWind = ((Float)currentWeatherRequest.getWind().getSpeed()).toString();
-//                        //ближайшие часы (время)
-//                        f_soonTime = fst_soonWeatherRequest.getDt_txt().substring(10);
-//                        s_soonTime = scnd_soonWeatherRequest.getDt_txt().substring(10);
-//                        th_soonTime = thrd_soonWeatherRequest.getDt_txt().substring(10);
-//                        //температура в ближайшие часы
-//                        f_soonTemp = ((Integer)fst_soonWeatherRequest.getMain().getTemp()).toString();
-//                        s_soonTemp = ((Integer)scnd_soonWeatherRequest.getMain().getTemp()).toString();
-//                        th_soonTemp = ((Integer)thrd_soonWeatherRequest.getMain().getTemp()).toString();
-
-                        //Температура в ближайшщие дни
-//                        sendWeatherDataToMyData();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                         Looper.prepare();
                         myData.setExceptionWhileLoading(e);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -174,21 +104,7 @@ public class WeatherLoader {
 
     }
 
-   //// сохраним полученные данные в MyData
-//    private void sendWeatherDataToMyData() {
-//        myData.setCurrentTemp(currentTemp);
-//        myData.setCurrentPressure(currentPressure);
-//        myData.setCurrentWind(currentWind);
-//
-//        myData.setF_soonTime(f_soonTime);
-//        myData.setS_soonTime(s_soonTime);
-//        myData.setTh_soonTime(th_soonTime);
-//
-//        myData.setF_soonTemp(f_soonTemp);
-//        myData.setS_soonTemp(s_soonTemp);
-//        myData.setTh_soonTemp(th_soonTemp);
-//    }
-
+    //показывает сообщение об ошибке сети, если она происходит
         public void showExceptionAlert(final int exceptionStringId, final int adviceStringId) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(exceptionStringId);
