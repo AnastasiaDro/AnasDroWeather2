@@ -55,6 +55,6 @@
     <string name="adviceCityError">Check the city name</string>
 
     <string name="noData">No data</string>
-
+    <string name="network_error">Network Error</string>
 
 </resources>

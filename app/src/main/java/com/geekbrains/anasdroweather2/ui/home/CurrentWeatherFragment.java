@@ -24,6 +24,7 @@ import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.valueOf;
 
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
@@ -145,7 +146,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                     pressureTextView.setText(pressureString);
                     //для изменения цвета полоски в градуснике
-                    int temp = parseInt(currentTemp);
+
+                    int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);
                 } catch (NullPointerException e) {
                     e.printStackTrace();

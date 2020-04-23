@@ -11,6 +11,8 @@ public interface IOpenWeather {
     @GET("data/2.5/forecast")
     //Прописываем нашу модель
     Call<WeatherRequestRestModel> loadWeather(@Query("q") String city,
-                                              @Query("appid") String keyApi,
-                                              @Query("units") String units);
+                                              @Query("appid") String keyApi
+    );
+            //,
+                                             // @Query("units") String units);
 }

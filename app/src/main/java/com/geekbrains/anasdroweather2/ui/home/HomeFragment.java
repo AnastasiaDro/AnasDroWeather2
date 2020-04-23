@@ -53,14 +53,14 @@ public class HomeFragment extends Fragment implements ActivMethods {
         //загружаем данные
         WeatherLoader weatherLoader = new WeatherLoader(getContext());
         weatherLoader.loadWeatherData();
-        try {
-            myData.getWeatherLoaderThread().join();
-            checkExceptions(weatherLoader);
-            WeatherParserService weatherParserService = new WeatherParserService("myParser", weatherLoader.getJsonArray());
-            weatherParserService.onHandleIntent(new Intent(getContext(), WeatherParserService.class));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            myData.getWeatherLoaderThread().join();
+//            checkExceptions(weatherLoader);
+//            WeatherParserService weatherParserService = new WeatherParserService("myParser", weatherLoader.getJsonArray());
+//            weatherParserService.onHandleIntent(new Intent(getContext(), WeatherParserService.class));
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         init();
 
 //создаём изменитель интерфейса
@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
 
     private void checkExceptions(WeatherLoader weatherLoader) {
         if (myData.getException() != null) {
-            weatherLoader.showExceptionAlert();
+            //weatherLoader.showExceptionAlert();
             myData.setException(null);
         }
     }
