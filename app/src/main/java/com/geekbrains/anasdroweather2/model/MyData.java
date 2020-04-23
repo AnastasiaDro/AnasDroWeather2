@@ -1,14 +1,11 @@
 package com.geekbrains.anasdroweather2.model;
 
-import android.app.Activity;
-import android.content.Context;
-
 import androidx.navigation.NavController;
 
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
-import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
+import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,6 +19,8 @@ import java.util.Locale;
 
 //Класс с данными, наблюдаемый
 public class MyData implements Observable {
+    boolean weatherRequestIsDone;
+
     NavController navController;
     //Переменные для вывода сообщений об исключениях
     private Exception exceptionWhileLoading;
@@ -43,17 +42,23 @@ public class MyData implements Observable {
     private int[] lastSearchCitiesArr;
     String currentCity;
 
-    public Thread getWeatherLoaderThread() {
-        return weatherLoaderThread;
+    public WeatherLoader getWeatherLoader() {
+        return weatherLoader;
     }
 
-    public void setWeatherLoaderThread(Thread weatherLoaderThread) {
-        this.weatherLoaderThread = weatherLoaderThread;
+    public void setWeatherLoader(WeatherLoader weatherLoader) {
+        this.weatherLoader = weatherLoader;
     }
+
+    WeatherLoader weatherLoader;
 
     //Получим HashMap с погодными данными
     public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
         return allWeatherDataHashMap;
+    }
+
+    public boolean isWeatherRequestIsDone() {
+        return weatherRequestIsDone;
     }
 
     private MyData() {
@@ -67,10 +72,9 @@ public class MyData implements Observable {
         citiesList.add("Sochi");
         citiesList.add("Murmansk");
         allWeatherDataHashMap = new HashMap<>();
-
+        this.weatherRequestIsDone = false;
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
-        weatherLoaderThread = new Thread();
         exceptionWhileLoading = null;
     }
 
@@ -166,5 +170,13 @@ public class MyData implements Observable {
 
     public int getExceptionAdviceId() {
         return exceptionAdviceId;
+    }
+
+    public void setWeatherRequestIsDone(boolean weatherRequestIsDone) {
+        this.weatherRequestIsDone = weatherRequestIsDone;
+    }
+
+    public boolean getWeatherRequestIsDone() {
+        return weatherRequestIsDone;
     }
 }

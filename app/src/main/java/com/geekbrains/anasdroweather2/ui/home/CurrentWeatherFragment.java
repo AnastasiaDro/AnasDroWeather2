@@ -21,7 +21,7 @@ import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
+import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
@@ -58,8 +58,6 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
         super.onCreate(savedInstanceState);
         //получаем аргументы назад
         //... место для аргументов
-        windString = getString(R.string.wind);
-        pressureString = getString(R.string.pressure);
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
@@ -70,7 +68,6 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         findViews(view);
-        updateViewData();
         updateInterfaceViewData();
         return view;
     }
@@ -141,12 +138,13 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
                     String forTemp = currentTemp.concat(" \u2103");
                     temperatureTextView.setText(forTemp);
+                    windString = getString(R.string.wind);
+                    pressureString = getString(R.string.pressure);
                     windString = windString.concat(" " + dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
                     windTextView.setText(windString);
                     pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                     pressureTextView.setText(pressureString);
                     //для изменения цвета полоски в градуснике
-
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);
                 } catch (NullPointerException e) {

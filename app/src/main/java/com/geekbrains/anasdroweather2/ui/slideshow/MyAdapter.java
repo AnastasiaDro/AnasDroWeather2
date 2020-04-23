@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
+import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter implements Observer {
     MyData myData;
     ArrayList<String> citiesList;
+    WeatherLoader weatherLoader;
 
     public MyAdapter() {
         this.myData = MyData.getInstance();
@@ -77,8 +79,8 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
                     final String currentCityName = textCityName.getText().toString();
                     myData.setCurrentCity(currentCityName);
                     System.out.println("Текущий город в myData " + myData.getCurrentCity());
-                    myData.notifyObservers();
                     navController.navigate(R.id.nav_home);
+                    myData.notifyObservers();
                 }
             });
         }

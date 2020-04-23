@@ -1,9 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.weatherData.WeatherParserService;
 
 import java.util.HashMap;
 
@@ -64,7 +61,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_weather, container, false);
         findViews(view);
-        updateViewData();
+        //updateViewData();
         return view;
     }
 
@@ -96,11 +93,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     //Ставить текст
     public void setWeatherValuesToTextViews() {
         final Handler handler = new Handler();
-        try {
-            myData.getWeatherLoaderThread().join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       // do{} while (myData.getWeatherRequestIsDone()==false);
         handler.post(new Runnable() {
             @Override
             public void run() {

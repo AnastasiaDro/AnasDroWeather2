@@ -9,22 +9,14 @@ import android.view.View;
 import android.view.Menu;
 
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
-import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
-import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
-import com.geekbrains.anasdroweather2.ui.slideshow.SlideshowFragment;
-import com.geekbrains.anasdroweather2.weatherData.WeatherLoader;
+import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
