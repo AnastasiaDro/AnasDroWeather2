@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +16,8 @@
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.12"
+         />
 
     <TextView
         android:id="@+id/tTextView"
@@ -94,4 +96,16 @@
         app:layout_constraintTop_toBottomOf="@+id/temperatureTextView"
         app:layout_constraintVertical_bias="0.074" />
 
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/curWeathImg"
+        android:layout_width="78dp"
+        android:layout_height="81dp"
+        fresco:layout_constraintBottom_toTopOf="@+id/tTextView"
+        fresco:layout_constraintEnd_toStartOf="@+id/pressureTextView"
+        fresco:layout_constraintHorizontal_bias="0.468"
+        fresco:layout_constraintStart_toEndOf="@+id/cityTextView"
+        fresco:layout_constraintTop_toTopOf="parent"
+        fresco:layout_constraintVertical_bias="0.981"
+        fresco:placeholderImage="@drawable/ic_launcher_foreground" />
 </androidx.constraintlayout.widget.ConstraintLayout>

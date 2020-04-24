@@ -6,6 +6,7 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
+import com.geekbrains.anasdroweather2.ui.home.ImageLoader;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +42,7 @@ public class MyData implements Observable {
     private ArrayList<String> citiesList;
     private int[] lastSearchCitiesArr;
     String currentCity;
+    private ImageLoader imageLoader;
 
     public WeatherLoader getWeatherLoader() {
         return weatherLoader;
@@ -57,11 +59,7 @@ public class MyData implements Observable {
         return allWeatherDataHashMap;
     }
 
-    public boolean isWeatherRequestIsDone() {
-        return weatherRequestIsDone;
-    }
-
-    private MyData() {
+      private MyData() {
         currentCity = "Moscow";
         currentHour = 0;
         observers = new LinkedList<>();
@@ -76,6 +74,7 @@ public class MyData implements Observable {
         //пока зададим города тут
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
         exceptionWhileLoading = null;
+        imageLoader = new ImageLoader();
     }
 
     //сделаем наблюдаемый класс сингл-тоном
@@ -172,11 +171,13 @@ public class MyData implements Observable {
         return exceptionAdviceId;
     }
 
-    public void setWeatherRequestIsDone(boolean weatherRequestIsDone) {
-        this.weatherRequestIsDone = weatherRequestIsDone;
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 
-    public boolean getWeatherRequestIsDone() {
-        return weatherRequestIsDone;
+    public void setImageLoader(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
     }
+
 }

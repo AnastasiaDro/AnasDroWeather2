@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
@@ -34,14 +35,17 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView fDescriptText;
     private TextView sDescriptText;
     private TextView thDescriptText;
-
+    private SimpleDraweeView fSoonDraweeView;
+    private SimpleDraweeView sSoonDraweeView;
+    private SimpleDraweeView thSoonDraweeView;
 
     String[] firstDataArr;
     String[] secondDataArr;
     String[] thirdDataArr;
 
     private String temp;
-    private String descriptString;;
+    private String descriptString;
+    private String iconString;
 
     private MyData myData;
 
@@ -82,6 +86,9 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         fDescriptText = view.findViewById(R.id.fDescriptText);
         sDescriptText = view.findViewById(R.id.sDescriptText);
         thDescriptText = view.findViewById(R.id.thDescriptText);
+        fSoonDraweeView = view.findViewById(R.id.fSoonWeathImg);
+        sSoonDraweeView = view.findViewById(R.id.sSoonWeathImg);
+        thSoonDraweeView = view.findViewById(R.id.thSoonWeathImg);
     }
 
 
@@ -115,6 +122,9 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     fSoonTempText.setText(temp);
                     descriptString = firstDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     fDescriptText.setText(descriptString);
+                    iconString = firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+                    System.out.println("IconString"+iconString);
+                    myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
                     sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
@@ -122,6 +132,9 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     sSoonTempText.setText(temp);
                     descriptString = secondDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     sDescriptText.setText(descriptString);
+                    iconString = secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+                    System.out.println("IconString"+iconString);
+                    myData.getImageLoader().loadDraweeImage(sSoonDraweeView, secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 9 часов
                     thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
                     thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
@@ -129,6 +142,10 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     thSoonTempText.setText(temp);
                     descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     thDescriptText.setText(descriptString);
+                    iconString = thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+                    System.out.println("IconString "+ iconString);
+                    //thSoonDraweeView.setImageURI("https://openweathermap.org/img/wn/10d@2x.png");
+                    myData.getImageLoader().loadDraweeImage(thSoonDraweeView, thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
@@ -35,6 +37,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     private TextView windTextView;
     private ThermometerView thermometerView;
     private TextView descriptTextView;
+    private SimpleDraweeView draweeView;
+
     //затем сюда поставлю картинку с облаками/солнцем/дождем
     private ImageView weatherImageView;
     private MyData myData;
@@ -43,6 +47,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     private String windString;
     private String pressureString;
     private String descriptString;
+    private String iconString;
+
 
     //номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
     private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
@@ -82,6 +88,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
         pressureTextView = view.findViewById(R.id.pressureTextView);
         thermometerView = view.findViewById(R.id.thermometerView);
         descriptTextView = view.findViewById(R.id.descriptTextView);
+        draweeView = (SimpleDraweeView) view.findViewById(R.id.curWeathImg);
         System.out.println();
     }
 
@@ -99,7 +106,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     public void updateViewData() {
         cityTextView.setText(myData.getCurrentCity());
         setWeatherValuesToTextViews();
-    }
+        }
 
     //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
 // его из этого списка удалить
@@ -131,6 +138,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     //Ставить текст
     public void setWeatherValuesToTextViews() {
         final Handler handler = new Handler();
+        //draweeView.setImageURI(Uri.parse("https://upload.wikimedia.org/wikipedia/commons/8/81/Lo_Spagna_-_Madonna_col_bambino_-_Hermitage.jpg"));
+
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -149,6 +158,9 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     pressureTextView.setText(pressureString);
                     descriptString = dataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     descriptTextView.setText(descriptString);
+                    iconString = dataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
+                    myData.getImageLoader().loadDraweeImage(draweeView, iconString);
+
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);
