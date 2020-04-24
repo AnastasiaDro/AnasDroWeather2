@@ -31,12 +31,17 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     private TextView fSoonTempText;
     private TextView sSoonTempText;
     private TextView thSoonTempText;
+    private TextView fDescriptText;
+    private TextView sDescriptText;
+    private TextView thDescriptText;
+
 
     String[] firstDataArr;
     String[] secondDataArr;
     String[] thirdDataArr;
 
-    String temp;
+    private String temp;
+    private String descriptString;;
 
     private MyData myData;
 
@@ -74,6 +79,9 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
         fSoonTempText = view.findViewById(R.id.f_soonTempText);
         sSoonTempText = view.findViewById(R.id.s_soonTempText);
         thSoonTempText = view.findViewById(R.id.th_soonTempText);
+        fDescriptText = view.findViewById(R.id.fDescriptText);
+        sDescriptText = view.findViewById(R.id.sDescriptText);
+        thDescriptText = view.findViewById(R.id.thDescriptText);
     }
 
 
@@ -105,16 +113,22 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     fSoonTimeText.setText(firstDataArr != null ? firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
                     temp = firstDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     fSoonTempText.setText(temp);
+                    descriptString = firstDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+                    fDescriptText.setText(descriptString);
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
                     sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
                     temp = secondDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     sSoonTempText.setText(temp);
+                    descriptString = secondDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+                    sDescriptText.setText(descriptString);
                     //Через 9 часов
                     thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
                     thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
                     temp = thirdDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     thSoonTempText.setText(temp);
+                    descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+                    thDescriptText.setText(descriptString);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
