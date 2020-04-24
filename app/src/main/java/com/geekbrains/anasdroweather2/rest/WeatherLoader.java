@@ -33,6 +33,8 @@ public class WeatherLoader {
     private String gotTemp;
     private String gotPressure;
     private String gotWind;
+    private String gotRain;
+    private String gotIconIdStr;
 
 
     //Конструктор
@@ -84,11 +86,12 @@ public class WeatherLoader {
             gotTemp = String.valueOf(model.listResponce[i].main.getTemp());
             gotPressure = String.valueOf(model.listResponce[i].main.getPressure());
             gotWind = String.valueOf(model.listResponce[i].wind.speed);
-            String[] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind};
+            gotRain = model.listResponce[i].weather[0].description;
+            gotIconIdStr = model.listResponce[i].weather[0].icon;
+            String[] weatherDataArr = {gotTime, gotTemp, gotPressure, gotWind, gotRain, gotIconIdStr};
             takenWeatherData.put(i, weatherDataArr);
         }
     }
-
 
     public void showExceptionAlert() {
         final int exceptionStringId = myData.getExceptionNameId();
