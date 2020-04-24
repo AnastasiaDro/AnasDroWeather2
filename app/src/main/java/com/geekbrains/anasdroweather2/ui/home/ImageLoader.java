@@ -15,8 +15,9 @@ public class ImageLoader {
 
     public void loadDraweeImage (SimpleDraweeView draweeView, String imgId) {
         uriString = uriString.replace("99999", imgId);
-        System.out.println("imgId: "+ imgId);
+        System.out.println("URISTRING "+ uriString);
         uri = Uri.parse(uriString);
+        uriString = "https://openweathermap.org/img/wn/99999@2x.png";
         draweeView.setImageURI(uri);
     }
 

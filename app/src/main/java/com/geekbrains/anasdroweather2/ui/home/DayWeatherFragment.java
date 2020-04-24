@@ -125,6 +125,8 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     iconString = firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
                     System.out.println("IconString"+iconString);
                     myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
+                    //С методом выше почему-то не получилось
+                    //fSoonDraweeView.setImageURI("https://openweathermap.org/img/wn/" +iconString + "@2x.png");
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
                     sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
@@ -143,8 +145,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     thDescriptText.setText(descriptString);
                     iconString = thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-                    System.out.println("IconString "+ iconString);
-                    //thSoonDraweeView.setImageURI("https://openweathermap.org/img/wn/10d@2x.png");
                     myData.getImageLoader().loadDraweeImage(thSoonDraweeView, thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
