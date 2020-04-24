@@ -103,38 +103,23 @@
             android:orientation="horizontal">
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/fSoonWeathImg"
-                android:layout_width="78dp"
-                android:layout_height="81dp"
-                fresco:layout_constraintBottom_toTopOf="@+id/tTextView"
-                fresco:layout_constraintEnd_toStartOf="@+id/pressureTextView"
-                fresco:layout_constraintHorizontal_bias="0.468"
-                fresco:layout_constraintStart_toEndOf="@+id/cityTextView"
-                fresco:layout_constraintTop_toTopOf="parent"
-                fresco:layout_constraintVertical_bias="0.981"
+                android:layout_width="20dp"
+                android:layout_height="70dp"
+                android:gravity="center"
                 fresco:placeholderImage="@drawable/ic_launcher_foreground" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sSoonWeathImg"
-                android:layout_width="78dp"
-                android:layout_height="81dp"
-                fresco:layout_constraintBottom_toTopOf="@+id/tTextView"
-                fresco:layout_constraintEnd_toStartOf="@+id/pressureTextView"
-                fresco:layout_constraintHorizontal_bias="0.468"
-                fresco:layout_constraintStart_toEndOf="@+id/cityTextView"
-                fresco:layout_constraintTop_toTopOf="parent"
-                fresco:layout_constraintVertical_bias="0.981"
+                android:layout_width="20dp"
+                android:layout_height="70dp"
+                android:gravity="center"
                 fresco:placeholderImage="@drawable/ic_launcher_foreground" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/thSoonWeathImg"
-                android:layout_width="78dp"
-                android:layout_height="81dp"
-                fresco:layout_constraintBottom_toTopOf="@+id/tTextView"
-                fresco:layout_constraintEnd_toStartOf="@+id/pressureTextView"
-                fresco:layout_constraintHorizontal_bias="0.468"
-                fresco:layout_constraintStart_toEndOf="@+id/cityTextView"
-                fresco:layout_constraintTop_toTopOf="parent"
-                fresco:layout_constraintVertical_bias="0.981"
+                android:layout_width="20dp"
+                android:layout_height="70dp"
+                android:gravity="center"
                 fresco:placeholderImage="@drawable/ic_launcher_foreground" />
         </TableRow>
 

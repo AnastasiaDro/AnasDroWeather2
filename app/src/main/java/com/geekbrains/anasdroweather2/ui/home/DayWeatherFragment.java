@@ -108,7 +108,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
     //Ставить текст
     public void setWeatherValuesToTextViews() {
         final Handler handler = new Handler();
-       // do{} while (myData.getWeatherRequestIsDone()==false);
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -125,8 +124,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     iconString = firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
                     System.out.println("IconString"+iconString);
                     myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
-                    //С методом выше почему-то не получилось
-                    //fSoonDraweeView.setImageURI("https://openweathermap.org/img/wn/" +iconString + "@2x.png");
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
                     sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);

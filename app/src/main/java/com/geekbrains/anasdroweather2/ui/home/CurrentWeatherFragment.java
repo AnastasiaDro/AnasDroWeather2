@@ -152,9 +152,9 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     temperatureTextView.setText(forTemp);
                     windString = getString(R.string.wind);
                     pressureString = getString(R.string.pressure);
-                    windString = windString.concat(" " + dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
+                    windString = windString.concat("\n" + dataArr[Constants.WIND_KEY_IN_WEATHERDATA_ARRAY]);
                     windTextView.setText(windString);
-                    pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
+                    pressureString = pressureString.concat("\n" + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                     pressureTextView.setText(pressureString);
                     descriptString = dataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     descriptTextView.setText(descriptString);
