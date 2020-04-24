@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment implements ActivMethods {
         myData = MyData.getInstance();
         //загружаем данные
         WeatherLoader weatherLoader = new WeatherLoader(getContext());
-        weatherLoader.loadWeatherData();
+
         init();
 
 //создаём изменитель интерфейса

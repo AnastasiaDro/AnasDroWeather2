@@ -48,7 +48,7 @@ public class WeatherLoader {
     }
 
     public void loadWeatherData() {
-        OpenWeatherRepo.getInstance().getAPI().loadWeather(city + ",RU", "cf6eb93358473e7ee159a01606140722")
+        OpenWeatherRepo.getInstance().getAPI().loadWeather(city + ",RU", "18cec878e8716dae5ccae34b3950cc27")
                 .enqueue(new Callback<WeatherRequestRestModel>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherRequestRestModel> call, @NonNull Response<WeatherRequestRestModel> response) {

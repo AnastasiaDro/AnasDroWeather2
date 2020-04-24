@@ -1,6 +1,8 @@
 package com.geekbrains.anasdroweather2;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.SearchView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //работа с сохраненными настройками
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,10 +92,39 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         interfaceChanger.setAutoTheme(this, toolbar);
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                myData.setCurrentCity(query);
+                System.out.println("второй запуск loadWeatherData, temp =" );
+               //не работает
+                //weatherLoader.loadWeatherData();
+                //Работало
+                WeatherLoader searchWeatherLoader = new WeatherLoader(getApplicationContext());
+                searchWeatherLoader.loadWeatherData();
+
+                searchView.setIconified(true);
+                menu.close();
+                searchView.clearFocus();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -123,6 +157,9 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 return true;
             //если нажали на поиск
             case R.id.app_bar_search:
+
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -159,5 +196,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     public WeatherLoader getWeatherLoader() {
         return weatherLoader;
     }
+
+
+
 
 }
