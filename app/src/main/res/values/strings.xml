@@ -18,6 +18,7 @@
     <string name="tWeather">t</string>
     <string name="pressure">pressure</string>
     <string name="wind">wind</string>
+    <string name="description">Description</string>
     <string name="select">select</string>
     <string name="temperatureTextView">temperature</string>
     <string name="soon">Soon</string>
@@ -56,5 +57,7 @@
 
     <string name="noData">No data</string>
     <string name="network_error">Network Error</string>
+
+
 
 </resources>

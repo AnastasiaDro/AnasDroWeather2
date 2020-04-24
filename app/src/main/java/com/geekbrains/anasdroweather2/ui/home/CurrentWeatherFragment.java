@@ -34,6 +34,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     private TextView pressureTextView;
     private TextView windTextView;
     private ThermometerView thermometerView;
+    private TextView descriptTextView;
     //затем сюда поставлю картинку с облаками/солнцем/дождем
     private ImageView weatherImageView;
     private MyData myData;
@@ -41,6 +42,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     private WeatherLoader weatherLoader;
     private String windString;
     private String pressureString;
+    private String descriptString;
 
     //номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
     private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
@@ -79,6 +81,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
         windTextView = view.findViewById(R.id.windTextView);
         pressureTextView = view.findViewById(R.id.pressureTextView);
         thermometerView = view.findViewById(R.id.thermometerView);
+        descriptTextView = view.findViewById(R.id.descriptTextView);
         System.out.println();
     }
 
@@ -144,6 +147,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     windTextView.setText(windString);
                     pressureString = pressureString.concat(" " + dataArr[Constants.PRESSURE_KEY_IN_WEATHERDATA_ARRAY]);
                     pressureTextView.setText(pressureString);
+                    descriptString = dataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
+                    descriptTextView.setText(descriptString);
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);

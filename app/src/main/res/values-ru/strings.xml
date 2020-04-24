@@ -19,6 +19,7 @@
     <string name="tWeather">t</string>
     <string name="pressure">давление</string>
     <string name="wind">ветер</string>
+    <string name="description">Описание</string>
     <string name="select">Выбрать</string>
     <string name="temperatureTextView">temperature</string>
     <string name="soon">Ближайшее время</string>
@@ -56,4 +57,6 @@
 
     <string name="noData">No data</string>
     <string name="network_error">Ошибка сети</string>
+
+
 </resources>
