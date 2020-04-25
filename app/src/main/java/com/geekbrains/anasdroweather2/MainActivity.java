@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //инициализиируем Fresco
+        Fresco.initialize(this);
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         myData = MyData.getInstance();
