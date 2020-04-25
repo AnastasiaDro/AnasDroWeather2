@@ -17,12 +17,10 @@ public class WeekDataParser {
 
     int firstDayBeginIndex;
 
-    //индексы времени, из которых мы будем получать температуру
+
     //для первого дня
     //это 9 утра, 15 дня, и 21 - вечер
-    int firstDMorIndex;
-    int firstDDayIndex;
-    int firstDEvIndex;
+
 
 
     public WeekDataParser(){
@@ -32,20 +30,39 @@ public class WeekDataParser {
         timeStep = 3;
     }
 
-    public void findFirstDayBeginning(){
-        //получим время указанное в первом элементе
+    public int[] findDayBeginningIndexes(){
+        //получим время указанное в первом, втором и третьем элементах
+        //индексы времени, из которых мы будем получать температуру
+        int [] dayBeginningIndexesArr = new int[4];
         zeroArr = allWeatherDataHashMap.get(0);
         curTimeString = zeroArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
         curTimeString = curTimeString.substring(0, 2);
         curTime = Integer.parseInt(curTimeString);
         firstDayBeginIndex = (twentyFourHours - curTime)/3;
+        dayBeginningIndexesArr[0] = firstDayBeginIndex;
+        for (int i = 1; i < 4 ; i++) {
+            dayBeginningIndexesArr[i] = dayBeginningIndexesArr[i-1]+8;
+        }
+        return dayBeginningIndexesArr;
     }
 
-    //запустить после findFirstDayBeginning()
-    private void forDayTempDataIndexes(int dayBeginIndex){
-        firstDMorIndex = dayBeginIndex + 3;
-        firstDDayIndex = dayBeginIndex + 5;
-        firstDEvIndex = dayBeginIndex + 7;
+    //получим индексы заданного дня для 9.00, 15.00  и 21.00
+    private int [] forDayTempDataIndexes(int dayBeginIndex) {
+        int[] morAftEvIndexesArr = new int[3];
+        morAftEvIndexesArr[0] = dayBeginIndex + 3;
+        morAftEvIndexesArr[1] = dayBeginIndex + 5;
+        morAftEvIndexesArr[2] = dayBeginIndex + 7;
+        return morAftEvIndexesArr;
     }
+
+    //нужно получить даты трех последних дней
+
+
+
+
+
+    //получим данные по осадкам за все дни и выберем дождь, или экстрим
+
+
 
 }
