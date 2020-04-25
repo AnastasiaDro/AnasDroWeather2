@@ -39,6 +39,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     TextView fifthDayTempText;
     TextView sixDayTempText;
     TextView svnDayTempText;
+    WeekDataParser weekDataParser;
 
     private MyData myData;
 
@@ -57,6 +58,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         //... место для аргументов
         myData = MyData.getInstance();
         myData.registerObserver(this);
+        weekDataParser = new WeekDataParser();
     }
 
     //создаем View
