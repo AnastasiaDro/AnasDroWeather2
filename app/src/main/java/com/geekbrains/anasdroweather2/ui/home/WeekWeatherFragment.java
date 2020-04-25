@@ -53,9 +53,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     int fstDayAftKey;
     int fstDayEvKey;
     //массивы для данных первого дня
-    private int []  fstDayMorArr;
-    private int[] fstDayAftArr;
-    private int[] fstDayEvArr;
+    private String []  fstDayMorArr;
+    private String [] fstDayAftArr;
+    private String [] fstDayEvArr;
 
 
     //индексы для данных второго дня
@@ -63,12 +63,21 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     int scndDayMorKey;
     int scndDayAftKey;
     int scndDayEvKey;
+    //массивы для данных второго дня
+    private String []  scndDayMorArr;
+    private String[] scndDayAftArr;
+    private String[] scndDayEvArr;
+
 
     //индексы для данных третьего дня
     int [] thirdDayIndexesArr;
     int thrdDayMorKey;
     int thrdDayAftKey;
     int thrdDayEvKey;
+    //массивы для данных третьего дня
+    private String []  thrdDayMorArr;
+    private String[] thrdDayAftArr;
+    private String[] thrdDayEvArr;
 
 
 
@@ -163,7 +172,8 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //получим массивы строк, по которым будем искать значения
     private void getStringsArraysWithDaysData(){
-        fstDayMorArr [] = myData.getAllWeatherDataHashMap().get(fstDayMorKey);
+        fstDayMorArr = myData.getAllWeatherDataHashMap().get(fstDayMorKey);
+        fstDayAftArr = myData.getAllWeatherDataHashMap().get()
     }
 
 
