@@ -82,7 +82,7 @@ public class WeatherLoader {
     private void renderWeather(WeatherRequestRestModel model) {
         for (int i = 0; i < 4; i++) {
             //здесь нужно засунуть всё в HashMap в MyData
-            gotTime = model.listResponce[i].textDt.substring(10, 16);
+            gotTime = model.listResponce[i].textDt;
             gotTemp = String.valueOf(model.listResponce[i].main.getTemp());
             gotPressure = String.valueOf(model.listResponce[i].main.getPressure());
             gotWind = String.valueOf(model.listResponce[i].wind.speed);

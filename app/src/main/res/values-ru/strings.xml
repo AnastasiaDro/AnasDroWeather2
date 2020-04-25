@@ -58,5 +58,9 @@
     <string name="noData">No data</string>
     <string name="network_error">Ошибка сети</string>
 
+    <string name="date">Дата</string>
+    <string name="morning">Утро</string>
+    <string name="afternoon">День</string>
+    <string name="evening">Вечер</string>
 
 </resources>

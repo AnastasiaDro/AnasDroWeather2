@@ -58,6 +58,9 @@
     <string name="noData">No data</string>
     <string name="network_error">Network Error</string>
 
-
+    <string name="date">Date</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
 
 </resources>

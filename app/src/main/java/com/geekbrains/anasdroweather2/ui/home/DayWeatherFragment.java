@@ -118,7 +118,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                 try {
                     //Через три часа
                     firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
-                    fSoonTimeText.setText(firstDataArr != null ? firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
+                    fSoonTimeText.setText(firstDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
                     temp = firstDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     fSoonTempText.setText(temp);
                     descriptString = firstDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
@@ -128,7 +128,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
-                    sSoonTimeText.setText(secondDataArr != null ? secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY] : null);
+                    sSoonTimeText.setText(secondDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
                     temp = secondDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     sSoonTempText.setText(temp);
                     descriptString = secondDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
@@ -138,7 +138,7 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     myData.getImageLoader().loadDraweeImage(sSoonDraweeView, secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 9 часов
                     thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
-                    thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY]);
+                    thSoonTimeText.setText(thirdDataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(10, 16));
                     temp = thirdDataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY].concat(" \u2103");
                     thSoonTempText.setText(temp);
                     descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
