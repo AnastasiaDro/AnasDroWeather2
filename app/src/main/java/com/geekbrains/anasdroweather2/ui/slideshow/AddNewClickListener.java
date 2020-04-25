@@ -37,6 +37,10 @@ public class AddNewClickListener implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 myNewString = input.getText().toString();
                 addCityToMyData(myNewString);
+                myData.setCurrentCity(myNewString);
+                myData.notifyObservers();
+                myData.getNavController().navigate(R.id.nav_home);
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

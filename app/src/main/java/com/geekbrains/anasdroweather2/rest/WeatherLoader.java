@@ -93,6 +93,9 @@ public class WeatherLoader {
         }
     }
 
+    //TODO
+    //крэшится, если забивать город через searchView
+    //Видимо потому, что не перерисовывается HomeFragment
     public void showExceptionAlert() {
         final int exceptionStringId = myData.getExceptionNameId();
         final int adviceStringId = myData.getExceptionAdviceId();

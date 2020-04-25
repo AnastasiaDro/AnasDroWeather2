@@ -98,17 +98,17 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             @Override
             public boolean onQueryTextSubmit(String query) {
                 myData.setCurrentCity(query);
+                myData.getCitiesList().add(query);
                 System.out.println("второй запуск loadWeatherData, temp =" );
                 //не работает
                 //weatherLoader.loadWeatherData();
                 //Работало
                 WeatherLoader searchWeatherLoader = new WeatherLoader(getApplicationContext());
                 searchWeatherLoader.loadWeatherData();
-
-                searchView.setIconified(true);
                 menu.close();
                 searchView.clearFocus();
-
+                //Почему не работает?!?!
+                searchView.setIconified(true);
                 return true;
             }
 
