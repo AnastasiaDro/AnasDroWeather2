@@ -172,8 +172,13 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //получим массивы строк, по которым будем искать значения
     private void getStringsArraysWithDaysData(){
+        //массив строк с данными для первого дня
         fstDayMorArr = myData.getAllWeatherDataHashMap().get(fstDayMorKey);
-        fstDayAftArr = myData.getAllWeatherDataHashMap().get()
+        fstDayAftArr = myData.getAllWeatherDataHashMap().get(fstDayAftKey);
+        fstDayEvArr = myData.getAllWeatherDataHashMap().get(fstDayEvKey);
+        //массив строк с данными для второго дня
+
+        //массив строк с данными для третьего дня
     }
 
 
