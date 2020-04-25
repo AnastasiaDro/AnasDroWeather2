@@ -34,28 +34,28 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/firstDayTextView"
+                android:id="@+id/firstDayTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/scndDayTextView"
+                android:id="@+id/scndDayTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/trdDayTextView"
+                android:id="@+id/trdDayTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/fourthDayTextView"
+                android:id="@+id/fourthTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
