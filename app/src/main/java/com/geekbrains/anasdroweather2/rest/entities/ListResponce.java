@@ -8,10 +8,10 @@ public class ListResponce {
     @SerializedName("main") public MainRestModel main;
     @SerializedName("visibility") public int visibility;
     @SerializedName("wind") public WindRestModel wind;
-   // @SerializedName("pressure") public PressureRestModel pressure;
     @SerializedName("dt_txt") public String textDt;
     @SerializedName("name") public String name;
     @SerializedName("id") public long id;
+    //для отображения дождя
 //    @SerializedName("sys") public SysRestModel sys;
 //    @SerializedName("rain") public RainRestModel rain;
 }

@@ -24,9 +24,6 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.valueOf;
-
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 
     //используемые View
@@ -38,13 +35,8 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     private TextView descriptTextView;
     //сюда поставится картинка с облаками/солнцем/дождем
     private SimpleDraweeView draweeView;
-
-
-
-    private ImageView weatherImageView;
     private MyData myData;
     private InterfaceChanger interfaceChanger;
-    private WeatherLoader weatherLoader;
     private String windString;
     private String pressureString;
     private String descriptString;
@@ -53,19 +45,9 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
     //номер элемента массива JSON, в котором данные текущей погоды (он всегда первый)
     private static final int CURRENT_DATA_KEY_IN_HASHMAP = 0;
 
-    public static CurrentWeatherFragment newInstance() {
-        CurrentWeatherFragment currentWeatherFragment = new CurrentWeatherFragment();
-        Bundle args = new Bundle();
-        // args.putInt("placeId", placeId);
-        // currentWeatherFragment.setArguments(args);
-        return currentWeatherFragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //получаем аргументы назад
-        //... место для аргументов
         interfaceChanger = InterfaceChanger.getInterfaceInstance((AppCompatActivity) this.getContext());
         interfaceChanger.registerObserver(this);
         myData = MyData.getInstance();
