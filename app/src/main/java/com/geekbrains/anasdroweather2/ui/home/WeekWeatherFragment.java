@@ -18,6 +18,10 @@ import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class WeekWeatherFragment extends Fragment implements FragmentMethods, Observer {
@@ -53,9 +57,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     int fstDayAftKey;
     int fstDayEvKey;
     //массивы для данных первого дня
-    private String []  fstDayMorArr;
-    private String [] fstDayAftArr;
-    private String [] fstDayEvArr;
+    private ArrayList <String> fstDayMorArrayList;
+    private String[] fstDayAftArrayList;
+    private ArrayList <String> fstDayEvArrayList;
 
 
     //индексы для данных второго дня
@@ -64,9 +68,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     int scndDayAftKey;
     int scndDayEvKey;
     //массивы для данных второго дня
-    private String []  scndDayMorArr;
-    private String[] scndDayAftArr;
-    private String[] scndDayEvArr;
+    private ArrayList <String> scndDayMorArrayList;
+    private ArrayList <String> scndDayAftArrayList;
+    private ArrayList <String> scndDayEvArrayList;
 
 
     //индексы для данных третьего дня
@@ -75,9 +79,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     int thrdDayAftKey;
     int thrdDayEvKey;
     //массивы для данных третьего дня
-    private String []  thrdDayMorArr;
-    private String[] thrdDayAftArr;
-    private String[] thrdDayEvArr;
+    private ArrayList <String>  thrdDayMorArrayList;
+    private ArrayList <String> thrdDayAftArrayList;
+    private ArrayList <String> thrdDayEvArrayList;
 
 
 
@@ -86,7 +90,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     private WeekDataParser weekDataParser;
     private MyData myData;
 
-    HashMap dataForTextViewsHashMap = new HashMap();
+    HashMap <Integer, String[]> dataForTextViewsHashMap = new HashMap();
 
     public static WeekWeatherFragment newInstance() {
         WeekWeatherFragment weekWeatherFragment = new WeekWeatherFragment();
@@ -149,9 +153,9 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
                 takeAllIndexesForDaysData();
                 getStringsArraysWithDaysData();
                 //установим данные для первого дня
-                fstDayMorTempText.setText(fstDayMorArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
-                fstDayAftTempText.setText(fstDayAftArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
-                fstDayEvTempText.setText(fstDayEvArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+                fstDayMorTempText.setText(fstDayMorArrayList.get(Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY));
+                fstDayAftTempText.setText(fstDayAftArrayList[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+              //  fstDayEvTempText.setText(fstDayEvArrayList.get(Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY));
             }
         });
 
@@ -161,46 +165,48 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     //получим индексы, по которым будем выбирать из всех выгруженных данных нужные данные по ближайшим дням
     private void takeAllIndexesForDaysData(){
-        dataForTextViewsHashMap = weekDataParser.takeForEachDayIndexMap();
-        System.out.println("");
-        firstDayIndexesArr = (int[]) dataForTextViewsHashMap.get(0);
-        fstDayMorKey = firstDayIndexesArr[0];
-        fstDayAftKey = firstDayIndexesArr[1];
-        fstDayEvKey  = firstDayIndexesArr[2];
-
+        int [] daysBeginningTimesArr = weekDataParser.findDayBeginningIndexesArr();
+        fstDayMorKey = daysBeginningTimesArr[0]+3;
+        System.out.println("fstDayMorKey РАВЕН "+  fstDayMorKey);
+        fstDayAftKey = daysBeginningTimesArr[0]+5;
+        fstDayEvKey  = daysBeginningTimesArr[0]+7;
         //индексы для данных второго дня
-        secondDayIndexesArr = (int[]) dataForTextViewsHashMap.get(1);
-        scndDayMorKey = secondDayIndexesArr[0];
-        scndDayAftKey = secondDayIndexesArr[1];
-        scndDayEvKey = secondDayIndexesArr[2];
+
+        scndDayMorKey = daysBeginningTimesArr[1]+3;
+        scndDayAftKey = daysBeginningTimesArr[1]+5;
+        scndDayEvKey = daysBeginningTimesArr[1]+7;
 
         //индексы для данных третьего дня
-        thirdDayIndexesArr = (int[]) dataForTextViewsHashMap.get(2);
-        thrdDayMorKey = thirdDayIndexesArr[0];
-        thrdDayAftKey = thirdDayIndexesArr[1];
-        thrdDayEvKey = thirdDayIndexesArr[2];
+
+        thrdDayMorKey = daysBeginningTimesArr[2]+3;
+        thrdDayAftKey = daysBeginningTimesArr[2]+5;
+        thrdDayEvKey = daysBeginningTimesArr[2]+7;
     }
 
     //получим массивы строк, по которым будем искать значения
     private void getStringsArraysWithDaysData(){
         //массив строк с данными для первого дня
         HashMap <Integer, String[]> allWeatherDataHashMap = myData.getAllWeatherDataHashMap();
-        fstDayMorArr = allWeatherDataHashMap.get(fstDayMorKey);
-        fstDayAftArr = allWeatherDataHashMap.get(fstDayAftKey);
-        fstDayEvArr = allWeatherDataHashMap.get(fstDayEvKey);
-        //массив строк с данными для второго дня
-        scndDayMorArr = allWeatherDataHashMap.get(scndDayMorKey);
-        scndDayAftArr = allWeatherDataHashMap.get(scndDayAftKey);
-        scndDayEvArr = allWeatherDataHashMap.get(scndDayEvKey);
-        //массив строк с данными для третьего дня
-        thrdDayMorArr = allWeatherDataHashMap.get(thrdDayMorKey);
-        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayAftKey);
-        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayEvKey);
+        if (allWeatherDataHashMap == null){
+            System.out.println("allWeatherDataHashMap NULL");
+        } else {
+            System.out.println("allWeatherDataHashMap" + allWeatherDataHashMap.entrySet());
+        }
+        fstDayMorArrayList = new ArrayList<>();
+        fstDayMorArrayList.addAll(Arrays.asList(allWeatherDataHashMap.get(fstDayMorKey)));
+
+
+         fstDayAftArrayList = allWeatherDataHashMap.get(fstDayAftKey);
+//        fstDayEvArr = allWeatherDataHashMap.get(fstDayEvKey);
+//        //массив строк с данными для второго дня
+//        scndDayMorArr = allWeatherDataHashMap.get(scndDayMorKey);
+//        scndDayAftArr = allWeatherDataHashMap.get(scndDayAftKey);
+//        scndDayEvArr = allWeatherDataHashMap.get(scndDayEvKey);
+//        //массив строк с данными для третьего дня
+//        thrdDayMorArr = allWeatherDataHashMap.get(thrdDayMorKey);
+//        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayAftKey);
+//        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayEvKey);
     }
-
-
-
-
 
     @Override
     public void postFragment(AppCompatActivity activity, int placeId) {
