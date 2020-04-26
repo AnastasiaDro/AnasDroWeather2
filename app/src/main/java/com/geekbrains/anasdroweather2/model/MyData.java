@@ -115,7 +115,6 @@ public class MyData implements Observable {
         DateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
         String dateText = hourFormat.format(currentDate);
         currentHour = Integer.parseInt(dateText);
-        System.out.println("время = " + currentHour);
         return currentHour;
     }
 

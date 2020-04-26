@@ -142,9 +142,19 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     }
 
     public void setWeatherValuesToTextViews() {
-        takeAllIndexesForDaysData();
         final Handler handler = new Handler();
-        //установим данные для первого дня
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                takeAllIndexesForDaysData();
+                getStringsArraysWithDaysData();
+                //установим данные для первого дня
+                fstDayMorTempText.setText(fstDayMorArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+                fstDayAftTempText.setText(fstDayAftArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+                fstDayEvTempText.setText(fstDayEvArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY]);
+            }
+        });
+
 
 
     }
@@ -152,6 +162,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     //получим индексы, по которым будем выбирать из всех выгруженных данных нужные данные по ближайшим дням
     private void takeAllIndexesForDaysData(){
         dataForTextViewsHashMap = weekDataParser.takeForEachDayIndexMap();
+        System.out.println("");
         firstDayIndexesArr = (int[]) dataForTextViewsHashMap.get(0);
         fstDayMorKey = firstDayIndexesArr[0];
         fstDayAftKey = firstDayIndexesArr[1];
@@ -173,12 +184,18 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     //получим массивы строк, по которым будем искать значения
     private void getStringsArraysWithDaysData(){
         //массив строк с данными для первого дня
-        fstDayMorArr = myData.getAllWeatherDataHashMap().get(fstDayMorKey);
-        fstDayAftArr = myData.getAllWeatherDataHashMap().get(fstDayAftKey);
-        fstDayEvArr = myData.getAllWeatherDataHashMap().get(fstDayEvKey);
+        HashMap <Integer, String[]> allWeatherDataHashMap = myData.getAllWeatherDataHashMap();
+        fstDayMorArr = allWeatherDataHashMap.get(fstDayMorKey);
+        fstDayAftArr = allWeatherDataHashMap.get(fstDayAftKey);
+        fstDayEvArr = allWeatherDataHashMap.get(fstDayEvKey);
         //массив строк с данными для второго дня
-
+        scndDayMorArr = allWeatherDataHashMap.get(scndDayMorKey);
+        scndDayAftArr = allWeatherDataHashMap.get(scndDayAftKey);
+        scndDayEvArr = allWeatherDataHashMap.get(scndDayEvKey);
         //массив строк с данными для третьего дня
+        thrdDayMorArr = allWeatherDataHashMap.get(thrdDayMorKey);
+        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayAftKey);
+        thrdDayAftArr = allWeatherDataHashMap.get(thrdDayEvKey);
     }
 
 
@@ -195,7 +212,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
 
     @Override
     public void updateViewData() {
-    //заполнить
+        setWeatherValuesToTextViews();
     }
 
     //так как при каждом запуске мы добавляем фрагмент в список обсёрверов, то при закрытии/перерисовке нужно
