@@ -63,4 +63,6 @@
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>
 
+    <string name="searchHistory">Search history</string>
+
 </resources>

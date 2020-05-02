@@ -63,4 +63,6 @@
     <string name="afternoon">День</string>
     <string name="evening">Вечер</string>
 
+    <string name="searchHistory">История поиска</string>
+
 </resources>

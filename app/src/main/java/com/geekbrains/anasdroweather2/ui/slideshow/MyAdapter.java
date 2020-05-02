@@ -41,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final TextView textCityName = holder.itemView.findViewById(R.id.textCityName);
+        final TextView textCityName = holder.itemView.findViewById(R.id.searchCityNameTV);
         textCityName.setText(citiesList.get(position).toString());
     }
 
@@ -69,7 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
         public MyViewHolder(final View itemView) {
             super(itemView);
             final NavController navController = myData.getNavController();
-            textCityName = itemView.findViewById(R.id.textCityName);
+            textCityName = itemView.findViewById(R.id.searchCityNameTV);
             cardView = itemView.findViewById(R.id.myLinearCard);
             cardView.setOnCreateContextMenuListener(this);
 
