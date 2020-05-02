@@ -1,4 +1,4 @@
-package com.geekbrains.anasdroweather2.ui.SearchHistoryFragment;
+package com.geekbrains.anasdroweather2.ui.gallery;
 
 import androidx.fragment.app.Fragment;
 
