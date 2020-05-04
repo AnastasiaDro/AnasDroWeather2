@@ -202,4 +202,24 @@ public class MyData implements Observable {
     public void setImageLoader(ImageLoader imageLoader) {
         this.imageLoader = imageLoader;
     }
+
+    //метод удаления последнего элемента из массива и сдвига всех элементов
+    public ArrayList deleteLastAddNewList(String newString,ArrayList arrayList) {
+        ArrayList <String> newArrayList = new ArrayList();
+        newArrayList.add(newString);
+        arrayList.remove(arrayList.size()-1);
+        newArrayList.addAll(arrayList);
+        //удалим повторяющиеся элементы в списке
+        for (int i = 1; i < newArrayList.size(); i++) {
+            if (newArrayList.get(i) == newString) {
+                newArrayList.remove(i);
+            }
+        }
+        arrayList = newArrayList;
+        return arrayList;
+    }
+
 }
+
+
+

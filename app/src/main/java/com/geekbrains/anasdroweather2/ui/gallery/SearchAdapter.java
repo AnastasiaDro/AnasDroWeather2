@@ -9,31 +9,48 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
+import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
 
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SearchAdapter extends RecyclerView.Adapter {
+public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     MyData myData;
     ArrayList<String> imgStringsList;
     ArrayList <String> tempStringsList;
     ArrayList <String> citiesNamesList;
+    String imgString;
 
 
     public SearchAdapter() {
         this.myData = MyData.getInstance();
+        imgString = null;
+        imgStringsList = myData.getImgStringsList();
+        tempStringsList = myData.getTempStringsList();
+        citiesNamesList = myData.getCitiesNamesList();
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        imgStringsList = myData.getImgStringsList();
+        tempStringsList = myData.getTempStringsList();
+        citiesNamesList = myData.getCitiesNamesList();
+        this.notifyDataSetChanged();
     }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public SimpleDraweeView weathDraweeView;
         public TextView tempTV;
@@ -41,28 +58,58 @@ public class SearchAdapter extends RecyclerView.Adapter {
         CardView cardView;
         public MyViewHolder(View itemView) {
             super(itemView);
+            final NavController navController = myData.getNavController();
             weathDraweeView = itemView.findViewById(R.id.searchWeathImg);
-            tempTV = itemView.findViewById(R.id.searchCityTempTV);
-            cityNameTV = itemView.findViewById(R.id.searchCityNameTV);
+            tempTV = itemView.findViewById(R.id.searchCityTempText);
+            cityNameTV = itemView.findViewById(R.id.searchCityNameText);
             cardView = itemView.findViewById(R.id.mySearchCard);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String selectedCityName = cityNameTV.getText().toString();
+                    final String selectedCityTemp = tempTV.getText().toString();
+                    final String selectedCityImg = imgString;
+                    myData.setCurrentCity(selectedCityName);
+                    //код с изменением места в списке города, который искали
+                    //не будет задваивания имени города
+                    myData.deleteLastAddNewList(selectedCityTemp, tempStringsList);
+                    myData.deleteLastAddNewList(selectedCityName, citiesNamesList);
+                    myData.deleteLastAddNewList(selectedCityImg, imgStringsList);
+
+                    System.out.println("Текущий город в myData " + myData.getCurrentCity());
+                    navController.navigate(R.id.nav_home);
+                    myData.notifyObservers();
+                }
+            });
         }
     }
-
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        //create a new view
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.linear_card, parent, false);
+        MyViewHolder myViewHolder = new SearchAdapter.MyViewHolder(v);
+        return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        final SimpleDraweeView draweeView = holder.itemView.findViewById(R.id.searchWeathImg);
+        final TextView searchedCityTemp = holder.itemView.findViewById(R.id.searchCityTempText);
+        final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
+        imgString = imgStringsList.get(position);
+        myData.getImageLoader().loadDraweeImage(draweeView, imgString);
 
+
+        searchedCityTemp.setText(tempStringsList.get(position));
+        searchedCityName.setText(citiesNamesList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return citiesNamesList.size();
     }
 
 }
