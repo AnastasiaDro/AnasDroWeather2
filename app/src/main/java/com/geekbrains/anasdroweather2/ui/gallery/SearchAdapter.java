@@ -76,7 +76,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
                     myData.deleteLastAddNewList(selectedCityTemp, tempStringsList);
                     myData.deleteLastAddNewList(selectedCityName, citiesNamesList);
                     myData.deleteLastAddNewList(selectedCityImg, imgStringsList);
-
                     System.out.println("Текущий город в myData " + myData.getCurrentCity());
                     navController.navigate(R.id.nav_home);
                     myData.notifyObservers();
