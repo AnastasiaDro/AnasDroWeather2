@@ -43,6 +43,26 @@ public class MyData implements Observable {
     String currentCity;
     private ImageLoader imageLoader;
 
+    public ArrayList<String> getImgStringsList() {
+        return searchedImgStringsList;
+    }
+
+    public ArrayList<String> getTempStringsList() {
+        return searchedTempStringsList;
+    }
+
+    public ArrayList<String> getCitiesNamesList() {
+        return searchedCitiesNamesList;
+    }
+
+    //список изображений, температур и имен городов, которые мы искали
+    ArrayList<String> searchedImgStringsList;
+    ArrayList <String> searchedTempStringsList;
+    ArrayList <String> searchedCitiesNamesList;
+
+
+
+
     public WeatherLoader getWeatherLoader() {
         return weatherLoader;
     }
@@ -74,6 +94,12 @@ public class MyData implements Observable {
         lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
         exceptionWhileLoading = null;
         imageLoader = new ImageLoader();
+
+        //Массивы с данными о городах, которые искали
+        searchedImgStringsList = new ArrayList<>();
+        searchedTempStringsList = new ArrayList<>();
+        searchedCitiesNamesList = new ArrayList<>();
+
     }
 
     //сделаем наблюдаемый класс сингл-тоном
