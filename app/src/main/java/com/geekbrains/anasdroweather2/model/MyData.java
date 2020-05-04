@@ -203,7 +203,9 @@ public class MyData implements Observable {
         this.imageLoader = imageLoader;
     }
 
+
     //метод удаления последнего элемента из массива и сдвига всех элементов
+    //используется в классе SearchAdapter
     public ArrayList deleteLastAddNewList(String newString,ArrayList arrayList) {
         ArrayList <String> newArrayList = new ArrayList();
         newArrayList.add(newString);
