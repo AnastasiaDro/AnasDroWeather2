@@ -3,15 +3,11 @@ package com.geekbrains.anasdroweather2.rest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.rest.entities.WeatherRequestRestModel;
-
 import androidx.annotation.NonNull;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,6 +60,9 @@ public class WeatherLoader {
                             } else if (response.code() == 401) {
                                 //не авторизованы, обработать
                                 // и т.д.
+                                //не работает, так как приходит Responce с сервера
+//                            } else if (response.code() == 404) {
+//                                myData.setExceptionWhileLoading(e, R.string.cityError, R.string.adviceCityError);
                             }
                         }
                         myData.notifyObservers();
@@ -93,9 +92,7 @@ public class WeatherLoader {
         }
     }
 
-    //TODO
-    //крэшится, если забивать город через searchView
-    //Видимо потому, что не перерисовывается HomeFragment
+
     public void showExceptionAlert() {
         final int exceptionStringId = myData.getExceptionNameId();
         final int adviceStringId = myData.getExceptionAdviceId();
