@@ -29,7 +29,9 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     ArrayList <String> tempStringsList;
     ArrayList <String> citiesNamesList;
     String imgString;
-
+    public SimpleDraweeView weathDraweeView;
+    public TextView tempTV;
+    public TextView cityNameTV;
 
     public SearchAdapter() {
         this.myData = MyData.getInstance();
@@ -37,6 +39,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         imgStringsList = myData.getImgStringsList();
         tempStringsList = myData.getTempStringsList();
         citiesNamesList = myData.getCitiesNamesList();
+
     }
 
     @Override
@@ -55,7 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         public SimpleDraweeView weathDraweeView;
         public TextView tempTV;
         public TextView cityNameTV;
-        CardView cardView;
+        LinearLayout cardView;
         public MyViewHolder(View itemView) {
             super(itemView);
             final NavController navController = myData.getNavController();
@@ -64,7 +67,9 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
             cityNameTV = itemView.findViewById(R.id.searchCityNameText);
             cardView = itemView.findViewById(R.id.mySearchCard);
 
+
             cardView.setOnClickListener(new View.OnClickListener() {
+//            cityNameTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final String selectedCityName = cityNameTV.getText().toString();
@@ -88,7 +93,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.linear_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_card, parent, false);
         MyViewHolder myViewHolder = new SearchAdapter.MyViewHolder(v);
         return myViewHolder;
     }
@@ -100,7 +105,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
         imgString = imgStringsList.get(position);
         myData.getImageLoader().loadDraweeImage(draweeView, imgString);
-
 
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));

@@ -78,6 +78,18 @@ public class MyData implements Observable {
         return allWeatherDataHashMap;
     }
 
+    public ArrayList<String> getSearchedImgStringsList() {
+        return searchedImgStringsList;
+    }
+
+    public ArrayList<String> getSearchedTempStringsList() {
+        return searchedTempStringsList;
+    }
+
+    public ArrayList<String> getSearchedCitiesNamesList() {
+        return searchedCitiesNamesList;
+    }
+
     private MyData() {
         currentCity = "Moscow";
         currentHour = 0;

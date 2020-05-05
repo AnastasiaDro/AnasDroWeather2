@@ -13,11 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
-import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
-
 
 public class SearchHistoryFragment extends Fragment implements FragmentMethods {
     RecyclerView searchRecycler;
@@ -27,7 +24,6 @@ public class SearchHistoryFragment extends Fragment implements FragmentMethods {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

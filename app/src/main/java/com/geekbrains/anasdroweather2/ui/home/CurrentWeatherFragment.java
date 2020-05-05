@@ -140,6 +140,14 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     descriptTextView.setText(descriptString);
                     iconString = dataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
                     myData.getImageLoader().loadDraweeImage(draweeView, iconString);
+                    //передадим данные в массивы для города с последним поиском:
+                    //имя города
+                    myData.getSearchedCitiesNamesList().add(myData.getCurrentCity());
+                    //картинка погоды
+                    myData.getSearchedImgStringsList().add(iconString);
+                    //температура
+                    myData.getSearchedTempStringsList().add(forTemp);
+
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);
