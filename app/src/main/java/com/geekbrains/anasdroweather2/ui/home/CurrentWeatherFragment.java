@@ -142,11 +142,13 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     myData.getImageLoader().loadDraweeImage(draweeView, iconString);
                     //передадим данные в массивы для города с последним поиском:
                     //имя города
-                    myData.getSearchedCitiesNamesList().add(myData.getCurrentCity());
-                    //картинка погоды
-                    myData.getSearchedImgStringsList().add(iconString);
-                    //температура
+
                     myData.getSearchedTempStringsList().add(forTemp);
+                    myData.getSearchedImgStringsList().add(iconString);
+                    //удалим задвоенную информацию
+                    myData.deleteLastAddNewList(myData.getCurrentCity(), myData.getSearchedCitiesNamesList());
+                    System.out.println("УСТАНОВИЛИ ДАННЫЕ ДЛЯ ИСТОРИИ ПОИСКА");
+                    //П
 
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);

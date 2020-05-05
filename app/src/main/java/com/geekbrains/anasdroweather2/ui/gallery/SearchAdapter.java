@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.R;
+import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     MyData myData;
@@ -44,12 +45,15 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void updateViewData() {
         imgStringsList = myData.getImgStringsList();
+
         tempStringsList = myData.getTempStringsList();
         citiesNamesList = myData.getCitiesNamesList();
+        getItemCount();
         this.notifyDataSetChanged();
     }
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -77,12 +81,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
                     final String selectedCityTemp = tempTV.getText().toString();
                     final String selectedCityImg = imgString;
                     myData.setCurrentCity(selectedCityName);
-                    //код с изменением места в списке города, который искали
-                    //не будет задваивания имени города
-                    myData.deleteLastAddNewList(selectedCityTemp, tempStringsList);
-                    myData.deleteLastAddNewList(selectedCityName, citiesNamesList);
-                    myData.deleteLastAddNewList(selectedCityImg, imgStringsList);
-                    System.out.println("Текущий город в myData " + myData.getCurrentCity());
                     navController.navigate(R.id.nav_home);
                     myData.notifyObservers();
                 }
@@ -106,7 +104,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
         imgString = imgStringsList.get(position);
         myData.getImageLoader().loadDraweeImage(draweeView, imgString);
-
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));
     }

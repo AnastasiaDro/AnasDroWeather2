@@ -12,9 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 
 //Класс с данными, наблюдаемый
@@ -88,6 +90,18 @@ public class MyData implements Observable {
 
     public ArrayList<String> getSearchedCitiesNamesList() {
         return searchedCitiesNamesList;
+    }
+
+    public void setSearchedImgStringsList(ArrayList<String> searchedImgStringsList) {
+        this.searchedImgStringsList = searchedImgStringsList;
+    }
+
+    public void setSearchedTempStringsList(ArrayList<String> searchedTempStringsList) {
+        this.searchedTempStringsList = searchedTempStringsList;
+    }
+
+    public void setSearchedCitiesNamesList(ArrayList<String> searchedCitiesNamesList) {
+        this.searchedCitiesNamesList = searchedCitiesNamesList;
     }
 
     private MyData() {
@@ -218,20 +232,27 @@ public class MyData implements Observable {
 
     //метод удаления последнего элемента из массива и сдвига всех элементов
     //используется в классе SearchAdapter
-    public ArrayList deleteLastAddNewList(String newString,ArrayList arrayList) {
-        ArrayList <String> newArrayList = new ArrayList();
-        newArrayList.add(newString);
-        arrayList.remove(arrayList.size()-1);
-        newArrayList.addAll(arrayList);
-        //удалим повторяющиеся элементы в списке
-        for (int i = 1; i < newArrayList.size(); i++) {
-            if (newArrayList.get(i) == newString) {
-                newArrayList.remove(i);
+    public ArrayList deleteLastAddNewList(String newString, ArrayList arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) == newString){
+                arrayList.remove(i);
+                searchedTempStringsList.remove(i);
+                searchedImgStringsList.remove(i);
             }
+
         }
-        arrayList = newArrayList;
+        arrayList.add(newString);
+        return searchedCitiesNamesList;
+    }
+
+    public ArrayList<String> lastToFirst(ArrayList <String> arrayList) {
+        String lastItem = arrayList.get(arrayList.size()-1);
+        arrayList.add(0, lastItem);
+        arrayList.remove(arrayList.size()-1);
         return arrayList;
     }
+
+
 
 }
 
