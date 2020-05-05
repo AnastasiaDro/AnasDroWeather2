@@ -41,6 +41,7 @@ public class MyData implements Observable {
     static Date currentDate;
     int currentHour;
     private ArrayList<String> citiesList;
+    private HashMap  citiesMap;
     private int[] lastSearchCitiesArr;
     String currentCity;
     private ImageLoader imageLoader;
@@ -104,6 +105,10 @@ public class MyData implements Observable {
         this.searchedCitiesNamesList = searchedCitiesNamesList;
     }
 
+    public void setCitiesList(ArrayList<String> citiesList) {
+        this.citiesList = citiesList;
+    }
+
     private MyData() {
         currentCity = "Moscow";
         currentHour = 0;
@@ -114,6 +119,7 @@ public class MyData implements Observable {
         citiesList.add("Kazan");
         citiesList.add("Sochi");
         citiesList.add("Murmansk");
+
         allWeatherDataHashMap = new HashMap<>();
         this.weatherRequestIsDone = false;
         //пока зададим города тут
@@ -232,7 +238,7 @@ public class MyData implements Observable {
 
     //метод удаления последнего элемента из массива и сдвига всех элементов
     //используется в классе SearchAdapter
-    public ArrayList deleteLastAddNewList(String newString, ArrayList arrayList) {
+    public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (arrayList.get(i) == newString){
                 arrayList.remove(i);
@@ -252,6 +258,18 @@ public class MyData implements Observable {
         return arrayList;
     }
 
+    public ArrayList addToListIfNotExist(ArrayList arrayList, String newString){
+        int count = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i)==newString) {
+                count=count+1;
+            }
+        }
+        if (count == 0){
+            arrayList.add(newString);
+        }
+        return arrayList;
+    }
 
 
 }
