@@ -104,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 myData.getCitiesList().add(query);
                 //myData.setCitiesList(myData.addToListIfNotExist(myData.getCitiesList(), query));
                 System.out.println("второй запуск loadWeatherData, temp =" );
-                //Работало
-                WeatherLoader searchWeatherLoader = new WeatherLoader(getApplicationContext());
-                searchWeatherLoader.loadWeatherData();
+                navController.navigate(R.id.nav_home);
                 menu.close();
                 searchView.clearFocus();
                 //Почему не работает?!?!
@@ -150,8 +148,15 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 //переходим на фрагмент настроек
                 navController.navigate(R.id.nav_slideshow);
                 return true;
+
+            case R.id.toTheSearchPage:
+                //переходим на фрагмент поиска
+                navController.navigate(R.id.nav_gallery);
             //если нажали на поиск
             case R.id.app_bar_search:
+
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
