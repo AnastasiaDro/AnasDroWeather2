@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,7 +59,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         public SimpleDraweeView weathDraweeView;
         public TextView tempTV;
         public TextView cityNameTV;
-        LinearLayout cardView;
+        RelativeLayout cardView;
         public MyViewHolder(View itemView) {
             super(itemView);
             final NavController navController = myData.getNavController();
