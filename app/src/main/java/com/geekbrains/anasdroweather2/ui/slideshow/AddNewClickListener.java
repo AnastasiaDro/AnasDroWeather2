@@ -37,7 +37,7 @@ public class AddNewClickListener implements View.OnClickListener {
                 myNewString = input.getText().toString();
                 addCityToMyData(myNewString);
                 myData.setCurrentCity(myNewString);
-                myData.notifyObservers();
+                //myData.notifyObservers();
                 myData.getNavController().navigate(R.id.nav_home);
             }
         });
@@ -52,7 +52,8 @@ public class AddNewClickListener implements View.OnClickListener {
 
     //добавляет новую строку в базу данных
     public void addCityToMyData(String myNewString) {
-        myData.getCitiesList().add(myNewString);
+        //myData.getCitiesList().add(myNewString);
+        myData.addNewCityIfNotExist(myNewString);
         //обновляем MyData и уведомляем слушателей
         myData.notifyObservers();
     }

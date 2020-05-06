@@ -127,6 +127,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                         .getAllWeatherDataHashMap()
                         .get(CURRENT_DATA_KEY_IN_HASHMAP);
                 try {
+                    String currentTime = dataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
                     String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
                     String forTemp = currentTemp.concat(" \u2103");
                     temperatureTextView.setText(forTemp);
@@ -142,7 +143,6 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     myData.getImageLoader().loadDraweeImage(draweeView, iconString);
                     //передадим данные в массивы для города с последним поиском:
                     //имя города
-
                     myData.getSearchedTempStringsList().add(forTemp);
                     myData.getSearchedImgStringsList().add(iconString);
                     //удалим задвоенную информацию
@@ -152,6 +152,10 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     myData.lastToFirst(myData.getSearchedTempStringsList());
                     myData.lastToFirst(myData.getSearchedImgStringsList());
                     myData.lastToFirst(myData.getCitiesNamesList());
+
+                    //внесем данные о температуре и последнем загруженном времени в базу данных
+                    //внутри этого метода мы создаём новый поток
+                    myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime);
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);

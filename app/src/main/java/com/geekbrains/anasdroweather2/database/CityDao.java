@@ -17,6 +17,18 @@ public interface CityDao {
    @Query("SELECT * FROM city WHERE id = :id")
     City getById(long id);
 
+   //получить по имени города
+   @Query("SELECT * FROM city WHERE cityName = :cityName")
+   City getByCityName(String cityName);
+
+   //добавить к городу температуру
+    @Query("UPDATE city SET cityTemp = :newTemp WHERE cityName = :cityName")
+    City updateCityTempInDb(String cityName, String newTemp);
+
+    //добавить к городу время запроса
+    @Query("UPDATE city SET lastLoadTime = :newTime WHERE cityName = :cityName")
+    City updateCityLoadTimeInDp(String cityName, String newTime);
+
    @Insert
     void insert(City city);
 

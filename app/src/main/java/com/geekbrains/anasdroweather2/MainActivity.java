@@ -8,7 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.geekbrains.anasdroweather2.database.CitiesDatabase;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
+import com.geekbrains.anasdroweather2.model.App;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
@@ -87,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //автонастройка темы
         //TODO
         interfaceChanger.setAutoTheme(this, toolbar);
+
+        //выгрузка базы данных в myData
+        myData.loadDbDataToMyData();
+        myData.getCitiesNamesFromDbData();
     }
 
     @Override
@@ -193,5 +199,4 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     public WeatherLoader getWeatherLoader() {
         return weatherLoader;
     }
-
 }

@@ -9,8 +9,15 @@ public class City {
 
     @PrimaryKey
     public long id;
+
+    public String getCityName() {
+        return cityName;
+    }
+
     public String cityName;
-    public int cityTemp;
-    public int lastLoadTime;
+    public String cityTemp;
+    public String lastLoadTime;
+
+
 
 }

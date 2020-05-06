@@ -3,10 +3,14 @@ package com.geekbrains.anasdroweather2.model;
 import androidx.navigation.NavController;
 
 import com.geekbrains.anasdroweather2.R;
+import com.geekbrains.anasdroweather2.database.CitiesDatabase;
+import com.geekbrains.anasdroweather2.database.City;
+import com.geekbrains.anasdroweather2.database.CityDao;
 import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 import com.geekbrains.anasdroweather2.ui.home.ImageLoader;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +45,7 @@ public class MyData implements Observable {
     static Date currentDate;
     int currentHour;
     private ArrayList<String> citiesList;
-    private HashMap  citiesMap;
+    private HashMap citiesMap;
     private int[] lastSearchCitiesArr;
     String currentCity;
     private ImageLoader imageLoader;
@@ -60,10 +64,18 @@ public class MyData implements Observable {
 
     //список изображений, температур и имен городов, которые мы искали
     ArrayList<String> searchedImgStringsList;
-    ArrayList <String> searchedTempStringsList;
-    ArrayList <String> searchedCitiesNamesList;
+    ArrayList<String> searchedTempStringsList;
+    ArrayList<String> searchedCitiesNamesList;
 
 
+    //для базы данных
+    CitiesDatabase db;
+    ArrayList<City> citiesDataList;
+    CityDao cityDao;
+
+    public CityDao getCityDao() {
+        return cityDao;
+    }
 
 
     public WeatherLoader getWeatherLoader() {
@@ -113,7 +125,14 @@ public class MyData implements Observable {
         currentCity = "Moscow";
         currentHour = 0;
         observers = new LinkedList<>();
+        //Получим базу данных
         citiesList = new <String>ArrayList();
+
+        //подключимся к базе данных
+        db = App.getInstance().getDatabase();
+        cityDao = db.cityDao();
+        citiesDataList = new ArrayList<>();
+
         citiesList.add("Moscow");
         citiesList.add("Saint-Petersburg");
         citiesList.add("Kazan");
@@ -240,7 +259,7 @@ public class MyData implements Observable {
     //используется в классе SearchAdapter
     public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) == newString){
+            if (arrayList.get(i) == newString) {
                 arrayList.remove(i);
                 searchedTempStringsList.remove(i);
                 searchedImgStringsList.remove(i);
@@ -251,24 +270,82 @@ public class MyData implements Observable {
         return searchedCitiesNamesList;
     }
 
-    public ArrayList<String> lastToFirst(ArrayList <String> arrayList) {
-        String lastItem = arrayList.get(arrayList.size()-1);
+    public ArrayList<String> lastToFirst(ArrayList<String> arrayList) {
+        String lastItem = arrayList.get(arrayList.size() - 1);
         arrayList.add(0, lastItem);
-        arrayList.remove(arrayList.size()-1);
+        arrayList.remove(arrayList.size() - 1);
         return arrayList;
     }
 
-    public ArrayList addToListIfNotExist(ArrayList arrayList, String newString){
-        int count = 0;
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i)==newString) {
-                count=count+1;
-            }
-        }
-        if (count == 0){
+    public ArrayList addToListIfNotExist(ArrayList arrayList, String newString) {
+        int count = checkListForExistElement(arrayList, newString);
+//        for (int i = 0; i < arrayList.size(); i++) {
+//            if (arrayList.get(i)==newString) {
+//                count=count+1;
+//            }
+//        }
+        if (count == 0) {
             arrayList.add(newString);
         }
         return arrayList;
+    }
+
+    //метод выгрузки данных из БД
+    public void loadDbDataToMyData() {
+        DbLoaderThread dbLoaderThread = new DbLoaderThread(cityDao, citiesDataList);
+        dbLoaderThread.start();
+        try {
+            dbLoaderThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("ОШИБКА В ПОДОЖДАТЬ ПОТОК dbLoaderThread");
+        }
+    }
+
+    //получим имена выгруженных городов
+    public void getCitiesNamesFromDbData() {
+        for (int i = 0; i < citiesDataList.size(); i++) {
+            citiesList.add(citiesDataList.get(i).getCityName());
+        }
+    }
+
+    //метод добавления города если его ещё не было
+    public void addNewCityIfNotExist(String newName) {
+        int count = checkListForExistElement(citiesList, newName);
+        if (count == 0) {
+            citiesList.add(newName);
+            City city = new City();
+            city.cityName = newName;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    cityDao.insert(city);
+                }
+            });
+        }
+    }
+
+    //добавляем данные города, создавая новый поток
+    public void addCityDataToDb(String cityName, String temp, String lastLoadTime) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cityDao.updateCityTempInDb(cityName, temp);
+                cityDao.updateCityLoadTimeInDp(cityName, lastLoadTime);
+            }
+        }).start();
+    }
+
+
+    //проверка массива на повторы элемента и подсчёт, сколько раз он повторился
+    private int checkListForExistElement(ArrayList arrayList, String newString) {
+        int count = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) == newString) {
+                count = count + 1;
+            }
+        }
+        return count;
     }
 
 
