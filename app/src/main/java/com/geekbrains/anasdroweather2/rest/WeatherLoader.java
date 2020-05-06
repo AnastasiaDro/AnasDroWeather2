@@ -15,8 +15,6 @@ import retrofit2.Response;
 //помогает получать данные с сервера
 public class WeatherLoader {
     //Засечем время выполнения
-    long startTime;
-    long endTime;
     private String city;
     private MyData myData;
     private HashMap<Integer, String[]> takenWeatherData;
@@ -24,14 +22,12 @@ public class WeatherLoader {
     Exception e;
     String result;
 
-
     private String gotTime;
     private String gotTemp;
     private String gotPressure;
     private String gotWind;
     private String gotRain;
     private String gotIconIdStr;
-
 
     //Конструктор
     public WeatherLoader(Context context) {

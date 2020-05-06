@@ -50,14 +50,11 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
         return citiesList.size();
     }
 
-
-    //done
     @Override
     public void updateViewData() {
         citiesList = myData.getCitiesList();
         this.notifyDataSetChanged();
     }
-
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and

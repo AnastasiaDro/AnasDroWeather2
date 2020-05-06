@@ -16,7 +16,6 @@ public class AddNewClickListener implements View.OnClickListener {
 
     public AddNewClickListener() {
         this.myData = MyData.getInstance();
-
     }
 
     @Override
@@ -40,7 +39,6 @@ public class AddNewClickListener implements View.OnClickListener {
                 myData.setCurrentCity(myNewString);
                 myData.notifyObservers();
                 myData.getNavController().navigate(R.id.nav_home);
-
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
