@@ -1,9 +1,9 @@
 package com.geekbrains.anasdroweather2.ui.home;
 
+import com.geekbrains.anasdroweather2.model.Constants;
 import com.geekbrains.anasdroweather2.model.MyData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class WeekDataParser {
@@ -16,9 +16,7 @@ public class WeekDataParser {
     //"Шаг" между значением времени в элементах массива
     //У нас он сейчас 3
     private int timeStep;
-
     private int firstDayBeginIndex;
-
     private ArrayList indexesForFourDaysList;
 
 
@@ -39,13 +37,10 @@ public class WeekDataParser {
         curTimeString = zeroArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
         curTimeString = curTimeString.substring(11, 13);
         curTime = Integer.parseInt(curTimeString);
-        //System.out.println("curTime= " + curTime);
         firstDayBeginIndex = (twentyFourHours - curTime) / 3;
-        //System.out.println("firstDayBeginIndex " + firstDayBeginIndex);
         dayBeginningIndexesArr[0] = firstDayBeginIndex;
         for (int i = 1; i < 3; i++) {
             dayBeginningIndexesArr[i] = dayBeginningIndexesArr[i - 1] + 8;
-            //System.out.println("Начальный индекс [" + i + "]" + dayBeginningIndexesArr[i]);
         }
         return dayBeginningIndexesArr;
     }

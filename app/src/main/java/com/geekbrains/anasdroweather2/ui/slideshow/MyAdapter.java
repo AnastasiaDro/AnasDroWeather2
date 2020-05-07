@@ -4,7 +4,6 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,7 @@ import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
-import com.geekbrains.anasdroweather2.ui.home.Constants;
+import com.geekbrains.anasdroweather2.model.Constants;
 
 import java.util.ArrayList;
 

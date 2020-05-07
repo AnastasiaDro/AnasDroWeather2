@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -21,8 +20,8 @@ import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.R;
+import com.geekbrains.anasdroweather2.model.Constants;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 
 public class CurrentWeatherFragment extends Fragment implements FragmentMethods, Observer, InterfaceObserver {
 

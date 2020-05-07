@@ -1,10 +1,11 @@
-package com.geekbrains.anasdroweather2.ui.home;
+package com.geekbrains.anasdroweather2.model;
 
 public class Constants {
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_IS_WIND = "isWind";
     public static final String APP_PREFERENCES_IS_PRESSURE = "isPressure";
     public static final String APP_PREFERENCES_IS_AUTOTHEME = "isAutoTheme";
+    public static final String APP_PREFERENCES_LAST_SEARCHED_CITY = "lastSearchedCity";
 
     public static final int HIDE_CONTEXTMENU_ITEM = 333;
 

@@ -2,7 +2,6 @@ package com.geekbrains.anasdroweather2.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
+import com.geekbrains.anasdroweather2.model.Constants;
 import com.geekbrains.anasdroweather2.model.MyData;
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class WeekWeatherFragment extends Fragment implements FragmentMethods, Observer {
-
 
 //TextView по дням недели
 

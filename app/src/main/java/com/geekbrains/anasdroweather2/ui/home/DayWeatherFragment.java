@@ -16,6 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.FragmentMethods;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
+import com.geekbrains.anasdroweather2.model.Constants;
 import com.geekbrains.anasdroweather2.model.MyData;
 
 import java.util.HashMap;

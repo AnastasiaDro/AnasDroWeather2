@@ -197,6 +197,7 @@ public class MyData implements Observable {
 
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
+
     }
 
     //Получим или изменим navController

@@ -1,7 +1,6 @@
 package com.geekbrains.anasdroweather2.ui.slideshow;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.ActivMethods;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.ui.home.Constants;
+import com.geekbrains.anasdroweather2.model.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 
 public class SlideshowFragment extends Fragment implements ActivMethods, CompoundButton.OnCheckedChangeListener, OnCreateContextMenuListener {

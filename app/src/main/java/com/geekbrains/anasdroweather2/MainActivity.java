@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.geekbrains.anasdroweather2.database.CitiesDatabase;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
-import com.geekbrains.anasdroweather2.model.App;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
@@ -30,12 +27,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-
-import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES;
-import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES_IS_AUTOTHEME;
-import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES_IS_PRESSURE;
-import static com.geekbrains.anasdroweather2.ui.home.Constants.APP_PREFERENCES_IS_WIND;
+import static com.geekbrains.anasdroweather2.model.Constants.APP_PREFERENCES;
+import static com.geekbrains.anasdroweather2.model.Constants.APP_PREFERENCES_IS_AUTOTHEME;
+import static com.geekbrains.anasdroweather2.model.Constants.APP_PREFERENCES_IS_PRESSURE;
+import static com.geekbrains.anasdroweather2.model.Constants.APP_PREFERENCES_IS_WIND;
+import static com.geekbrains.anasdroweather2.model.Constants.APP_PREFERENCES_LAST_SEARCHED_CITY;
 
 public class MainActivity extends AppCompatActivity implements InterfaceObserver {
     private AppBarConfiguration mAppBarConfiguration;
@@ -45,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     int isWind;
     int isPressure;
     int isAutoTheme;
+    String lastSearchedCity;
     private InterfaceChanger interfaceChanger;
     private MyData myData;
     NavController navController;
@@ -139,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         editor.putInt(APP_PREFERENCES_IS_WIND, interfaceChanger.getIsWind());
         editor.putInt(APP_PREFERENCES_IS_PRESSURE, interfaceChanger.getIsPressure());
         editor.putInt(APP_PREFERENCES_IS_AUTOTHEME, interfaceChanger.getIsAutoThemeChanging());
+        editor.putString(APP_PREFERENCES_LAST_SEARCHED_CITY, myData.getCurrentCity());
         System.out.println("OnPause" + "interfaceChanger.getIsAutoThemeChanging()" + interfaceChanger.getIsAutoThemeChanging());
         editor.apply();
     }
@@ -151,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 //переходим на фрагмент настроек
                 navController.navigate(R.id.nav_slideshow);
                 return true;
-
             case R.id.toTheSearchPage:
                 //переходим на фрагмент поиска
                 navController.navigate(R.id.nav_gallery);
@@ -181,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             // Получаем число из настроек
             isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_AUTOTHEME, 1);
             interfaceChanger.setIsAutoThemeChanging(isAutoTheme);
+        }
+        if (mSettings.contains(APP_PREFERENCES_LAST_SEARCHED_CITY)){
+            //получаем название города из настроек
+            myData.setCurrentCity(mSettings.getString(APP_PREFERENCES_LAST_SEARCHED_CITY, getString(R.string.noData)));
+            myData.notifyObservers();
         }
     }
 
