@@ -1,9 +1,11 @@
 package com.geekbrains.anasdroweather2.ui.slideshow;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,7 +29,7 @@ import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.Constants;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
 
-public class SlideshowFragment extends Fragment implements ActivMethods, CompoundButton.OnCheckedChangeListener {
+public class SlideshowFragment extends Fragment implements ActivMethods, CompoundButton.OnCheckedChangeListener, OnCreateContextMenuListener {
 
     private SlideshowViewModel slideshowViewModel;
     private InterfaceChanger interfaceChanger;
@@ -48,6 +50,7 @@ public class SlideshowFragment extends Fragment implements ActivMethods, Compoun
     private RecyclerView recyclerView;
     MyAdapter myAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private MenuItem item;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

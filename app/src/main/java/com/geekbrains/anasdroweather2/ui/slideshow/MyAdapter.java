@@ -4,6 +4,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -69,8 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
             textCityName = itemView.findViewById(R.id.searchCityNameTV);
             cardView = itemView.findViewById(R.id.myLinearCard);
             cardView.setOnCreateContextMenuListener(this);
-
-            textCityName.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final String currentCityName = textCityName.getText().toString();
@@ -84,12 +84,24 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.add(this.getAdapterPosition(), Constants.HIDE_CONTEXTMENU_ITEM, 200, R.string.delete);
+            //menu.add(0, this.getAdapterPosition(), 200, R.string.delete);
+            menu.add(0, Constants.HIDE_CONTEXTMENU_ITEM, 300, R.string.delete);
         }
     }
 
+    //удалить элемент
     public void deleteItem(int position) {
-        myData.getCitiesList().remove(position);
+        //удалить из списка городов в myData
+        if (myData.getCitiesList().size() > 1) {
+            //удалить из базы данных (создается отдельный поток в методе deleteCityFromDb()
+            myData.deleteCityFromDb(myData.getCitiesList().get(position + 1));
+            myData.getCitiesList().remove(position + 1);
+        } else {
+            //удалить из базы данных
+            //удалить из базы данных (создается отдельный поток в методе deleteCityFromDb()
+            myData.deleteCityFromDb(myData.getCitiesList().get(position));
+            myData.getCitiesList().remove(position);
+        }
         System.out.println("myData cities list " + myData.getCitiesList().toString());
         myData.notifyObservers();
         notifyDataSetChanged();

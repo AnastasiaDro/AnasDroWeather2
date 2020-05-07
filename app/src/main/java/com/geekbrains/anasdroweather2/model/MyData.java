@@ -12,6 +12,7 @@ import com.geekbrains.anasdroweather2.interfaces.Observable;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 import com.geekbrains.anasdroweather2.ui.home.ImageLoader;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-    private ArrayList<String> citiesList;
+    private ArrayList <String> citiesList;
     private HashMap citiesMap;
     private int[] lastSearchCitiesArr;
     String currentCity;
@@ -53,9 +54,11 @@ public class MyData implements Observable {
     public ArrayList<String> getImgStringsList() {
         return searchedImgStringsList;
     }
+
     public ArrayList<String> getTempStringsList() {
         return searchedTempStringsList;
     }
+
     public ArrayList<String> getCitiesNamesList() {
         return searchedCitiesNamesList;
     }
@@ -83,19 +86,24 @@ public class MyData implements Observable {
     public ArrayList<String> getSearchedImgStringsList() {
         return searchedImgStringsList;
     }
+
     public ArrayList<String> getSearchedTempStringsList() {
         return searchedTempStringsList;
     }
+
     public ArrayList<String> getSearchedCitiesNamesList() {
         return searchedCitiesNamesList;
     }
+
     //сеттеры для получения искомых данных
     public void setSearchedImgStringsList(ArrayList<String> searchedImgStringsList) {
         this.searchedImgStringsList = searchedImgStringsList;
     }
+
     public void setSearchedTempStringsList(ArrayList<String> searchedTempStringsList) {
         this.searchedTempStringsList = searchedTempStringsList;
     }
+
     public void setSearchedCitiesNamesList(ArrayList<String> searchedCitiesNamesList) {
         this.searchedCitiesNamesList = searchedCitiesNamesList;
     }
@@ -178,7 +186,7 @@ public class MyData implements Observable {
         return currentHour;
     }
 
-    public ArrayList getCitiesList() {
+    public ArrayList <String> getCitiesList() {
         return citiesList;
     }
 
@@ -236,7 +244,6 @@ public class MyData implements Observable {
                 searchedTempStringsList.remove(i);
                 searchedImgStringsList.remove(i);
             }
-
         }
         arrayList.add(newString);
         return searchedCitiesNamesList;
@@ -293,6 +300,17 @@ public class MyData implements Observable {
         }
     }
 
+    //метод удаления города из базы данных
+    public void deleteCityFromDb(String cityName) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                City city = cityDao.getByCityName(cityName);
+                cityDao.delete(city);
+            }
+        }).start();
+    }
+
     //добавляем данные города, создавая новый поток
     public void addCityDataToDb(String cityName, String temp, String lastLoadTime) {
         //проверим массив на пустоту
@@ -307,7 +325,6 @@ public class MyData implements Observable {
         }
     }
 
-
     //проверка массива на повторы элемента и подсчёт, сколько раз он повторился
     private int checkListForExistElement(ArrayList arrayList, String newString) {
         int count = 0;
@@ -319,8 +336,6 @@ public class MyData implements Observable {
         }
         return count;
     }
-
-
 }
 
 
