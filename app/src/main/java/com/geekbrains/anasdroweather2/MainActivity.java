@@ -107,11 +107,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             @Override
             public boolean onQueryTextSubmit(String query) {
                 myData.setCurrentCity(query);
-                //исправить задвоение городов
-                //ArrayList arrayList = myData.getCitiesList();
-               // myData.getCitiesList().add(query);
                 myData.addNewCityIfNotExist(query);
-                //myData.setCitiesList(myData.addToListIfNotExist(myData.getCitiesList(), query));
                 System.out.println("второй запуск loadWeatherData, temp =");
                 navController.navigate(R.id.nav_home);
                 menu.close();

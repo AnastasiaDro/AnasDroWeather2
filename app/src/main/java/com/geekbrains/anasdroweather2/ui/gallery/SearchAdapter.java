@@ -42,7 +42,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     @Override
     public void updateViewData() {
         imgStringsList = myData.getImgStringsList();
-
         tempStringsList = myData.getTempStringsList();
         citiesNamesList = myData.getCitiesNamesList();
         getItemCount();

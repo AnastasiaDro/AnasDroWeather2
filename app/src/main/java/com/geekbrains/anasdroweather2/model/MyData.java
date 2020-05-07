@@ -231,7 +231,7 @@ public class MyData implements Observable {
     //используется в классе SearchAdapter
     public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) == newString) {
+            if (arrayList.get(i).equals(newString)) {
                 arrayList.remove(i);
                 searchedTempStringsList.remove(i);
                 searchedImgStringsList.remove(i);
