@@ -41,27 +41,24 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     int isWind;
     int isPressure;
     int isAutoTheme;
-    String lastSearchedCity;
     private InterfaceChanger interfaceChanger;
     private MyData myData;
     NavController navController;
-    WeatherLoader weatherLoader;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //инициализиируем Fresco
-        Fresco.initialize(this);
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         myData = MyData.getInstance();
-        weatherLoader = new WeatherLoader(this);
-        //выгрузим погодные данные
-        weatherLoader.loadWeatherData();
         //работа с сохраненными настройками
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        checkAndLoadSettings(mSettings);
+        //Погода загрузится в HomeFragment
 
+        //инициализиируем Fresco
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 searchView.setIconified(true);
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -160,10 +158,20 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         }
     }
 
-
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void updateInterfaceViewData() {
+        isWind = interfaceChanger.getIsWind();
+        isPressure = interfaceChanger.getIsPressure();
+        isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
+    }
+
+
+    //проверим и загрузим сохраненные настройки
+    private void checkAndLoadSettings(SharedPreferences mSettings) {
+        if (mSettings.contains(APP_PREFERENCES_LAST_SEARCHED_CITY)) {
+            //получаем название города из настроек
+            myData.setCurrentCity(mSettings.getString(APP_PREFERENCES_LAST_SEARCHED_CITY, getString(R.string.noData)));
+        }
         if (mSettings.contains(APP_PREFERENCES_IS_WIND)) {
             // Получаем число из настроек
             isWind = mSettings.getInt(APP_PREFERENCES_IS_WIND, 1);
@@ -179,21 +187,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             isAutoTheme = mSettings.getInt(APP_PREFERENCES_IS_AUTOTHEME, 1);
             interfaceChanger.setIsAutoThemeChanging(isAutoTheme);
         }
-        if (mSettings.contains(APP_PREFERENCES_LAST_SEARCHED_CITY)){
-            //получаем название города из настроек
-            myData.setCurrentCity(mSettings.getString(APP_PREFERENCES_LAST_SEARCHED_CITY, getString(R.string.noData)));
-            myData.notifyObservers();
-        }
     }
 
-    @Override
-    public void updateInterfaceViewData() {
-        isWind = interfaceChanger.getIsWind();
-        isPressure = interfaceChanger.getIsPressure();
-        isAutoTheme = interfaceChanger.getIsAutoThemeChanging();
-    }
-
-    public WeatherLoader getWeatherLoader() {
-        return weatherLoader;
-    }
 }

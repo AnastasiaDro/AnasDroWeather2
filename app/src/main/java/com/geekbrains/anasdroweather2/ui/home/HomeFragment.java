@@ -48,12 +48,14 @@ public class HomeFragment extends Fragment implements ActivMethods {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         myData = MyData.getInstance();
-        //загружаем данные
+
+        //загружаем данные, ставим этот же загрузчик в myData(), вдруг пригодится
         WeatherLoader weatherLoader = new WeatherLoader(getContext());
         weatherLoader.loadWeatherData();
+        myData.setWeatherLoader(weatherLoader);
         init();
 
-//создаём изменитель интерфейса
+        //создаём изменитель интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(mainActivity);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

@@ -3,6 +3,8 @@ package com.geekbrains.anasdroweather2.rest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
+
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.rest.entities.WeatherRequestRestModel;
@@ -32,7 +34,6 @@ public class WeatherLoader {
     //Конструктор
     public WeatherLoader(Context context) {
         this.myData = myData.getInstance();
-        myData.setWeatherLoader(this);
         city = myData.getCurrentCity();
         takenWeatherData = myData.getAllWeatherDataHashMap();
         this.context = context;
@@ -62,6 +63,7 @@ public class WeatherLoader {
                             }
                         }
                         myData.notifyObservers();
+                        Log.d("WeatherLOADER СРАБОТАЛ", "СРАБОТАЛ");
                     }
 
                     @Override
