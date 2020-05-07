@@ -11,14 +11,19 @@ public class City {
     @PrimaryKey (autoGenerate = true)
     public Integer id;
 
-    public String getCityName() {
-        return cityName;
-    }
-
     @ColumnInfo
     public String cityName;
+
     public String cityTemp;
     public String lastLoadTime;
+    public String imgString;
+
+//геттеры
+
+
+
+
+
 
 
 

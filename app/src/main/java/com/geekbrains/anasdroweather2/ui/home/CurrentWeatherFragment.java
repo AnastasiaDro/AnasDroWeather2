@@ -145,12 +145,12 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     myData.getSearchedTempStringsList().add(forTemp);
                     myData.getSearchedImgStringsList().add(iconString);
                     //удалим задвоенную информацию
-                    myData.deleteCopyAddNewList(myData.getCurrentCity(), myData.getSearchedCitiesNamesList());
+                    myData.deleteCopyAddNewList(myData.getCurrentCity(), myData.getCitiesList());
                     System.out.println("УСТАНОВИЛИ ДАННЫЕ ДЛЯ ИСТОРИИ ПОИСКА");
                     //поставим последний найденный город в начало списка
                     myData.lastToFirst(myData.getSearchedTempStringsList());
                     myData.lastToFirst(myData.getSearchedImgStringsList());
-                    myData.lastToFirst(myData.getCitiesNamesList());
+                    myData.lastToFirst(myData.getCitiesList());
 
                     //внесем данные о температуре и последнем загруженном времени в базу данных
                     //внутри этого метода мы создаём новый поток

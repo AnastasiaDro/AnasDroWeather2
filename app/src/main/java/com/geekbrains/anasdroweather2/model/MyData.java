@@ -43,28 +43,30 @@ public class MyData implements Observable {
     static Date currentDate;
     int currentHour;
     private ArrayList <String> citiesList;
+
+
     private HashMap citiesMap;
-    private int[] lastSearchCitiesArr;
     String currentCity;
     private ImageLoader imageLoader;
     WeatherLoader weatherLoader;
 
-    public ArrayList<String> getImgStringsList() {
-        return searchedImgStringsList;
-    }
+//    public ArrayList<String> getImgStringsList() {
+//        return searchedImgStringsList;
+//    }
+//
+//    public ArrayList<String> getTempStringsList() {
+//        return searchedTempStringsList;
+//    }
 
-    public ArrayList<String> getTempStringsList() {
-        return searchedTempStringsList;
-    }
-
-    public ArrayList<String> getCitiesNamesList() {
-        return searchedCitiesNamesList;
-    }
+   // public ArrayList<String> getCitiesNamesList() {
+//        return searchedCitiesNamesList;
+//    }
 
     //список изображений, температур и имен городов, которые мы искали
     ArrayList<String> searchedImgStringsList;
     ArrayList<String> searchedTempStringsList;
-    ArrayList<String> searchedCitiesNamesList;
+    ArrayList<String> lastLoadingDataList;
+   // ArrayList<String> searchedCitiesNamesList;
     //для базы данных
     CitiesDatabase db;
     ArrayList<City> citiesDataList;
@@ -88,9 +90,9 @@ public class MyData implements Observable {
         return searchedTempStringsList;
     }
 
-    public ArrayList<String> getSearchedCitiesNamesList() {
-        return searchedCitiesNamesList;
-    }
+    //public ArrayList<String> getSearchedCitiesNamesList() {
+//        return searchedCitiesNamesList;
+//    }
 
     //сеттеры для получения искомых данных
     public void setSearchedImgStringsList(ArrayList<String> searchedImgStringsList) {
@@ -101,9 +103,9 @@ public class MyData implements Observable {
         this.searchedTempStringsList = searchedTempStringsList;
     }
 
-    public void setSearchedCitiesNamesList(ArrayList<String> searchedCitiesNamesList) {
-        this.searchedCitiesNamesList = searchedCitiesNamesList;
-    }
+//    public void setSearchedCitiesNamesList(ArrayList<String> searchedCitiesNamesList) {
+//        this.searchedCitiesNamesList = searchedCitiesNamesList;
+//    }
 
     public void setCitiesList(ArrayList<String> citiesList) {
         this.citiesList = citiesList;
@@ -124,14 +126,15 @@ public class MyData implements Observable {
         allWeatherDataHashMap = new HashMap<>();
         this.weatherRequestIsDone = false;
         //пока зададим города тут
-        lastSearchCitiesArr = new int[]{R.string.moscow, R.string.kazan, R.string.spb};
         exceptionWhileLoading = null;
         imageLoader = new ImageLoader();
 
         //Массивы с данными о городах, которые искали
         searchedImgStringsList = new ArrayList<>();
         searchedTempStringsList = new ArrayList<>();
-        searchedCitiesNamesList = new ArrayList<>();
+        //lastLoadingDataList = new ArrayList<>();
+        //searchedCitiesNamesList = new ArrayList<>();
+
 
     }
 
@@ -240,10 +243,11 @@ public class MyData implements Observable {
                 arrayList.remove(i);
                 searchedTempStringsList.remove(i);
                 searchedImgStringsList.remove(i);
+               // lastLoadingDataList.remove(i);
             }
         }
         arrayList.add(newString);
-        return searchedCitiesNamesList;
+        return arrayList;
     }
 
     public ArrayList<String> lastToFirst(ArrayList<String> arrayList) {
@@ -277,9 +281,12 @@ public class MyData implements Observable {
     //метод запускается в MainActivity
     public void getCitiesNamesFromDbData() {
         for (int i = 0; i < citiesDataList.size(); i++) {
-            citiesList.add(citiesDataList.get(i).getCityName());
+            citiesList.add(citiesDataList.get(i).cityName);
+            searchedTempStringsList.add(citiesDataList.get(i).cityTemp);
+            searchedImgStringsList.add(citiesDataList.get(i).imgString);
         }
     }
+
 
     //метод добавления города если его ещё не было
     public void addNewCityIfNotExist(String newName) {

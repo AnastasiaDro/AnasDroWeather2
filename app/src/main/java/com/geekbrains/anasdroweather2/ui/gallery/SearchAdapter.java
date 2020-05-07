@@ -1,6 +1,7 @@
 package com.geekbrains.anasdroweather2.ui.gallery;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,23 +28,26 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     ArrayList<String> tempStringsList;
     ArrayList<String> citiesNamesList;
     String imgString;
-    public SimpleDraweeView weathDraweeView;
-    public TextView tempTV;
-    public TextView cityNameTV;
 
     public SearchAdapter() {
         this.myData = MyData.getInstance();
         imgString = null;
-        imgStringsList = myData.getImgStringsList();
-        tempStringsList = myData.getTempStringsList();
-        citiesNamesList = myData.getCitiesNamesList();
+       // imgStringsList = myData.getImgStringsList();
+        imgStringsList= myData.getSearchedImgStringsList();
+       // tempStringsList = myData.getTempStringsList();
+        tempStringsList=myData.getSearchedTempStringsList();
+        //citiesNamesList = myData.getCitiesNamesList();
+        citiesNamesList = myData.getCitiesList();
     }
 
     @Override
     public void updateViewData() {
-        imgStringsList = myData.getImgStringsList();
-        tempStringsList = myData.getTempStringsList();
-        citiesNamesList = myData.getCitiesNamesList();
+//        imgStringsList = myData.getImgStringsList();
+//        tempStringsList = myData.getTempStringsList();
+        Log.d("SearchAdapter", "UpdateViewData");
+        imgStringsList= myData.getSearchedImgStringsList();
+        tempStringsList=myData.getSearchedTempStringsList();
+        citiesNamesList = myData.getCitiesList();
         getItemCount();
         this.notifyDataSetChanged();
     }
@@ -95,8 +99,9 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final SimpleDraweeView draweeView = holder.itemView.findViewById(R.id.searchWeathImg);
         final TextView searchedCityTemp = holder.itemView.findViewById(R.id.searchCityTempText);
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
-        imgString = imgStringsList.get(position);
-        myData.getImageLoader().loadDraweeImage(draweeView, imgString);
+//        imgString = imgStringsList.get(position);
+        System.out.println("IMGSTRING "+ imgString);
+       // myData.getImageLoader().loadDraweeImage(draweeView, imgString);
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));
     }
