@@ -22,7 +22,6 @@ public class WeatherLoader {
     private HashMap<Integer, String[]> takenWeatherData;
     Context context;
     Exception e;
-    String result;
 
     private String gotTime;
     private String gotTemp;
