@@ -327,13 +327,16 @@ public class MyData implements Observable {
 
     //добавляем данные города, создавая новый поток
     public void addCityDataToDb(String cityName, String temp, String lastLoadTime) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                cityDao.updateCityTempInDb(cityName, temp);
-                cityDao.updateCityLoadTimeInDp(cityName, lastLoadTime);
-            }
-        }).start();
+        //проверим массив на пустоту
+        if (citiesDataList.size() != 0) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+//                    cityDao.updateCityTempInDb(cityName, temp);
+//                    cityDao.updateCityLoadTimeInDp(cityName, lastLoadTime);
+                }
+            }).start();
+        }
     }
 
 

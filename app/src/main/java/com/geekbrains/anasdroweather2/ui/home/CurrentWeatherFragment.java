@@ -155,7 +155,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
 
                     //внесем данные о температуре и последнем загруженном времени в базу данных
                     //внутри этого метода мы создаём новый поток
-                    myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime);
+                  //  myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime);
                     //для изменения цвета полоски в градуснике
                     int temp = Integer.parseInt(currentTemp);
                     compareTemp(temp);

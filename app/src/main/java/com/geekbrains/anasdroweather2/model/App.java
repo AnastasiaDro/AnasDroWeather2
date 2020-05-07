@@ -5,6 +5,10 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.geekbrains.anasdroweather2.database.CitiesDatabase;
+import com.geekbrains.anasdroweather2.database.City;
+import com.geekbrains.anasdroweather2.database.CityDao;
+
+import java.util.List;
 
 public class App extends Application {
 
