@@ -37,8 +37,6 @@ public class MyData implements Observable {
     //а массив строк - собственно данные: время, температура, давление, ветер
     //соответствие номеров элементов массива значениям есть в классе Constants
     private HashMap<Integer, String[]> allWeatherDataHashMap;
-    //поток, загружающий данные о погоде
-    Thread weatherLoaderThread;
     private static MyData instance;
     public List<Observer> observers;
     //узнаем время
@@ -75,7 +73,6 @@ public class MyData implements Observable {
     public void setWeatherLoader(WeatherLoader weatherLoader) {
         this.weatherLoader = weatherLoader;
     }
-
 
     //Получим HashMap с погодными данными
     public HashMap<Integer, String[]> getAllWeatherDataHashMap() {
@@ -196,7 +193,6 @@ public class MyData implements Observable {
     }
 
     public void setCurrentCity(String currentCity) {
-        Log.d("setCurrentCity", "SET CITY СРАБОТАЛ");
         this.currentCity = currentCity;
     }
 
