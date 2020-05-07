@@ -147,7 +147,6 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
     private void takeAllIndexesForDaysData() {
         int[] daysBeginningTimesArr = weekDataParser.findDayBeginningIndexesArr();
         fstDayMorKey = daysBeginningTimesArr[0] + 3;
-        System.out.println("fstDayMorKey РАВЕН " + fstDayMorKey);
         fstDayAftKey = daysBeginningTimesArr[0] + 5;
         fstDayEvKey = daysBeginningTimesArr[0] + 7;
 
@@ -169,7 +168,7 @@ public class WeekWeatherFragment extends Fragment implements FragmentMethods, Ob
         fstDayMorArr = allWeatherDataHashMap.get(fstDayMorKey);
         fstDayAftArr = allWeatherDataHashMap.get(fstDayAftKey);
         fstDayEvArr = allWeatherDataHashMap.get(fstDayEvKey);
-//        //массив строк с данными для второго дня
+        //массив строк с данными для второго дня
         scndDayMorArr = allWeatherDataHashMap.get(scndDayMorKey);
         scndDayAftArr = allWeatherDataHashMap.get(scndDayAftKey);
         scndDayEvArr = allWeatherDataHashMap.get(scndDayEvKey);

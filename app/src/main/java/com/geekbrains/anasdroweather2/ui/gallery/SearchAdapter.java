@@ -13,23 +13,19 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.geekbrains.anasdroweather2.R;
 import com.geekbrains.anasdroweather2.interfaces.Observer;
 import com.geekbrains.anasdroweather2.model.MyData;
-import com.geekbrains.anasdroweather2.ui.slideshow.MyAdapter;
-import com.google.gson.internal.bind.util.ISO8601Utils;
-
 
 import java.util.ArrayList;
-import java.util.Observable;
+
 
 public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     MyData myData;
     ArrayList<String> imgStringsList;
-    ArrayList <String> tempStringsList;
-    ArrayList <String> citiesNamesList;
+    ArrayList<String> tempStringsList;
+    ArrayList<String> citiesNamesList;
     String imgString;
     public SimpleDraweeView weathDraweeView;
     public TextView tempTV;
@@ -41,7 +37,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         imgStringsList = myData.getImgStringsList();
         tempStringsList = myData.getTempStringsList();
         citiesNamesList = myData.getCitiesNamesList();
-
     }
 
     @Override
@@ -54,7 +49,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         this.notifyDataSetChanged();
     }
 
-
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -64,6 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         public TextView tempTV;
         public TextView cityNameTV;
         RelativeLayout cardView;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             final NavController navController = myData.getNavController();
@@ -74,7 +69,6 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
 
 
             cardView.setOnClickListener(new View.OnClickListener() {
-//            cityNameTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final String selectedCityName = cityNameTV.getText().toString();
@@ -112,5 +106,4 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     public int getItemCount() {
         return citiesNamesList.size();
     }
-
 }

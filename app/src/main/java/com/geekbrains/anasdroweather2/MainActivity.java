@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //выгрузка базы данных в myData
         myData.loadDbDataToMyData();
         myData.getCitiesNamesFromDbData();
+        Log.d("MainActivity", "Отработал myData.getCitiesNamesFromDbData()");
     }
 
     @Override

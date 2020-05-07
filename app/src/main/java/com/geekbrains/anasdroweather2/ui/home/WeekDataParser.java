@@ -39,25 +39,16 @@ public class WeekDataParser {
         curTimeString = zeroArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
         curTimeString = curTimeString.substring(11, 13);
         curTime = Integer.parseInt(curTimeString);
-        System.out.println("curTime= " + curTime);
+        //System.out.println("curTime= " + curTime);
         firstDayBeginIndex = (twentyFourHours - curTime) / 3;
-        System.out.println("firstDayBeginIndex " + firstDayBeginIndex);
+        //System.out.println("firstDayBeginIndex " + firstDayBeginIndex);
         dayBeginningIndexesArr[0] = firstDayBeginIndex;
         for (int i = 1; i < 3; i++) {
             dayBeginningIndexesArr[i] = dayBeginningIndexesArr[i - 1] + 8;
-            System.out.println("Начальный индекс [" + i + "]" + dayBeginningIndexesArr[i]);
+            //System.out.println("Начальный индекс [" + i + "]" + dayBeginningIndexesArr[i]);
         }
         return dayBeginningIndexesArr;
     }
-
-    //получим индексы заданного дня для 9.00, 15.00  и 21.00
-//    public int[] forDayTempDataIndexes(int dayBeginIndex) {
-//        int[] dayTempDataIndexesArr = new int[3];
-//        dayTempDataIndexesArr[0] = dayBeginIndex + 3;
-//        dayTempDataIndexesArr[1] = dayBeginIndex + 5;
-//        dayTempDataIndexesArr[2] = dayBeginIndex + 7;
-//        return dayTempDataIndexesArr;
-//    }
 }
 
 

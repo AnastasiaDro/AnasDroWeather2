@@ -23,11 +23,11 @@ public interface CityDao {
 
  //  добавить к городу температуру
     @Query("UPDATE city SET cityTemp = :newTemp WHERE cityName LIKE :cityName")
-    City updateCityTempInDb(String cityName, String newTemp);
+    void updateCityTempInDb(String cityName, String newTemp);
 
     //добавить к городу время запроса
     @Query("UPDATE city SET lastLoadTime = :newTime WHERE cityName LIKE :cityName")
-    City updateCityLoadTimeInDp(String cityName, String newTime);
+    void updateCityLoadTimeInDp(String cityName, String newTime);
 
    @Insert
     void insert(City city);

@@ -83,7 +83,7 @@ public class InterfaceChanger implements InterfaceObservable {
     @Override
     public void registerObserver(InterfaceObserver observer) {
         interfaceObservers.add(observer);
-        System.out.println("Список наблюдателей интерфейса " + interfaceObservers.toString());
+      //  System.out.println("Список наблюдателей интерфейса " + interfaceObservers.toString());
     }
 
     @Override
@@ -95,13 +95,13 @@ public class InterfaceChanger implements InterfaceObservable {
     public void notifyInterfaceObservers() {
         for (InterfaceObserver observer : interfaceObservers) {
             observer.updateInterfaceViewData();
-            System.out.println("сработал interface notify");
+          //  System.out.println("сработал interface notify");
         }
     }
 
     //автоматически задаём тему, если это разрешено
     public void setAutoTheme(Activity activity, Toolbar toolbar) {
-        System.out.println("isAutoThemeChanging в setAutoTheme " + isAutoThemeChanging);
+       // System.out.println("isAutoThemeChanging в setAutoTheme " + isAutoThemeChanging);
         if (isAutoThemeChanging == View.VISIBLE) {
             //    if (myData.getCurrentHour()=>8 || myData.getCurrentHour()>=19) {
 //не получилось менять цвет actionBar-а через ресурсы, поэтому поменяем так
@@ -114,7 +114,7 @@ public class InterfaceChanger implements InterfaceObservable {
                 actionBarColor = ContextCompat.getColor(activity, R.color.colorPrimary);
             }
             toolbar.setBackgroundColor(actionBarColor);
-            System.out.println("Сработало setTheme");
+         //   System.out.println("Сработало setTheme");
         }
     }
 

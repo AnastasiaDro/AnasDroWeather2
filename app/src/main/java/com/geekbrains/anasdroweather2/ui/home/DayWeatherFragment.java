@@ -104,7 +104,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
             @Override
             public void run() {
                 HashMap<Integer, String[]> curHashMap = myData.getAllWeatherDataHashMap();
-                System.out.println("Размер HashMap в myData " + myData.getAllWeatherDataHashMap().size());
                 try {
                     //Через три часа
                     firstDataArr = curHashMap.get(DAY_FIRST_DATA_KEY_IN_HASHMAP);
@@ -114,7 +113,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     descriptString = firstDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     fDescriptText.setText(descriptString);
                     iconString = firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-                    System.out.println("IconString" + iconString);
                     myData.getImageLoader().loadDraweeImage(fSoonDraweeView, firstDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 6 часов
                     secondDataArr = curHashMap.get(DAY_SECOND_DATA_KEY_IN_HASHMAP);
@@ -124,7 +122,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     descriptString = secondDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     sDescriptText.setText(descriptString);
                     iconString = secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-                    System.out.println("IconString" + iconString);
                     myData.getImageLoader().loadDraweeImage(sSoonDraweeView, secondDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                     //Через 9 часов
                     thirdDataArr = curHashMap.get(DAY_THIRD_DATA_KEY_IN_HASHMAP);
@@ -134,7 +131,6 @@ public class DayWeatherFragment extends Fragment implements FragmentMethods, Obs
                     descriptString = thirdDataArr[Constants.DESCRIPT_KEY_IN_WEATHERDATA_ARRAY];
                     thDescriptText.setText(descriptString);
                     iconString = thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY];
-                    System.out.println("IconString " + iconString);
                     myData.getImageLoader().loadDraweeImage(thSoonDraweeView, thirdDataArr[Constants.ICON_ID_KEY_IN_WEATHERDATA_ARRAY]);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
