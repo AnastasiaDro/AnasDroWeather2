@@ -273,7 +273,6 @@ public class MyData implements Observable {
     //метод запускается в MainActivity
     public void getCitiesNamesFromDbData() {
         for (int i = 0; i < citiesDataList.size(); i++) {
-            System.out.println("Имя города из базы " + citiesDataList.get(i).getCityName());
             citiesList.add(citiesDataList.get(i).getCityName());
         }
     }
@@ -281,7 +280,6 @@ public class MyData implements Observable {
     //метод добавления города если его ещё не было
     public void addNewCityIfNotExist(String newName) {
         int count = checkListForExistElement(citiesList, newName);
-        Log.d("addNewCityIfNotExist", "count = " + checkListForExistElement(citiesList, newName));
         if (count == 0) {
             citiesList.add(newName);
             City city = new City();
@@ -290,7 +288,6 @@ public class MyData implements Observable {
                 @Override
                 public void run() {
                     cityDao.insert(city);
-                    Log.d("addNewCityIfNotExist", "Отработал поток с cityDao insert");
                 }
             }).start();
         }
@@ -314,8 +311,9 @@ public class MyData implements Observable {
     //проверка массива на повторы элемента и подсчёт, сколько раз он повторился
     private int checkListForExistElement(ArrayList arrayList, String newString) {
         int count = 0;
+        System.out.println(arrayList.size());
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) == newString) {
+            if (arrayList.get(i).equals(newString)) {
                 count++;
             }
         }

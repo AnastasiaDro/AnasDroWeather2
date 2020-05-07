@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.geekbrains.anasdroweather2.database.CitiesDatabase;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
@@ -90,11 +91,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
         //автонастройка темы
         //TODO
         interfaceChanger.setAutoTheme(this, toolbar);
-
         //выгрузка базы данных в myData
         myData.loadDbDataToMyData();
+        //выгрузка имен из полученных данных
         myData.getCitiesNamesFromDbData();
-        Log.d("MainActivity", "Отработал myData.getCitiesNamesFromDbData()");
     }
 
     @Override
@@ -109,9 +109,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 myData.setCurrentCity(query);
                 //исправить задвоение городов
                 //ArrayList arrayList = myData.getCitiesList();
-                myData.getCitiesList().add(query);
+               // myData.getCitiesList().add(query);
+                myData.addNewCityIfNotExist(query);
                 //myData.setCitiesList(myData.addToListIfNotExist(myData.getCitiesList(), query));
-                System.out.println("второй запуск loadWeatherData, temp =" );
+                System.out.println("второй запуск loadWeatherData, temp =");
                 navController.navigate(R.id.nav_home);
                 menu.close();
                 searchView.clearFocus();
@@ -119,13 +120,11 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
                 searchView.setIconified(true);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-
         return true;
     }
 
@@ -160,10 +159,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             case R.id.toTheSearchPage:
                 //переходим на фрагмент поиска
                 navController.navigate(R.id.nav_gallery);
-            //если нажали на поиск
+                //если нажали на поиск
             case R.id.app_bar_search:
-
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
