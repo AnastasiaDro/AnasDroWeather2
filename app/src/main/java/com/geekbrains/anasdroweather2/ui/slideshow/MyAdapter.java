@@ -93,8 +93,8 @@ public class MyAdapter extends RecyclerView.Adapter implements Observer {
         //удалить из списка городов в myData
         if (myData.getCitiesList().size() > 1) {
             //удалить из базы данных (создается отдельный поток в методе deleteCityFromDb()
-            myData.deleteCityFromDb(myData.getCitiesList().get(position + 1));
-            myData.getCitiesList().remove(position + 1);
+            myData.deleteCityFromDb(myData.getCitiesList().get(position));
+            myData.getCitiesList().remove(position);
         } else {
             //удалить из базы данных
             //удалить из базы данных (создается отдельный поток в методе deleteCityFromDb()

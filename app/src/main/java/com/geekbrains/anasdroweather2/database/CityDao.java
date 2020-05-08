@@ -29,6 +29,10 @@ public interface CityDao {
     @Query("UPDATE city SET lastLoadTime = :newTime WHERE cityName LIKE :cityName")
     void updateCityLoadTimeInDp(String cityName, String newTime);
 
+    //добавить к городу строку картинки
+    @Query("UPDATE city SET imgString = :newImgString WHERE cityName LIKE :cityName")
+    void updateCityImgInDb(String cityName, String newImgString);
+
    @Insert
     void insert(City city);
 

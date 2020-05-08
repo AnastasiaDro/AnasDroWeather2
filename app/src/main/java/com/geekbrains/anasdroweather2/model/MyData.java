@@ -316,7 +316,7 @@ public class MyData implements Observable {
     }
 
     //добавляем данные города, создавая новый поток
-    public void addCityDataToDb(String cityName, String temp, String lastLoadTime) {
+    public void addCityDataToDb(String cityName, String temp, String lastLoadTime, String imgString) {
         //проверим массив на пустоту
         if (citiesDataList.size() != 0) {
             new Thread(new Runnable() {
@@ -324,6 +324,7 @@ public class MyData implements Observable {
                 public void run() {
                     cityDao.updateCityTempInDb(cityName, temp);
                     cityDao.updateCityLoadTimeInDp(cityName, lastLoadTime);
+                    cityDao.updateCityImgInDb(cityName, imgString);
                 }
             }).start();
         }

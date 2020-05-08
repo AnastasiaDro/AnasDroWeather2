@@ -101,7 +101,11 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
         imgString = imgStringsList.get(position);
         System.out.println("IMGSTRING "+ imgString);
-        myData.getImageLoader().loadDraweeImage(draweeView, imgString);
+        try {
+            myData.getImageLoader().loadDraweeImage(draweeView, imgString);
+        } catch (NullPointerException e) {
+            Log.d("onBindViewHolder", "haven't image");
+        }
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));
     }
