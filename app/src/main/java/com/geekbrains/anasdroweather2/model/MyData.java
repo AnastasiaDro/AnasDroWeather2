@@ -42,7 +42,7 @@ public class MyData implements Observable {
     //узнаем время
     static Date currentDate;
     int currentHour;
-    private ArrayList <String> citiesList;
+    private ArrayList<String> citiesList;
 
 
     private HashMap citiesMap;
@@ -50,23 +50,11 @@ public class MyData implements Observable {
     private ImageLoader imageLoader;
     WeatherLoader weatherLoader;
 
-//    public ArrayList<String> getImgStringsList() {
-//        return searchedImgStringsList;
-//    }
-//
-//    public ArrayList<String> getTempStringsList() {
-//        return searchedTempStringsList;
-//    }
-
-   // public ArrayList<String> getCitiesNamesList() {
-//        return searchedCitiesNamesList;
-//    }
-
     //список изображений, температур и имен городов, которые мы искали
     ArrayList<String> searchedImgStringsList;
     ArrayList<String> searchedTempStringsList;
-    ArrayList<String> lastLoadingDataList;
-   // ArrayList<String> searchedCitiesNamesList;
+    ArrayList<String> datesList;
+    // ArrayList<String> searchedCitiesNamesList;
     //для базы данных
     CitiesDatabase db;
     ArrayList<City> citiesDataList;
@@ -111,6 +99,7 @@ public class MyData implements Observable {
         this.citiesList = citiesList;
     }
 
+
     private MyData() {
         currentCity = "Moscow";
         currentHour = 0;
@@ -132,7 +121,7 @@ public class MyData implements Observable {
         //Массивы с данными о городах, которые искали
         searchedImgStringsList = new ArrayList<>();
         searchedTempStringsList = new ArrayList<>();
-        //lastLoadingDataList = new ArrayList<>();
+        datesList = new ArrayList<>();
         //searchedCitiesNamesList = new ArrayList<>();
 
 
@@ -186,7 +175,7 @@ public class MyData implements Observable {
         return currentHour;
     }
 
-    public ArrayList <String> getCitiesList() {
+    public ArrayList<String> getCitiesList() {
         return citiesList;
     }
 
@@ -235,6 +224,8 @@ public class MyData implements Observable {
         return imageLoader;
     }
 
+    public ArrayList<String> getDatesList() { return datesList; }
+
     //метод удаления последнего элемента из массива и сдвига всех элементов
     //используется в классе SearchAdapter
     public ArrayList deleteCopyAddNewList(String newString, ArrayList arrayList) {
@@ -243,7 +234,8 @@ public class MyData implements Observable {
                 arrayList.remove(i);
                 searchedTempStringsList.remove(i);
                 searchedImgStringsList.remove(i);
-               // lastLoadingDataList.remove(i);
+                datesList.remove(i);
+                // lastLoadingDataList.remove(i);
             }
         }
         arrayList.add(newString);
@@ -284,6 +276,7 @@ public class MyData implements Observable {
             citiesList.add(citiesDataList.get(i).cityName);
             searchedTempStringsList.add(citiesDataList.get(i).cityTemp);
             searchedImgStringsList.add(citiesDataList.get(i).imgString);
+            datesList.add(citiesDataList.get(i).lastLoadTime);
         }
     }
 
@@ -292,7 +285,7 @@ public class MyData implements Observable {
     public void addNewCityIfNotExist(String newName) {
         int count = checkListForExistElement(citiesList, newName);
         if (count == 0) {
-       //     citiesList.add(newName);
+            //     citiesList.add(newName);
             City city = new City();
             city.cityName = newName;
             new Thread(new Runnable() {
@@ -340,6 +333,13 @@ public class MyData implements Observable {
             }
         }
         return count;
+    }
+
+    public void lastToFirstAllArrays(){
+        lastToFirst(searchedTempStringsList);
+        lastToFirst(searchedImgStringsList);
+        lastToFirst(citiesList);
+        lastToFirst(datesList);
     }
 }
 

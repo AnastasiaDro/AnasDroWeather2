@@ -27,17 +27,16 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
     ArrayList<String> imgStringsList;
     ArrayList<String> tempStringsList;
     ArrayList<String> citiesNamesList;
+    ArrayList<String> datesList;
     String imgString;
 
     public SearchAdapter() {
         this.myData = MyData.getInstance();
         imgString = null;
-       // imgStringsList = myData.getImgStringsList();
         imgStringsList= myData.getSearchedImgStringsList();
-       // tempStringsList = myData.getTempStringsList();
         tempStringsList=myData.getSearchedTempStringsList();
-        //citiesNamesList = myData.getCitiesNamesList();
         citiesNamesList = myData.getCitiesList();
+        datesList = myData.getDatesList();
     }
 
     @Override
@@ -48,6 +47,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         imgStringsList= myData.getSearchedImgStringsList();
         tempStringsList=myData.getSearchedTempStringsList();
         citiesNamesList = myData.getCitiesList();
+        datesList = myData.getDatesList();
         getItemCount();
         this.notifyDataSetChanged();
     }
@@ -60,6 +60,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         public SimpleDraweeView weathDraweeView;
         public TextView tempTV;
         public TextView cityNameTV;
+        public TextView dateTV;
         RelativeLayout cardView;
 
         public MyViewHolder(View itemView) {
@@ -68,6 +69,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
             weathDraweeView = itemView.findViewById(R.id.searchWeathImg);
             tempTV = itemView.findViewById(R.id.searchCityTempText);
             cityNameTV = itemView.findViewById(R.id.searchCityNameText);
+            dateTV = itemView.findViewById(R.id.searchDateText);
             cardView = itemView.findViewById(R.id.mySearchCard);
 
 
@@ -77,6 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
                     final String selectedCityName = cityNameTV.getText().toString();
                     final String selectedCityTemp = tempTV.getText().toString();
                     final String selectedCityImg = imgString;
+                    final String selectedCityDate = dateTV.getText().toString();
                     myData.setCurrentCity(selectedCityName);
                     navController.navigate(R.id.nav_home);
                     myData.notifyObservers();
@@ -99,6 +102,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final SimpleDraweeView draweeView = holder.itemView.findViewById(R.id.searchWeathImg);
         final TextView searchedCityTemp = holder.itemView.findViewById(R.id.searchCityTempText);
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
+        final TextView searchedCityDate = holder.itemView.findViewById(R.id.searchDateText);
         imgString = imgStringsList.get(position);
         System.out.println("IMGSTRING "+ imgString);
         try {
@@ -108,6 +112,7 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         }
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));
+        searchedCityDate.setText(datesList.get(position));
     }
 
     @Override

@@ -126,7 +126,7 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                         .getAllWeatherDataHashMap()
                         .get(CURRENT_DATA_KEY_IN_HASHMAP);
                 try {
-                    String currentTime = dataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
+                    String currentTime = dataArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY].substring(0, 16);
                     String currentTemp = dataArr[Constants.TEMP_KEY_IN_WEATHERDATA_ARRAY];
                     String forTemp = currentTemp.concat(" \u2103");
                     temperatureTextView.setText(forTemp);
@@ -144,14 +144,12 @@ public class CurrentWeatherFragment extends Fragment implements FragmentMethods,
                     //имя города
                     myData.getSearchedTempStringsList().add(forTemp);
                     myData.getSearchedImgStringsList().add(iconString);
+                    myData.getDatesList().add(currentTime);
                     //удалим задвоенную информацию
                     myData.deleteCopyAddNewList(myData.getCurrentCity(), myData.getCitiesList());
                     System.out.println("УСТАНОВИЛИ ДАННЫЕ ДЛЯ ИСТОРИИ ПОИСКА");
-                    //поставим последний найденный город в начало списка
-                    myData.lastToFirst(myData.getSearchedTempStringsList());
-                    myData.lastToFirst(myData.getSearchedImgStringsList());
-                    myData.lastToFirst(myData.getCitiesList());
-
+                    //поставим данные последнего найденного города в начало списка
+                    myData.lastToFirstAllArrays();
                     //внесем данные о температуре и последнем загруженном времени в базу данных
                     //внутри этого метода мы создаём новый поток
                     myData.addCityDataToDb(myData.getCurrentCity(), forTemp, currentTime, iconString);
