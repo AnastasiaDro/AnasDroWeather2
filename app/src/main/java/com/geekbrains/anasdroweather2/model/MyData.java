@@ -292,7 +292,7 @@ public class MyData implements Observable {
     public void addNewCityIfNotExist(String newName) {
         int count = checkListForExistElement(citiesList, newName);
         if (count == 0) {
-            citiesList.add(newName);
+       //     citiesList.add(newName);
             City city = new City();
             city.cityName = newName;
             new Thread(new Runnable() {

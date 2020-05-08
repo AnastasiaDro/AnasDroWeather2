@@ -99,9 +99,9 @@ public class SearchAdapter extends RecyclerView.Adapter implements Observer {
         final SimpleDraweeView draweeView = holder.itemView.findViewById(R.id.searchWeathImg);
         final TextView searchedCityTemp = holder.itemView.findViewById(R.id.searchCityTempText);
         final TextView searchedCityName = holder.itemView.findViewById(R.id.searchCityNameText);
-//        imgString = imgStringsList.get(position);
+        imgString = imgStringsList.get(position);
         System.out.println("IMGSTRING "+ imgString);
-       // myData.getImageLoader().loadDraweeImage(draweeView, imgString);
+        myData.getImageLoader().loadDraweeImage(draweeView, imgString);
         searchedCityTemp.setText(tempStringsList.get(position));
         searchedCityName.setText(citiesNamesList.get(position));
     }
