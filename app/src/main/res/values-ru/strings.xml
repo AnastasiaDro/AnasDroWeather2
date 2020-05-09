@@ -65,4 +65,8 @@
 
     <string name="searchHistory">История поиска</string>
 
+    <string name="recieverTitleAir">Режим полёта</string>
+    <string name="receiverTitleNetwork">Нет сети</string>
+    <string name="recieverTitleBattery">Низкий заряд батареи</string>
+
 </resources>
