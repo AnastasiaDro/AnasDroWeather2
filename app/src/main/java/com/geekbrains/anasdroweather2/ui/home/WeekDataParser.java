@@ -34,6 +34,7 @@ public class WeekDataParser {
         //индексы времени, из которых мы будем получать температуру
         int[] dayBeginningIndexesArr = new int[3];
         zeroArr = allWeatherDataHashMap.get(0);
+
         curTimeString = zeroArr[Constants.TIME_KEY_IN_WEATHERDATA_ARRAY];
         curTimeString = curTimeString.substring(11, 13);
         curTime = Integer.parseInt(curTimeString);

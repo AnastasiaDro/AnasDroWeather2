@@ -1,6 +1,11 @@
 package com.geekbrains.anasdroweather2;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +17,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.geekbrains.anasdroweather2.interfaces.InterfaceObserver;
 import com.geekbrains.anasdroweather2.model.MyData;
 import com.geekbrains.anasdroweather2.ui.home.InterfaceChanger;
-import com.geekbrains.anasdroweather2.rest.WeatherLoader;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -44,11 +48,15 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     private InterfaceChanger interfaceChanger;
     private MyData myData;
     NavController navController;
+    MyReceiver myReceiver;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myReceiver = new MyReceiver();
+        //инициализируем канал нотификаций
+        initNotificationChannel();
         //подключаемся к классу интерфейса
         interfaceChanger = InterfaceChanger.getInterfaceInstance(this);
         myData = MyData.getInstance();
@@ -129,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
     @Override
     protected void onPause() {
         super.onPause();
+        //снимем регистрацию ресивера
+        unregisterReceiver(myReceiver);
         // Запоминаем данные
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putInt(APP_PREFERENCES_IS_WIND, interfaceChanger.getIsWind());
@@ -188,5 +198,24 @@ public class MainActivity extends AppCompatActivity implements InterfaceObserver
             interfaceChanger.setIsAutoThemeChanging(isAutoTheme);
         }
     }
+
+    // инициализация канала нотификаций
+    private void initNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel channel = new NotificationChannel("2", "name", importance);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        registerReceiver(myReceiver,  new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+    }
+
+
+
 
 }
